@@ -1,0 +1,39 @@
+.model small
+.stack 100h
+
+.data
+nl db 10, 13, '$'   ; Newline character
+
+.code
+main proc
+    mov cx, 5        ; Number of rows
+
+outer_loop:
+    mov bx, cx       ; Save outer loop counter
+    mov dx, ' '      ; Print leading spaces
+
+inner_loop1:
+    mov ah, 2        ; Display character function
+    int 21h
+    dec bx
+    jnz inner_loop1
+
+    mov dx, '*'      ; Print asterisks
+    mov cx, 2 * (5 - cx) + 1    ; Number of asterisks per row
+
+inner_loop2:
+    mov ah, 2
+    int 21h
+    loop inner_loop2
+
+    lea dx, nl       ; Print newline
+    mov ah, 9
+    int 21h
+
+    loop outer_loop
+
+    mov ah, 4ch      ; Exit program
+    int 21h
+
+main endp
+end main
