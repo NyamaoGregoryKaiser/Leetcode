@@ -1,3 +1,5 @@
+custom comparator function.c++
+
 The provided code does determine the minimum number of swaps required to sort an array using a custom comparator function.
 explanation to the code.
 1. **Array Pairing and Sorting**: Creates a vector of pairs (`arrPos`) from the input array `arr`, pairing each element with its index, and then sorts this vector.
