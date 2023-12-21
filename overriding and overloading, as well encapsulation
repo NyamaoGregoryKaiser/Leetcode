@@ -1,0 +1,21 @@
+Sure, I can help you understand these concepts in a basic manner using examples.
+
+**Overriding**
+
+Overriding is a concept in object-oriented programming that allows a subclass to provide a specific implementation of a method that is already defined in its superclass. This means that the subclass can override the behavior of the method inherited from the superclass.
+
+For example, consider a class `Animal` with a method `speak()`. This method might simply print out a generic animal sound. However, if we create a subclass `Dog` that inherits from `Animal`, we can override the `speak()` method to print out a dog bark instead. This way, when we call `speak()` on an instance of `Dog`, we will hear a bark instead of a generic animal sound.
+
+**Overloading**
+
+Overloading is a concept in object-oriented programming that allows a class to have multiple methods with the same name but different parameters. This means that the method can be called with different types or numbers of arguments, and the appropriate method will be executed based on the arguments provided.
+
+For example, consider a class `Calculator` with a method `add()`. This method might take two integer arguments and return their sum. However, we could also overload the `add()` method to take two double arguments and return their sum, or even to take three integer arguments and return the sum of all three. This way, we can use the same method name for different operations, and the compiler will know which method to call based on the arguments provided.
+
+**Encapsulation**
+
+Encapsulation is a concept in object-oriented programming that refers to the bundling of data and methods that operate on that data within a single unit, typically a class. This means that the data and methods are hidden from the outside world and can only be accessed through the class's public interface.
+
+For example, consider a class `BankAccount` with private attributes for the account balance and account number. These attributes can only be accessed through the class's public methods, such as `deposit()`, `withdraw()`, and `getBalance()`. This way, we can ensure that the account data is protected from unauthorized access and that it is only modified through the proper channels.
+
+I hope these explanations help you understand these concepts better. Please let me know if you have any further questions.
