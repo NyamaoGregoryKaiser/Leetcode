@@ -1,0 +1,25 @@
+import turtle
+
+# Set screen size and background color
+screen = turtle.Screen()
+screen.setup(width=500, height=500)
+screen.bgcolor("black")
+
+# Create and configure the turtle
+star_turtle = turtle.Turtle()
+star_turtle.speed(1)  # Set turtle speed for animation (1 second per move)
+star_turtle.pensize(3)
+star_turtle.color("yellow")
+
+# Define star parameters
+num_points = 5  # Number of points in the star
+angle = 144  # Angle between star points
+
+# Start drawing the star
+for i in range(num_points):
+    star_turtle.forward(100) # Adjust length of star arms as needed
+    star_turtle.right(angle) # Turn to draw next star arm
+
+# Hide turtle and show screen
+star_turtle.hideturtle()
+screen.exitonclick()
