@@ -1,0 +1,21 @@
+( define words )
+{ R> >> } inject WORD
+{ DUP2 OPCODE SWAP OPCODE SWAP > SWAP inject IFELSE } precedence WORD
+{ { precedence << } GSC :: } reorder WORD
+
+{ GRC Z> RS2DS UIF GTC Z> TS2DS UIF } merge WORD
+{ { DUP OPCODE Z> >T >R IFELSE } GSC :: } shunt WORD
+
+{ shunt R> { R> T> EXEC } GTC :: } evaluate WORD
+{ shunt TS2DS reorder DS2TS merge } application WORD
+{ { << DUP . SPACE } GSC :: CR } display WORD
+
+(( Enter your infix: )) EMITLIT CR
+INPUT
+application
+
+(( Converted to postfix: )) EMITLIT
+display
+
+(( Evaluated: )) EMITLIT
+evaluate . CR

@@ -1,0 +1,90 @@
+( Tree and Graph Metrics Calculations )
+
+( Full Binary Tree Node Count )
+{ 1 SWAP 2 SWAP ^ 1 - } full-binary-tree-nodes WORD
+
+( Binary Tree Height )
+{ 1 + 2 SWAP ^ 1 - SWAP / LOG 1 - } binary-tree-height WORD
+
+( Binary Syntax Tree Operation Count )
+{ 2 * 1 - } binary-syntax-tree-ops WORD
+
+( Complete Directed Graph Edges )
+{ DUP 1 - * } directed-graph-edges WORD
+
+( Complete Undirected Graph Edges )
+{ DUP 1 - * 2 / } undirected-graph-edges WORD
+
+( Graph Density )
+{ OVER * 2 / SWAP / } graph-density WORD
+
+( Adjacency Matrix Generation )
+{
+  DUP 0 SWAP ( Duplicate the number of nodes for rows and columns )
+  0 DO ( Outer loop for rows )
+    DUP 0 SWAP ( Reset column counter for each row )
+    0 DO ( Inner loop for columns )
+      J I > IF 
+        (( 1 )) EMITLIT SPACE ( Display 1 for directed edge )
+      ELSE 
+        (( 0 )) EMITLIT SPACE ( Display 0 for no edge )
+      THEN 
+    LOOP
+    CR ( Move to the next line after completing a row )
+  LOOP
+  DROP ( Clean up stack to avoid leftover values )
+} generate-adjacency-matrix WORD
+
+( Menu Display )
+{ 
+  (( Metric Calculation Options: )) EMITLIT CR
+  (( 1. Full Binary Tree Node Count )) EMITLIT CR
+  (( 2. Binary Tree Height )) EMITLIT CR
+  (( 3. Binary Syntax Tree Operations )) EMITLIT CR
+  (( 4. Complete Directed Graph Edges )) EMITLIT CR
+  (( 5. Complete Undirected Graph Edges )) EMITLIT CR
+  (( 6. Graph Density )) EMITLIT CR
+  (( 7. Adjacency Matrix )) EMITLIT CR
+  (( Enter your choice: )) EMITLIT CR
+} display-menu WORD
+
+( Handle User Choices )
+{ 
+  display-menu 
+  INPUT ( Get the user's choice )
+  1 = IF 
+    (( Enter tree height: )) EMITLIT CR 
+    INPUT full-binary-tree-nodes . 
+  ELSE 
+  2 = IF 
+    (( Enter node count: )) EMITLIT CR 
+    INPUT binary-tree-height . 
+  ELSE 
+  3 = IF 
+    (( Enter operations: )) EMITLIT CR 
+    INPUT binary-syntax-tree-ops . 
+  ELSE 
+  4 = IF 
+    (( Enter nodes: )) EMITLIT CR 
+    INPUT directed-graph-edges . 
+  ELSE 
+  5 = IF 
+    (( Enter nodes: )) EMITLIT CR 
+    INPUT undirected-graph-edges . 
+  ELSE 
+  6 = IF 
+    (( Enter nodes: )) EMITLIT CR 
+    INPUT 
+    (( Enter edges: )) EMITLIT CR 
+    INPUT graph-density . 
+  ELSE 
+  7 = IF 
+    (( Enter nodes: )) EMITLIT CR 
+    INPUT generate-adjacency-matrix 
+  ELSE 
+    (( Invalid choice. Please try again. )) EMITLIT CR
+  THEN THEN THEN THEN THEN THEN THEN
+} calculate-metric WORD
+
+( Start the Program )
+calculate-metric
