@@ -1,0 +1,137 @@
+( Lab 5 - Regression Analysis for Marathon Race Times )
+( Done by Moseti Nyangau )
+
+( TASK A )
+runningtimes.csv 1 FRFILE listY S2WORD
+runningtimes.csv 3 FRFILE listX S2WORD
+listX DS2RS listY
+2 PLOT
+listY
+STATS
+listX
+STATS
+
+( TASK B )
+: mean ( list -- mean )
+   DUP 0 SWAP 
+   { OVER LENGTH 0 DO 
+       OVER I GET ROT + SWAP 
+   LOOP }
+   SWAP LENGTH /
+;
+
+: variance ( list -- variance )
+   DUP mean SWAP
+   0 SWAP
+   { OVER LENGTH 0 DO
+       OVER I GET 
+       OVER - DUP *
+       ROT + SWAP
+   LOOP }
+   SWAP LENGTH 1 - /
+;
+
+: std-dev ( list -- std-dev )
+   variance SQRT
+;
+
+: z-score ( list -- z-list )
+   DUP mean SWAP
+   DUP std-dev SWAP
+   { OVER LENGTH 0 DO
+       OVER I GET 
+       OVER - SWAP / 
+       SWAP ROT I SWAP PUT
+   LOOP }
+;
+
+( TASK C )
+: covariance ( listX listY -- covariance )
+   SWAP 
+   DUP mean SWAP
+   DUP mean ROT
+   0 -ROT
+   { OVER LENGTH 0 DO
+       OVER I GET OVER - 
+       ROT I GET 3RD - *
+       ROT + SWAP
+   LOOP }
+   SWAP LENGTH 1 - /
+;
+
+: correlation ( listX listY -- correlation )
+   2DUP
+   covariance
+   -ROT
+   std-dev SWAP std-dev *
+   /
+;
+
+: regression-coefficients ( listX listY -- b0 b1 )
+   2DUP
+   SWAP mean SWAP mean
+   -ROT
+   
+   2OVER covariance
+   SWAP
+   { DUP 0 SWAP 
+     { OVER LENGTH 0 DO 
+       OVER I GET DUP *
+       ROT + SWAP 
+     LOOP }
+   } /
+   
+   ROT OVER * SWAP -
+;
+
+: r-squared ( listX listY -- r-squared )
+   2DUP correlation DUP *
+;
+
+( TASK D )
+: point-estimate ( x b0 b1 -- estimated-y )
+   * +
+;
+
+: ape ( actual estimated -- ape )
+   OVER - ABS SWAP / 100 *
+;
+
+: rmse ( estimates actuals -- rmse )
+   0 SWAP
+   { OVER LENGTH 0 DO
+       OVER I GET 
+       ROT I GET 
+       - DUP * 
+       ROT + SWAP
+   LOOP }
+   SWAP LENGTH /
+   SQRT
+;
+
+: analyze-regression ( -- )
+   CR ." List X Statistics:"
+   listX DUP mean      ." Mean: "      .
+   listX variance      ." Variance: "   .
+   listX std-dev       ." Std Dev: "    .
+   
+   CR ." List Y Statistics:"
+   listY DUP mean      ." Mean: "      .
+   listY variance      ." Variance: "   .
+   listY std-dev       ." Std Dev: "    .
+   
+   listX z-score DROP
+   listY z-score DROP
+   
+   listX listY covariance      ." Covariance: " .
+   listX listY correlation     ." Correlation: " .
+   listX listY regression-coefficients 
+   ." b1 (Slope): " . ." b0 (Intercept): " .
+   listX listY r-squared        ." R-Squared: " .
+   
+   listX 9 GET
+   listX listY regression-coefficients
+   point-estimate ." Point Estimate for 10th Race: " .
+;
+
+analyze-regression

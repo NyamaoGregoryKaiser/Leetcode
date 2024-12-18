@@ -1,0 +1,12 @@
+runningtimes.csv 1 FRFILE
+listY S2WORD
+
+runningtimes.csv 3 FRFILE
+listX S2WORD
+
+listX DS2RS
+listY
+2 PLOT
+
+listY
+STATS

@@ -1,0 +1,25 @@
+runningtimes.csv 1 FRFILE
+listY S2WORD
+
+runningtimes.csv 3 FRFILE
+listX S2WORD
+
+istX DS2RS
+listY
+2 PLOT
+
+( \listY )
+( \STATS )
+
+{ 1 3 5 7 9 } ys LIST
+{ 1 3 5 7 9 } xs LIST
+( functions )
+{ { mean @ - >> } GSC :: } deviations WORD
+{ { DUP * >R } GSC :: } squares WORD
+{ 0 { R> + } GRC :: } sums WORD
+{ deviations squares sums } sumofsquares WORD
+{ sumofsquares ys LEN 1 - / SQRT } stdev WORD
+{ { mean @ - s @ / >> } GSC :: } zscore WORD
+ys , avg mean !
+ys , stdev DUP s ! . CR ( --> 3.16 )
+ys , zscore

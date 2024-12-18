@@ -1,0 +1,17 @@
+
+( data )
+{ 1 3 5 7 9 } numbers LIST
+
+( functions )
+
+{ { mean @ - >> } GSC :: } deviations WORD
+{ { DUP * >R } GSC :: } squares WORD
+{ 0 { R> + } GRC :: } sums WORD
+{ deviations squares sums } sumofsquares WORD
+{ sumofsquares numbers LEN 1 - / SQRT } stdev WORD
+{ { mean @ - s @ / >> } GSC :: } zscore WORD
+numbers , avg mean !
+numbers , stdev DUP s ! . CR ( --> 3.16 )
+numbers , zscore
+
+.S
