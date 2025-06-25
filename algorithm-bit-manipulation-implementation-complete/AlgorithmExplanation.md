@@ -1,0 +1,1 @@
+This document provides detailed explanations of the algorithms used in the `BitManipulation` class.  Include detailed explanations for each problem, including diagrams (you can create these separately and reference them).  Explain different approaches, time/space complexities, and any optimizations.

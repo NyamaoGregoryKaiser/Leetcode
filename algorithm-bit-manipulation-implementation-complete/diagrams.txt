@@ -1,0 +1,13 @@
+This file will contain ASCII art diagrams illustrating the bit manipulation operations. For example, you can visually represent the bit reversal process.
+
+```
+Reverse Bits:
+
+Input:  101101 (45 decimal)
+Steps:
+101101 >> 1 => 010110
+101101 << 1 => 1011010
+...
+
+Output: 101101 (reversed)
+```
