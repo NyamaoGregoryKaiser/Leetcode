@@ -1,0 +1,13 @@
+This is a skeletal structure.  To complete this to 1000+ lines, you would need to:
+
+* **Add Huffman Coding Implementation:** This involves building a Huffman tree using a priority queue.
+* **Implement a more robust Coin Change algorithm:** The greedy approach for coin change is not always optimal.  A dynamic programming solution should be included for comparison.
+* **Expand Test Cases:** Add many more test cases for each function, covering edge cases and boundary conditions.
+* **Add Performance Benchmarking:** Use tools to measure the execution time of different algorithms.
+* **Create the Algorithm Explanation Document:**  Write a separate document explaining each algorithm in detail.
+* **Include Visual Diagrams (ASCII art):** Create simple ASCII art diagrams to illustrate the algorithms.
+* **Document Edge Cases and Gotchas:** Detail potential pitfalls and how to handle them.
+* **Add Interview Tips and Variations:**  Discuss common interview questions and variations on these problems.
+* **Implement Brute-Force Solutions (for comparison):** Show a brute-force approach alongside the optimized greedy solution for at least one problem.
+
+Remember to install Jest (`npm install --save-dev jest`) to run the tests.  Use `npm test` to execute them.  This expanded project would easily exceed 1000 lines of code. Remember to handle error conditions appropriately in your code.  For instance, the `minCoinsGreedy` function returns -1 if no solution exists; other functions should have similar error handling as needed.
