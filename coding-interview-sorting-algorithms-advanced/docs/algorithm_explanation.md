@@ -1,0 +1,1 @@
+This document explains the implemented sorting algorithms: Merge Sort, Quick Sort, and Heap Sort.  (Detailed explanations of each algorithm would go here, including diagrams – ASCII art can be added).
