@@ -1,24 +1,20 @@
-# Stack and Queue Interview Problems
+# Stack and Queue Coding Interview Problems
 
-This project contains implementations and solutions for several common interview problems involving stacks and queues.  Each problem includes multiple approaches, time/space complexity analysis, and test cases.
+This project contains implementations of several classic problems involving stacks and queues, along with multiple approaches and performance analyses.  Each problem includes test cases and documentation.
 
-## Problems:
+**Problems:**
 
-1. **Valid Parentheses:**  Given a string containing parentheses `()`, curly braces `{}`, and square brackets `[]`, determine if the input string is valid. An input string is valid if:
-    * Open brackets must be closed by the same type of brackets.
-    * Open brackets must be closed in the correct order.
-    * Every close bracket has a corresponding open bracket.
-
-2. **Queue using Stacks:** Implement a queue data structure using two stacks.  Should include `enqueue` and `dequeue` methods.
-
-3. **Largest Rectangle in Histogram:** Given an array of integers representing the heights of bars in a histogram, find the area of the largest rectangle that can be formed.
-
-4. **Evaluate Reverse Polish Notation (RPN):** Evaluate an arithmetic expression in Reverse Polish Notation (postfix notation).
+1. **Valid Parentheses:** Given a string containing parentheses, brackets, and braces, determine if it is valid.
+2. **Queue using Stacks:** Implement a queue using two stacks.
+3. **Stack using Queues:** Implement a stack using two queues.
+4. **Reverse a Queue:** Reverse the order of elements in a queue.
+5. **Largest Rectangular Area in Histogram:** Find the largest rectangular area in a histogram represented as an array of heights.
 
 
-## Project Structure:
+**Project Structure:**
 
-* `src/`: Contains the main algorithm implementations.
-* `test/`: Contains the test files.
-* `utils/`: Contains helper functions and data structures.
-* `docs/`: Contains algorithm explanations, diagrams, and interview tips.
+* `stack_queue.cpp`: Main algorithm implementations.
+* `test_stack_queue.cpp`: Test cases.
+* `utils.h`: Helper functions and data structures.
+* `benchmark.cpp`: Performance benchmarking code.
+* `documentation.md`: Detailed algorithm explanations and diagrams.
