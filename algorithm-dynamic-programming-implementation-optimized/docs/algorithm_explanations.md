@@ -1,0 +1,1 @@
+This document provides detailed explanations of the dynamic programming algorithms implemented in this project.  Include detailed explanations with diagrams (ASCII art or links to external diagrams) for each algorithm.  Explain the recurrence relations and how the DP table is built.
