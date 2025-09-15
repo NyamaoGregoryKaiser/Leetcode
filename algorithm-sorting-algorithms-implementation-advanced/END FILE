@@ -1,0 +1,1 @@
+Remember to install Jest: `npm install --save-dev jest`  and run tests with `npm test`.  This expanded framework gives you a strong base to build a complete project.  You can add more problems, algorithms, and detailed analysis to reach 1000+ lines of code.  Remember to handle edge cases (empty arrays, arrays with duplicates, etc.) thoroughly in your implementations and tests.
