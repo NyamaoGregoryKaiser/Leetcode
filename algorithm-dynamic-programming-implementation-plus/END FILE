@@ -1,0 +1,3 @@
+**(Repeat the test file structure for other algorithms)**
+
+Remember to install a testing framework (like Jest) and adapt the test runners accordingly.  You'll need to fill in the missing algorithms and test cases to complete the project.  This comprehensive framework will give you a solid foundation to build upon.  Remember to include  ASCII art diagrams in your `docs` folder to illustrate the DP tables and algorithm flow.  Consider adding profiling/benchmarking code to compare the performance of different approaches.
