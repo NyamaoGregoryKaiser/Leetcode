@@ -1,76 +1,56 @@
 /**
- * Two Sum
- * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
+ * Algorithms for array manipulation.
  */
-const twoSum = (nums, target) => {
-  //Approach 1: Brute Force - O(n^2) time, O(1) space
-  // for(let i=0; i<nums.length; i++){
-  //   for(let j=i+1; j<nums.length; j++){
-  //     if(nums[i] + nums[j] === target) return [i,j];
-  //   }
-  // }
 
-  //Approach 2: Hash Map - O(n) time, O(n) space
-  const numMap = {};
+//Problem 1: Two Sum
+function twoSum(nums, target) {
+  const numMap = {}; //Hashmap for efficient lookup
   for (let i = 0; i < nums.length; i++) {
     const complement = target - nums[i];
-    if (complement in numMap) {
-      return [numMap[complement], i];
+    if (numMap.hasOwnProperty(complement)) {
+      return [numMap[complement], i]; //Return indices
     }
-    numMap[nums[i]] = i;
+    numMap[nums[i]] = i; //Store number and its index
   }
-  return []; // No solution found
-};
+  return null; //No solution found
+}
 
 
-/**
- * Reverse Array In-Place
- * @param {number[]} nums
- * @return {void}
- */
-const reverseArray = (nums) => {
-  let left = 0;
-  let right = nums.length - 1;
-  while (left < right) {
-    [nums[left], nums[right]] = [nums[right], nums[left]]; //Swap elements
-    left++;
-    right--;
-  }
-};
-
-
-/**
- * Max Subarray Sum (Kadane's Algorithm)
- * @param {number[]} nums
- * @return {number}
- */
-const maxSubArraySum = (nums) => {
-  let maxSoFar = nums[0];
-  let maxEndingHere = nums[0];
-  for (let i = 1; i < nums.length; i++) {
-    maxEndingHere = Math.max(nums[i], maxEndingHere + nums[i]);
-    maxSoFar = Math.max(maxSoFar, maxEndingHere);
-  }
-  return maxSoFar;
-};
-
-/**
- * Remove Duplicates from Sorted Array
- * @param {number[]} nums
- * @return {number}
- */
-const removeDuplicates = (nums) => {
-  if (nums.length === 0) return 0;
-  let k = 1; // Index for unique elements
+//Problem 2: Remove Duplicates from Sorted Array
+function removeDuplicates(nums) {
+  let k = 1; // Index to place next unique element
   for (let i = 1; i < nums.length; i++) {
     if (nums[i] !== nums[i - 1]) {
       nums[k] = nums[i];
       k++;
     }
   }
-  return k;
-};
+  return k; //Return the number of unique elements
+}
 
-module.exports = { twoSum, reverseArray, maxSubArraySum, removeDuplicates };
+//Problem 3: Max Subarray Sum (Kadane's Algorithm)
+function maxSubArraySum(nums) {
+    let maxSoFar = nums[0];
+    let maxEndingHere = nums[0];
+
+    for (let i = 1; i < nums.length; i++) {
+        maxEndingHere = Math.max(nums[i], maxEndingHere + nums[i]);
+        maxSoFar = Math.max(maxSoFar, maxEndingHere);
+    }
+    return maxSoFar;
+}
+
+
+//Problem 4: Merge Intervals (Requires Interval class - see below)
+//Problem 5: Rotate Array (Implementation omitted for brevity)
+
+
+//Helper Class for Problem 4
+class Interval {
+  constructor(start, end) {
+    this.start = start;
+    this.end = end;
+  }
+}
+
+module.exports = { twoSum, removeDuplicates, maxSubArraySum };
