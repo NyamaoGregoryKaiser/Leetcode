@@ -1,0 +1,37 @@
+```json
+{
+  "name": "graph-algorithms-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Graph Algorithms in TypeScript.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --detectOpenHandles",
+    "test:watch": "jest --watch",
+    "benchmark": "ts-node benchmarks/benchmark-runner.ts",
+    "start": "npm run build && node dist/index.js"
+  },
+  "keywords": [
+    "graph-algorithms",
+    "typescript",
+    "interview",
+    "coding-challenge",
+    "data-structures",
+    "algorithms",
+    "bfs",
+    "dfs",
+    "dijkstra",
+    "topological-sort"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
+```
