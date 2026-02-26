@@ -1,0 +1,23 @@
+```json
+{
+  "name": "stack-queue-interview-project",
+  "version": "1.0.0",
+  "description": "Comprehensive coding interview project for Stack and Queue data structures.",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/",
+    "benchmark": "node benchmark/benchmark.js"
+  },
+  "keywords": [
+    "stack",
+    "queue",
+    "data structures",
+    "interview",
+    "javascript",
+    "algorithms"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT"
+}
+```
