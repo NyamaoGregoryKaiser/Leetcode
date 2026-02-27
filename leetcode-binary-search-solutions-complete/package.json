@@ -1,0 +1,26 @@
+```json
+{
+  "name": "binary-search-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Binary Search with multiple problems, solutions, tests, benchmarks, and documentation.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node test/allTests.js",
+    "benchmark": "node benchmark/benchmark.js"
+  },
+  "keywords": [
+    "binary-search",
+    "algorithm",
+    "javascript",
+    "coding-interview",
+    "data-structures",
+    "problems",
+    "solutions",
+    "testing",
+    "benchmarking",
+    "documentation"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT"
+}
+```

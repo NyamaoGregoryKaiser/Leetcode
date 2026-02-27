@@ -1,0 +1,2 @@
+git clone https://github.com/your-username/binary-search-project.git
+    cd binary-search-project
