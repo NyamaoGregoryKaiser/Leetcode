@@ -1,0 +1,176 @@
+# Visual Diagrams (ASCII Art)
+
+This document provides simple ASCII art diagrams to help visualize the core concepts of some algorithms.
+
+---
+
+## 1. Euclidean Algorithm for GCD
+
+**Concept:** `gcd(a, b) = gcd(b, a % b)` until `b` becomes 0.
+
+**Example: `gcd(48, 18)`**
+
+```
+Step 1: gcd(48, 18)
+          a=48, b=18
+          48 % 18 = 12
+
+Step 2: gcd(18, 12)  <- 'a' becomes old 'b', 'b' becomes 'a % b'
+          a=18, b=12
+          18 % 12 = 6
+
+Step 3: gcd(12, 6)
+          a=12, b=6
+          12 % 6 = 0
+
+Step 4: gcd(6, 0)    <- 'b' is 0, termination condition
+          a=6, b=0
+
+Result: The GCD is 6.
+```
+
+**Iterative flow (conceptual):**
+
+```
+(a, b)
+  |
+  V
+(temp = b, b = a % b, a = temp)
+  |
+  V (repeat while b != 0)
+(temp = b, b = a % b, a = temp)
+  |
+  V (b is now 0)
+Return a
+```
+
+---
+
+## 2. Binary Exponentiation (Exponentiation by Squaring)
+
+**Concept:** To calculate `x^n`, decompose `n` into its binary representation.
+`x^n = x^(b_k * 2^k + b_{k-1} * 2^{k-1} + ... + b_1 * 2^1 + b_0 * 2^0)`
+`x^n = x^(b_k * 2^k) * x^(b_{k-1} * 2^{k-1}) * ... * x^(b_0 * 2^0)`
+Where `b_i` is the i-th bit of `n`.
+
+**Example: `2^10` (n=10, binary=1010)**
+
+```
+n = 10 (decimal)
+Binary representation of n: 1010
+
+Iteration 1: (n = 10)
+  n is even (LSB is 0).
+  result = 1
+  currentX = 2 * 2 = 4    (x^1 -> x^2)
+  n = 10 / 2 = 5
+
+Iteration 2: (n = 5)
+  n is odd (LSB is 1).
+  result = result * currentX = 1 * 4 = 4  (Accumulate x^2 into result)
+  currentX = 4 * 4 = 16   (x^2 -> x^4)
+  n = (5 - 1) / 2 = 2
+
+Iteration 3: (n = 2)
+  n is even (LSB is 0).
+  result = 4
+  currentX = 16 * 16 = 256 (x^4 -> x^8)
+  n = 2 / 2 = 1
+
+Iteration 4: (n = 1)
+  n is odd (LSB is 1).
+  result = result * currentX = 4 * 256 = 1024 (Accumulate x^8 into result)
+  currentX = 256 * 256 = 65536 (x^8 -> x^16)
+  n = (1 - 1) / 2 = 0
+
+Loop terminates as n is 0.
+
+Final Result: 1024
+```
+
+**Conceptual flow:**
+
+```
+  n (exponent)   |  currentX (base powers) | result (accumulated product)
+-----------------|-------------------------|------------------------------
+Initial          | x                       | 1
+-----------------|-------------------------|------------------------------
+while n > 0:
+  if n is odd:  ---> result = result * currentX
+  currentX = currentX * currentX (square base)
+  n = floor(n / 2) (half exponent)
+-----------------|-------------------------|------------------------------
+Return result
+```
+
+---
+
+## 3. Matrix Exponentiation for Fibonacci
+
+**Concept:**
+```
+| F(n)   |   | 1  1 |   | F(n-1) |
+| F(n-1) | = | 1  0 | * | F(n-2) |
+```
+This implies:
+```
+| F(n)   |   | 1  1 |^(n-1)   | F(1) |
+| F(n-1) | = | 1  0 |        * | F(0) |
+```
+
+Given F(0)=0, F(1)=1:
+```
+| F(n)   |   | 1  1 |^(n-1)   | 1 |
+| F(n-1) | = | 1  0 |        * | 0 |
+```
+
+Let `M = | 1  1 |`. We need to compute `M^(n-1)`.
+`        | 1  0 |`
+
+**Example: `F(4)`**
+
+We need `M^(4-1) = M^3`.
+`M = | 1  1 |`
+`    | 1  0 |`
+
+**Step 1: Compute M^2** (using `powerMatrix` -> `halfPow = M^1 = M`)
+```
+M^2 = M * M
+    = | 1  1 | * | 1  1 |
+      | 1  0 |   | 1  0 |
+
+    = | (1*1 + 1*1)  (1*1 + 1*0) |
+      | (1*1 + 0*1)  (1*1 + 0*0) |
+
+    = | 2  1 |
+      | 1  1 |
+```
+
+**Step 2: Compute M^3** (using `powerMatrix` -> `halfPow = M^1` in `powerMatrix(M, 3)`'s call)
+(Actually `powerMatrix(M, 3)` calls `powerMatrix(M, 1)` to get `M^1`, squares it to `M^2`, then multiplies by `M` again because 3 is odd)
+
+```
+M^3 = M^2 * M
+    = | 2  1 | * | 1  1 |
+      | 1  1 |   | 1  0 |
+
+    = | (2*1 + 1*1)  (2*1 + 1*0) |
+      | (1*1 + 1*1)  (1*1 + 1*0) |
+
+    = | 3  2 |
+      | 2  1 |
+```
+
+**Step 3: Multiply by initial vector**
+```
+| F(4) |   | 3  2 |   | 1 |
+| F(3) | = | 2  1 | * | 0 |
+
+         = | (3*1 + 2*0) |
+           | (2*1 + 1*0) |
+
+         = | 3 |
+           | 2 |
+```
+
+Result: `F(4) = 3`. (Matches F(0)=0, F(1)=1, F(2)=1, F(3)=2, F(4)=3)
