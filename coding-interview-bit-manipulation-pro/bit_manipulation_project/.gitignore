@@ -1,0 +1,36 @@
+```
+# C++ specific ignores
+*.o
+*.obj
+*.lo
+*.la
+*.so
+*.a
+*.dll
+*.lib
+*.mod
+*.exp
+*.exe
+*.com
+*.out
+*.app
+*.dylib
+
+# Build directories
+build/
+bin/
+tmp/
+*.d
+
+# IDE specific files
+.vscode/
+.idea/
+*.workspace
+*.swp
+*.bak
+*.orig
+*.rej
+
+# Google Test
+test_runner
+```
