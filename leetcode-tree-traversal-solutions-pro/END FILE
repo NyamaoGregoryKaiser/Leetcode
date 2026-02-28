@@ -1,0 +1,32 @@
+### `.gitignore` (for completeness)
+
+#### === .gitignore ===
+```
+# Generic Java
+*.class
+.gradle
+/build/
+.settings/
+.idea/
+.project
+.classpath
+.factorypath
+.metadata
+target/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar
+*.tar.gz
+*.log
+*.bak
+*.swp
+*~
+# IDE specific
+.vscode/
+# macOS
+.DS_Store
+# Windows
+Thumbs.db
+```
