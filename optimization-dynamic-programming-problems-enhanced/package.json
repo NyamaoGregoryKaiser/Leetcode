@@ -1,0 +1,29 @@
+{
+  "name": "dp-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Dynamic Programming.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "test": "jest",
+    "benchmark": "npx ts-node bench/benchmark.ts",
+    "start": "npm run build && node dist/index.js"
+  },
+  "keywords": [
+    "dynamic-programming",
+    "interview",
+    "typescript",
+    "algorithms",
+    "data-structures"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
