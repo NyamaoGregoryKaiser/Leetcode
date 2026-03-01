@@ -1,0 +1,27 @@
+```json
+{
+  "name": "tree-traversals-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Tree Traversals.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest",
+    "benchmark": "node benchmarks/traversalBenchmarks.js"
+  },
+  "keywords": [
+    "tree",
+    "traversal",
+    "binary tree",
+    "interview",
+    "javascript",
+    "data structures",
+    "algorithms"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
+```
