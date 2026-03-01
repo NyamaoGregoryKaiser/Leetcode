@@ -1,0 +1,37 @@
+```json
+{
+  "name": "stack-queue-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Stack and Queue data structures.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "benchmark": "node -r benchmark/register benchmarks/benchmark-*.js",
+    "benchmark-problem1": "node -r benchmark/register benchmarks/benchmark-problem1.js",
+    "benchmark-problem3": "node -r benchmark/register benchmarks/benchmark-problem3.js",
+    "benchmark-problem5": "node -r benchmark/register benchmarks/benchmark-problem5.js"
+  },
+  "keywords": [
+    "stack",
+    "queue",
+    "data-structures",
+    "algorithms",
+    "coding-interview",
+    "javascript",
+    "interview-prep",
+    "leetcode"
+  ],
+  "author": "Your Name/AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "benchmark": "^2.1.4",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "@datastructures-js/deque": "^4.2.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
+```
