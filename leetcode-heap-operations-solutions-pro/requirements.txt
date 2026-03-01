@@ -1,0 +1,6 @@
+# No external dependencies beyond Python standard library for core algorithms.
+# `pytest` is optional if you prefer it over `unittest`.
+# For performance graphing (if added later), `matplotlib` or `seaborn` might be needed.
+# For now, only standard library modules are used.
+# If you decide to use pytest for testing, uncomment the line below:
+# pytest
