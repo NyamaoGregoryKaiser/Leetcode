@@ -1,0 +1,24 @@
+```json
+{
+  "name": "linked-list-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Linked Lists with multiple problems and solutions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node tests/runTests.js",
+    "benchmark": "node benchmarks/benchmark.js"
+  },
+  "keywords": [
+    "linked-list",
+    "interview",
+    "coding-challenge",
+    "javascript",
+    "data-structures",
+    "algorithms"
+  ],
+  "author": "Your Name/AI",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
+```
