@@ -1,0 +1,22 @@
+```
+# CMake builds
+/build/
+/install/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+*.cbp
+*.depend
+*.files
+*.layout
+*.mk
+
+# Executables
+*.exe
+*.o
+*.a
+*.lib
+run_tests
+run_benchmarks
+```
