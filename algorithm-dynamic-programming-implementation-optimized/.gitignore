@@ -1,0 +1,29 @@
+# Byte-code files
+*.pyc
+__pycache__/
+
+# Virtual environment
+venv/
+.env/
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Build artifacts
+dist/
+build/
+
+# logs
+*.log
+
+# pytest cache
+.pytest_cache/
+.coverage
+
+# Jupyter Notebook files
+.ipynb_checkpoints
+
+# OS generated files
+.DS_Store
+Thumbs.db
