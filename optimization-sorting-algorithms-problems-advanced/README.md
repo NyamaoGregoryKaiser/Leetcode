@@ -1,23 +1,74 @@
 # Sorting Algorithms Interview Project
 
-This project explores various sorting algorithms and their applications through several problems.  Each problem includes multiple solutions with varying time and space complexities.
+This project is a comprehensive resource for mastering sorting algorithms and related problems often encountered in coding interviews. It provides multiple implementations, detailed explanations, extensive test cases, and performance benchmarks.
 
-## Problems:
+## Project Structure
 
-1. **Array Sorting:** Sort a given array of integers in ascending order.  Explore different algorithms (Merge Sort, Quick Sort, Heap Sort).
+*   `src/`: Contains the core JavaScript code.
+    *   `algorithms/`: Implementations of various sorting algorithms.
+    *   `problems/`: Solutions to common interview problems that leverage sorting.
+    *   `utils/`: Helper utilities like array manipulation and comparison functions.
+*   `tests/`: Unit tests for all algorithms and problem solutions.
+*   `docs/`: Detailed documentation, explanations, visual aids, and interview tips.
+*   `benchmarks/`: Code for performance benchmarking of sorting algorithms.
 
-2. **Kth Smallest Element:** Find the kth smallest element in an unsorted array. Implement solutions using QuickSelect and Heap.
+## Features
 
-3. **Sort a Nearly Sorted Array:**  Given an array where each element is at most k positions away from its sorted position, sort the array efficiently.
+*   **Multiple Sorting Algorithms**: Implementations of Bubble Sort, Merge Sort, Quick Sort, Heap Sort, and Counting Sort.
+*   **Problem-Solving**: Solutions to "Kth Smallest Element", "Merge Overlapping Intervals", "Sort Colors (Dutch National Flag)", and "Find All Duplicates".
+*   **Optimal & Multiple Approaches**: For problems, often includes brute-force and optimized solutions.
+*   **Detailed Comments**: In-code explanations for logic, time/space complexity.
+*   **Extensive Tests**: Robust test suites cover various scenarios including edge cases.
+*   **Performance Benchmarking**: Tools to compare the speed of different algorithms.
+*   **Comprehensive Documentation**:
+    *   Algorithm explanations with ASCII diagrams.
+    *   Discussion of edge cases, stability, and gotchas.
+    *   Interview tips, common variations, and follow-up questions.
 
-4. **Sort a Linked List:** Sort a singly linked list in ascending order. Implement Merge Sort for linked lists.
+## Getting Started
 
-5. **Meeting Rooms II:** (Advanced) Given an array of meeting time intervals `[[start, end], ...]`, determine the minimum number of meeting rooms required to accommodate all meetings. (This problem leverages sorting as a preprocessing step).
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/sorting-algorithms-project.git
+    cd sorting-algorithms-project
+    ```
+2.  **Install dependencies (if any, though this project mostly uses native JS):**
+    ```bash
+    npm install
+    ```
 
+## How to Run
 
-## Project Structure:
+### Run Tests
 
-- `src/`: Contains the main algorithm implementations.
-- `test/`: Contains test cases for each algorithm.
-- `utils/`: Contains helper functions and data structures.
-- `docs/`: Contains algorithm explanations and diagrams.
+To execute all unit tests:
+
+```bash
+npm test
+```
+
+The test runner will output the results for each test file.
+
+### Run Benchmarks
+
+To run the performance benchmarks for various sorting algorithms:
+
+```bash
+npm benchmark
+```
+
+This will compare the execution time of different algorithms on randomly generated arrays of increasing sizes.
+
+## Documentation
+
+Explore the `docs/` directory for in-depth information:
+
+*   `docs/README.md`: Introduction to the documentation.
+*   `docs/algorithms-explained.md`: Detailed explanations of each sorting algorithm.
+*   `docs/visual-diagrams.md`: ASCII diagrams to visualize sorting processes.
+*   `docs/edge-cases-gotchas.md`: Common pitfalls and important considerations.
+*   `docs/interview-tips.md`: Advice for tackling sorting-related interview questions.
+
+---
+**Note**: This project uses a very basic `console.assert`-based test runner and benchmark tool for simplicity and to avoid external dependencies. For more advanced testing, frameworks like Jest or Mocha would be recommended.
+---

@@ -1,0 +1,20 @@
+{
+  "name": "sorting-algorithms-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Sorting Algorithms.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node tests/testRunner.js",
+    "benchmark": "node benchmarks/performanceBenchmarker.js",
+    "start": "echo \"Run 'npm test' to run tests, 'npm benchmark' to run benchmarks.\""
+  },
+  "keywords": [
+    "sorting",
+    "algorithms",
+    "javascript",
+    "interview-prep",
+    "data-structures"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT"
+}
