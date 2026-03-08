@@ -1,0 +1,24 @@
+```json
+{
+  "name": "greedy-algorithms-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Greedy Algorithms.",
+  "main": "src/greedyAlgorithms.js",
+  "scripts": {
+    "test": "jest",
+    "benchmark": "node benchmark/benchmark.js"
+  },
+  "keywords": [
+    "greedy-algorithms",
+    "javascript",
+    "coding-interview",
+    "algorithms",
+    "data-structures"
+  ],
+  "author": "Your Name/AI",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
+```
