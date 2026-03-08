@@ -1,0 +1,36 @@
+{
+  "name": "stack-queue-interview-project",
+  "version": "1.0.0",
+  "description": "Comprehensive coding interview project for Stack and Queue data structures.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "benchmark": "npm run build && node dist/benchmarks/benchmark-runner.js",
+    "start": "npm run build && node dist/src/index.js"
+  },
+  "keywords": [
+    "stack",
+    "queue",
+    "data-structures",
+    "algorithms",
+    "interview-prep",
+    "typescript",
+    "coding-interview"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.5"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "moduleFileExtensions": ["ts", "js", "json", "node"],
+    "testMatch": ["<rootDir>/src/**/*.test.ts"]
+  }
+}
