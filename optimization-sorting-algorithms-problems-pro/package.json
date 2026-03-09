@@ -1,0 +1,26 @@
+```json
+{
+  "name": "sorting-algorithms-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for sorting algorithms.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node tests/testRunner.js",
+    "benchmark": "node benchmarks/benchmarkRunner.js"
+  },
+  "keywords": [
+    "sorting",
+    "algorithms",
+    "interview",
+    "javascript"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "colors": "^1.4.0",
+    "cli-table": "^0.3.11"
+  }
+}
+
+```
