@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "@data-structures/*": ["src/data-structures/*"],
+      "@problems/*": ["src/problems/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "benchmarks/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

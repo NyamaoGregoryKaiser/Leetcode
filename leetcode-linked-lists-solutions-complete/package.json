@@ -1,0 +1,29 @@
+{
+  "name": "linked-list-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Linked Lists.",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "benchmark": "ts-node benchmarks/benchmark.ts",
+    "start": "ts-node src/main.ts"
+  },
+  "keywords": [
+    "linked-list",
+    "interview",
+    "typescript",
+    "algorithms",
+    "data-structures"
+  ],
+  "author": "GPT-4",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
