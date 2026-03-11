@@ -1,0 +1,111 @@
+# ASCII Diagrams for Hash Table Concepts and LFU Cache
+
+This document provides visual aids to understand the underlying data structures.
+
+---
+
+## 1. Basic Hash Table (Unordered Map)
+
+A hash table maps keys to values using a hash function to determine the storage location (bucket). Collisions are handled, often by chaining (linked lists in each bucket).
+
+```
+Hash Function
+      |
+      V
++----------------+
+|    Buckets     |
++----------------+
+| Bucket 0 | [Key1 -> Value1] -> [KeyX -> ValueX]  (Collision, chained)
++----------------+
+| Bucket 1 | [Key2 -> Value2]
++----------------+
+| Bucket 2 | [Key3 -> Value3] -> [KeyY -> ValueY]  (Collision, chained)
++----------------+
+|    ...         |
++----------------+
+| Bucket N-1 | [KeyZ -> ValueZ]
++----------------+
+
+Key Components:
+- Key: The input for which we want to find a value.
+- Hash Function: Transforms the key into an integer (hash code), which is then mapped to a bucket index.
+- Buckets: An array or vector of "slots" where data is stored.
+- Collision Resolution: How to handle multiple keys hashing to the same bucket (e.g., chaining with linked lists or open addressing).
+```
+
+---
+
+## 2. LFU Cache Structure
+
+The LFU Cache uses a combination of two hash maps and multiple doubly linked lists to achieve O(1) operations.
+
+```
++------------------------------------+
+|            LFUCache Class          |
++------------------------------------+
+| - capacity                         |
+| - size                             |
+| - min_frequency                    |
+|                                    |
+| +--------------------------------+ |
+| |  key_to_node_map               | |   Maps Key to actual CacheNode
+| | (unordered_map<int, CacheNode>) | |
+| +--------------------------------+ |
+|        |                           |
+|        V                           |
+|  +--------------+                  |
+|  |  CacheNode   |                  |   Stores value, frequency,
+|  | - key        |------------------+-- Iterator (it) to its position
+|  | - value      |                  |   in the respective freq_to_key_list_map list
+|  | - frequency  |                  |
+|  | - it         |                  |
+|  +--------------+                  |
+|        ^                           |
+|        | (points to key's node)    |
+|                                    |
+| +--------------------------------+ |
+| |  freq_to_key_list_map          | |   Maps Frequency to a Doubly Linked List of Keys
+| | (unordered_map<int, list<int>>) | |
+| +--------------------------------+ |
++------------------------------------+
+           |             |             |
+           V             V             V
+  +--------------+  +--------------+  +--------------+
+  | Freq 1 List  |  | Freq 2 List  |  | Freq 3 List  |   Each list is ordered by recency (MRU at front, LRU at back)
+  | (e.g., {k3,k1})|  | (e.g., {k2}) |  | (e.g., {k4}) |
+  +--------------+  +--------------+  +--------------+
+      ^     ^           ^     ^           ^     ^
+      |     |           |     |           |     |
+     MRU   LRU         MRU   LRU         MRU   LRU
+(Most Recent)     (Least Recent)
+
+
+Example state: capacity=3, min_frequency=1
+
+key_to_node_map:
+  k1 -> {value=V1, freq=1, it -> (iter for k1 in Freq 1 List)}
+  k2 -> {value=V2, freq=2, it -> (iter for k2 in Freq 2 List)}
+  k3 -> {value=V3, freq=1, it -> (iter for k3 in Freq 1 List)}
+
+freq_to_key_list_map:
+  1 -> [k3, k1]  (k3 is MRU, k1 is LRU for freq 1)
+  2 -> [k2]      (k2 is MRU/LRU for freq 2)
+
+When get(k1):
+1. Find k1 in key_to_node_map -> get its node {V1, freq=1, it}
+2. Remove k1 from Freq 1 List using 'it'. Freq 1 List becomes [k3].
+3. freq becomes 2. Add k1 to Freq 2 List: [k1, k2]. Update k1's 'it'.
+4. Min Freq: Freq 1 List is not empty (still has k3), so min_frequency remains 1.
+
+Updated state:
+key_to_node_map:
+  k1 -> {value=V1, freq=2, it -> (iter for k1 in Freq 2 List)}
+  k2 -> {value=V2, freq=2, it -> (iter for k2 in Freq 2 List)}
+  k3 -> {value=V3, freq=1, it -> (iter for k3 in Freq 1 List)}
+
+freq_to_key_list_map:
+  1 -> [k3]
+  2 -> [k1, k2]  (k1 is MRU, k2 is LRU for freq 2)
+min_frequency: 1
+```
+---
