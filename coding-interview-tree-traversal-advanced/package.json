@@ -1,0 +1,24 @@
+```json
+{
+  "name": "tree-traversals-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project focusing on Binary Tree Traversals.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node tests/testRunner.js",
+    "benchmark": "node benchmarks/benchmark.js",
+    "start": "echo 'Run tests with `npm test` or benchmarks with `npm run benchmark`'"
+  },
+  "keywords": [
+    "tree",
+    "traversal",
+    "binary tree",
+    "coding interview",
+    "javascript",
+    "data structures",
+    "algorithms"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT"
+}
+```
