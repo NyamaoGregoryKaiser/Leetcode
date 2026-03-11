@@ -1,0 +1,4 @@
+# No external dependencies for core logic, but unittest is built-in.
+# For more advanced benchmarking/plotting, you might add:
+# matplotlib
+# numpy
