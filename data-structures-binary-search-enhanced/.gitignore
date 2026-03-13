@@ -1,0 +1,57 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timekeeping.log
+
+# Java
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid%p.log
+_hs_err_pid%p.log
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.project
+.classpath
+.settings/
+.cache/
+.metadata/
+
+# VS Code
+.vscode/
+
+# OS generated files
+.DS_Store
+.Trashes
+Thumbs.db
+
+# JMH benchmark files
+jmh-result.json
+jmh-result.txt
+benchmarks/target/
+benchmarks/pom.xml.tag
+benchmarks/pom.xml.releaseBackup
+benchmarks/pom.xml.versionsBackup
+benchmarks/release.properties
+benchmarks/dependency-reduced-pom.xml
+benchmarks/buildNumber.properties
