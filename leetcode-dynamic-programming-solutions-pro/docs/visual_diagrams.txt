@@ -1,0 +1,161 @@
+# Dynamic Programming Visual Diagrams (ASCII Art)
+
+This document provides ASCII art diagrams to help visualize the concepts of Dynamic Programming.
+
+---
+
+## 1. Fibonacci Number Recursion Tree (Showing Overlapping Subproblems)
+
+For `fib(5)`:
+
+```
+                  fib(5)
+                 /      \
+             fib(4)      fib(3)
+            /     \     /     \
+         fib(3)  fib(2) fib(2) fib(1)
+        /     \   /  \   /  \
+     fib(2) fib(1) fib(1) fib(0) fib(1) fib(0)
+    /  \
+fib(1) fib(0)
+```
+
+*   Notice how `fib(3)`, `fib(2)`, `fib(1)`, `fib(0)` are computed multiple times.
+*   With memoization, once `fib(3)` is computed for the first time (left branch), its result is stored. The second time `fib(3)` is needed (right branch), its value is retrieved from the cache, avoiding redundant computations.
+
+---
+
+## 2. Longest Common Subsequence (LCS) DP Table Filling Example
+
+For `text1 = "ACE"`, `text2 = "ABCDE"`
+
+The DP table `dp[i][j]` stores LCS length of `text1[0...i-1]` and `text2[0...j-1]`.
+`i` corresponds to `text1`, `j` to `text2`.
+
+Headers:
+`  "" A B C D E`
+`""`
+`A`
+`C`
+`E`
+
+Initialize `dp` table with 0s:
+
+```
+    "" A B C D E
+"" [0,0,0,0,0,0]
+A  [0,0,0,0,0,0]
+C  [0,0,0,0,0,0]
+E  [0,0,0,0,0,0]
+```
+
+Step-by-step filling (example for `text1="ACE"`, `text2="ABCDE"`):
+
+*   **`i=1` (for 'A' in text1)**
+    *   `j=1` (for 'A' in text2): `text1[0]=='A'`, `text2[0]=='A'`. Match! `dp[1][1] = 1 + dp[0][0] = 1`.
+    *   `j=2` (for 'B'): No match. `dp[1][2] = max(dp[0][2], dp[1][1]) = max(0, 1) = 1`.
+    *   ...and so on.
+
+Partial table after filling for `text1='A'` (first row for `text1` characters):
+
+```
+    "" A B C D E
+"" [0,0,0,0,0,0]
+A  [0,1,1,1,1,1]  <- LCS with "A" and "ABCDE" is "A" (length 1)
+C  [0,0,0,0,0,0]
+E  [0,0,0,0,0,0]
+```
+
+After filling all rows:
+
+```
+    "" A B C D E
+"" [0,0,0,0,0,0]
+A  [0,1,1,1,1,1]
+C  [0,1,1,2,2,2]  <- `dp[2][3]` for "AC" and "ABC". 'C' matches. 1 + `dp[1][2]` (LCS of "A" and "AB") = 1+1=2 ("AC").
+E  [0,1,1,2,2,3]  <- `dp[3][5]` for "ACE" and "ABCDE". 'E' matches. 1 + `dp[2][4]` (LCS of "AC" and "ABCD") = 1+2=3 ("ACE").
+
+Final Answer: dp[3][5] = 3
+```
+
+---
+
+## 3. 0/1 Knapsack DP Table Filling Example
+
+`Items`: `{(weight:1, value:10), (weight:3, value:40), (weight:4, value:50)}`
+`Knapsack Capacity (W) = 7`
+
+`dp[i][w]` = max value using first `i` items with capacity `w`.
+`i` corresponds to item index (1-based), `w` to capacity.
+
+Headers:
+`    0 1 2 3 4 5 6 7`
+`item0` (no items)
+`item1` (w:1, v:10)
+`item2` (w:3, v:40)
+`item3` (w:4, v:50)
+
+Initialize `dp` table with 0s:
+
+```
+    0 1 2 3 4 5 6 7
+---------------------
+0 | 0 0 0 0 0 0 0 0
+1 | 0 0 0 0 0 0 0 0
+2 | 0 0 0 0 0 0 0 0
+3 | 0 0 0 0 0 0 0 0
+```
+
+Filling `dp` table:
+`dp[i][w] = max(dp[i-1][w], values[i-1] + dp[i-1][w - weights[i-1]])` if `weights[i-1] <= w`
+`dp[i][w] = dp[i-1][w]` if `weights[i-1] > w`
+
+*   **Row 1 (item 1: w=1, v=10)**:
+    *   `dp[1][w]` for `w < 1`: `dp[0][w]` (0)
+    *   `dp[1][w]` for `w >= 1`: `max(dp[0][w], 10 + dp[0][w-1]) = max(0, 10 + 0) = 10`
+```
+    0 1 2 3 4 5 6 7
+---------------------
+0 | 0 0 0 0 0 0 0 0
+1 | 0 10 10 10 10 10 10 10
+2 | 0 0 0 0 0 0 0 0
+3 | 0 0 0 0 0 0 0 0
+```
+
+*   **Row 2 (item 2: w=3, v=40)**:
+    *   `dp[2][w]` for `w < 3`: `dp[1][w]`
+    *   `dp[2][w]` for `w >= 3`: `max(dp[1][w], 40 + dp[1][w-3])`
+        *   `dp[2][3] = max(dp[1][3], 40+dp[1][0]) = max(10, 40+0) = 40`
+        *   `dp[2][4] = max(dp[1][4], 40+dp[1][1]) = max(10, 40+10) = 50`
+        *   `dp[2][5] = max(dp[1][5], 40+dp[1][2]) = max(10, 40+10) = 50`
+        *   `dp[2][6] = max(dp[1][6], 40+dp[1][3]) = max(10, 40+10) = 50`
+        *   `dp[2][7] = max(dp[1][7], 40+dp[1][4]) = max(10, 40+10) = 50`
+```
+    0 1 2 3 4 5 6 7
+---------------------
+0 | 0 0 0 0 0 0 0 0
+1 | 0 10 10 10 10 10 10 10
+2 | 0 10 10 40 50 50 50 50
+3 | 0 0 0 0 0 0 0 0
+```
+
+*   **Row 3 (item 3: w=4, v=50)**:
+    *   `dp[3][w]` for `w < 4`: `dp[2][w]`
+    *   `dp[3][w]` for `w >= 4`: `max(dp[2][w], 50 + dp[2][w-4])`
+        *   `dp[3][4] = max(dp[2][4], 50+dp[2][0]) = max(50, 50+0) = 50`
+        *   `dp[3][5] = max(dp[2][5], 50+dp[2][1]) = max(50, 50+10) = 60` (items (w:1,v:10) + (w:4,v:50))
+        *   `dp[3][6] = max(dp[2][6], 50+dp[2][2]) = max(50, 50+10) = 60`
+        *   `dp[3][7] = max(dp[2][7], 50+dp[2][3]) = max(50, 50+40) = 90` (items (w:3,v:40) + (w:4,v:50))
+```
+    0 1 2 3 4 5 6 7
+---------------------
+0 | 0 0 0 0 0 0 0 0
+1 | 0 10 10 10 10 10 10 10
+2 | 0 10 10 40 50 50 50 50
+3 | 0 10 10 40 50 60 60 90
+```
+
+Final Answer: `dp[3][7] = 90`.
+
+---
+*(End of visual_diagrams.txt)*

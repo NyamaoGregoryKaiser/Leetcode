@@ -1,0 +1,31 @@
+# Binaries and build artifacts
+*.o
+*.out
+*.exe
+build/
+bin/
+
+# Dependency build files
+_deps/
+
+# Editor specific files
+.vscode/
+.idea/
+
+# macOS specific files
+.DS_Store
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+
+# Test results
+test_results.xml
+*.gtest_output
+
+# Benchmark results
+benchmark_results.json
