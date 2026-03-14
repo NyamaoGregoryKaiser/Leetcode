@@ -1,0 +1,32 @@
+```json
+{
+  "name": "string-manipulation-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for String Manipulation problems.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --config ./tests/jest.config.js",
+    "test:watch": "jest --watch --config ./tests/jest.config.js",
+    "benchmark:palindrome": "node benchmarking/benchmark-palindrome-checker.js",
+    "benchmark:lcp": "node benchmarking/benchmark-longest-common-prefix.js",
+    "benchmark:decode": "node benchmarking/benchmark-decode-string.js",
+    "benchmark:anagram": "node benchmarking/benchmark-anagram-grouper.js",
+    "benchmark:all": "npm run benchmark:palindrome && npm run benchmark:lcp && npm run benchmark:decode && npm run benchmark:anagram"
+  },
+  "keywords": [
+    "string-manipulation",
+    "coding-interview",
+    "javascript",
+    "algorithms",
+    "data-structures"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0"
+  }
+}
+```
