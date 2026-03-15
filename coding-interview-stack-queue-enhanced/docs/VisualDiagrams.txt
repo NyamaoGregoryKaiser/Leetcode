@@ -1,0 +1,201 @@
+```text
+# Visual Diagrams for Stack and Queue Problems
+
+This file contains ASCII art diagrams to help visualize the working principles of some of the algorithms.
+
+---
+
+## Problem 3: Trapping Rain Water
+
+### Example: `height = [0,1,0,2,1,0,1,3,2,1,2,1]`
+
+**Initial state:**
+Array:   0  1  0  2  1  0  1  3  2  1  2  1
+Indices: 0  1  2  3  4  5  6  7  8  9 10 11
+
+**Visual Representation of Bars:**
+
+    _           _
+_  | | _   _   | | _   _
+| |_|#|_|#|_|#|#|_|#|#|_
+| | | | | | | | | | | | |
+0 1 0 2 1 0 1 3 2 1 2 1
+
+(The '#' represents water)
+
+---
+
+**How Monotonic Stack Works (Conceptual Flow):**
+
+Let's trace `height = [0,1,0,2,1,0,1,3,2,1,2,1]`
+
+`stack`: Stores indices of bars in decreasing height order.
+`totalWater`: Accumulates water.
+
+1. `i = 0, height[0] = 0`: `stack` is empty. Push 0.
+   `stack: [0]`
+
+2. `i = 1, height[1] = 1`: `height[1] (1) > height[stack.peek()] (height[0]=0)`.
+   Pop 0 (`bottomIndex = 0`). Stack is empty. Break from while.
+   Push 1.
+   `stack: [1]`
+
+3. `i = 2, height[2] = 0`: `height[2] (0) <= height[stack.peek()] (height[1]=1)`. Push 2.
+   `stack: [1, 2]`
+
+4. `i = 3, height[3] = 2`: `height[3] (2) > height[stack.peek()] (height[2]=0)`.
+   *   Pop 2 (`bottomIndex = 2`). `stack: [1]`. `height[bottomIndex]=0`.
+   *   `stack` not empty. `leftBoundaryIndex = 1` (`height[1]=1`). `rightBoundaryHeight = height[3]=2`.
+   *   `trappedHeight = min(1, 2) - 0 = 1`.
+   *   `trappedWidth = 3 - 1 - 1 = 1`.
+   *   `totalWater += 1 * 1 = 1`.
+   
+   Now `height[3] (2) > height[stack.peek()] (height[1]=1)`.
+   *   Pop 1 (`bottomIndex = 1`). `stack: []`. `height[bottomIndex]=1`.
+   *   `stack` is empty. Break.
+   Push 3.
+   `stack: [3]`, `totalWater = 1`
+
+   Visualizing `i=3` step with `height[0]=0, height[1]=1, height[2]=0, height[3]=2`:
+      _   _
+     | | | |
+     |_|#|_|     (Water above height[2])
+     0 1 0 2  (Indices)
+   `leftBoundaryIndex = 1` (height=1)
+   `rightBoundaryIndex = 3` (height=2)
+   `bottomIndex = 2` (height=0)
+   Water: `min(1,2) - 0 = 1`. Width `3-1-1 = 1`. Total `1*1 = 1`.
+
+   ...and so on...
+
+---
+
+**How Two Pointers Works (Conceptual Flow):**
+
+Let's trace `height = [0,1,0,2,1,0,1,3,2,1,2,1]`
+
+`left = 0, right = 11`
+`leftMax = 0, rightMax = 0`
+`totalWater = 0`
+
+1. `left=0, right=11`: `height[0]=0, height[11]=1`. `height[left] < height[right]`.
+   `height[0] (0) >= leftMax (0)`. Update `leftMax = 0`.
+   `left++` (now `left=1`).
+
+2. `left=1, right=11`: `height[1]=1, height[11]=1`. `height[left] <= height[right]`. (Right side is not strictly greater, so process right).
+   `height[11] (1) >= rightMax (0)`. Update `rightMax = 1`.
+   `right--` (now `right=10`).
+
+3. `left=1, right=10`: `height[1]=1, height[10]=2`. `height[left] < height[right]`.
+   `height[1] (1) >= leftMax (0)`. Update `leftMax = 1`.
+   `left++` (now `left=2`).
+
+4. `left=2, right=10`: `height[2]=0, height[10]=2`. `height[left] < height[right]`.
+   `height[2] (0) < leftMax (1)`. `totalWater += leftMax - height[2] = 1 - 0 = 1`.
+   `totalWater = 1`.
+   `left++` (now `left=3`).
+
+5. `left=3, right=10`: `height[3]=2, height[10]=2`. `height[left] <= height[right]`. (Right side is not strictly greater, so process right).
+   `height[10] (2) >= rightMax (1)`. Update `rightMax = 2`.
+   `right--` (now `right=9`).
+
+6. `left=3, right=9`: `height[3]=2, height[9]=1`. `height[left] > height[right]`.
+   `height[9] (1) < rightMax (2)`. `totalWater += rightMax - height[9] = 2 - 1 = 1`.
+   `totalWater = 1 + 1 = 2`.
+   `right--` (now `right=8`).
+
+7. `left=3, right=8`: `height[3]=2, height[8]=2`. `height[left] <= height[right]`. (Right side).
+   `height[8] (2) >= rightMax (2)`. Update `rightMax = 2`.
+   `right--` (now `right=7`).
+
+8. `left=3, right=7`: `height[3]=2, height[7]=3`. `height[left] < height[right]`.
+   `height[3] (2) >= leftMax (1)`. Update `leftMax = 2`.
+   `left++` (now `left=4`).
+
+9. `left=4, right=7`: `height[4]=1, height[7]=3`. `height[left] < height[right]`.
+   `height[4] (1) < leftMax (2)`. `totalWater += leftMax - height[4] = 2 - 1 = 1`.
+   `totalWater = 2 + 1 = 3`.
+   `left++` (now `left=5`).
+
+10. `left=5, right=7`: `height[5]=0, height[7]=3`. `height[left] < height[right]`.
+    `height[5] (0) < leftMax (2)`. `totalWater += leftMax - height[5] = 2 - 0 = 2`.
+    `totalWater = 3 + 2 = 5`.
+    `left++` (now `left=6`).
+
+11. `left=6, right=7`: `height[6]=1, height[7]=3`. `height[left] < height[right]`.
+    `height[6] (1) < leftMax (2)`. `totalWater += leftMax - height[6] = 2 - 1 = 1`.
+    `totalWater = 5 + 1 = 6`.
+    `left++` (now `left=7`).
+
+12. `left=7, right=7`. Loop terminates (`left < right` is false).
+
+Final `totalWater = 6`.
+
+---
+
+## Problem 5: Sliding Window Maximum
+
+### Example: `nums = [1,3,-1,-3,5,3,6,7]`, `k = 3`
+
+`deque`: Stores indices in decreasing order of values.
+`result`: Stores maximums.
+
+1. `i = 0, nums[0] = 1`:
+   - Deque empty.
+   - Add 0. `deque: [0]`
+   - `i < k-1` (0 < 2). No result yet.
+
+2. `i = 1, nums[1] = 3`:
+   - `deque.peekFirst() (0)` is `0 <= 1-3=-2` (false). Not out of window.
+   - `nums[deque.peekLast()] (nums[0]=1) <= nums[1] (3)`. Pop 0. `deque: []`.
+   - Add 1. `deque: [1]`
+   - `i < k-1` (1 < 2). No result yet.
+
+3. `i = 2, nums[2] = -1`:
+   - `deque.peekFirst() (1)` is `1 <= 2-3=-1` (false). Not out of window.
+   - `nums[deque.peekLast()] (nums[1]=3) <= nums[2] (-1)` (false). Don't pop.
+   - Add 2. `deque: [1, 2]`
+   - `i >= k-1` (2 >= 2). Window formed. `result[0] = nums[deque.peekFirst()] = nums[1] = 3`.
+   `result: [3]`
+
+4. `i = 3, nums[3] = -3`:
+   - `deque.peekFirst() (1)` is `1 <= 3-3=0` (false). Still in window (window `[1,2,3]`).
+   - `nums[deque.peekLast()] (nums[2]=-1) <= nums[3] (-3)` (false). Don't pop.
+   - Add 3. `deque: [1, 2, 3]`
+   - `i >= k-1`. `result[1] = nums[deque.peekFirst()] = nums[1] = 3`.
+   `result: [3, 3]`
+
+5. `i = 4, nums[4] = 5`:
+   - `deque.peekFirst() (1)` is `1 <= 4-3=1` (true). Pop 1. `deque: [2, 3]`
+   - `nums[deque.peekLast()] (nums[3]=-3) <= nums[4] (5)`. Pop 3. `deque: [2]`
+   - `nums[deque.peekLast()] (nums[2]=-1) <= nums[4] (5)`. Pop 2. `deque: []`
+   - Add 4. `deque: [4]`
+   - `i >= k-1`. `result[2] = nums[deque.peekFirst()] = nums[4] = 5`.
+   `result: [3, 3, 5]`
+
+6. `i = 5, nums[5] = 3`:
+   - `deque.peekFirst() (4)` is `4 <= 5-3=2` (false). Not out of window.
+   - `nums[deque.peekLast()] (nums[4]=5) <= nums[5] (3)` (false). Don't pop.
+   - Add 5. `deque: [4, 5]`
+   - `i >= k-1`. `result[3] = nums[deque.peekFirst()] = nums[4] = 5`.
+   `result: [3, 3, 5, 5]`
+
+7. `i = 6, nums[6] = 6`:
+   - `deque.peekFirst() (4)` is `4 <= 6-3=3` (false). Not out of window.
+   - `nums[deque.peekLast()] (nums[5]=3) <= nums[6] (6)`. Pop 5. `deque: [4]`
+   - `nums[deque.peekLast()] (nums[4]=5) <= nums[6] (6)`. Pop 4. `deque: []`
+   - Add 6. `deque: [6]`
+   - `i >= k-1`. `result[4] = nums[deque.peekFirst()] = nums[6] = 6`.
+   `result: [3, 3, 5, 5, 6]`
+
+8. `i = 7, nums[7] = 7`:
+   - `deque.peekFirst() (6)` is `6 <= 7-3=4` (false). Not out of window.
+   - `nums[deque.peekLast()] (nums[6]=6) <= nums[7] (7)`. Pop 6. `deque: []`
+   - Add 7. `deque: [7]`
+   - `i >= k-1`. `result[5] = nums[deque.peekFirst()] = nums[7] = 7`.
+   `result: [3, 3, 5, 5, 6, 7]`
+
+End of array. Final `result: [3,3,5,5,6,7]`.
+
+---
+```
