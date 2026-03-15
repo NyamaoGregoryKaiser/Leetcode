@@ -1,0 +1,25 @@
+```
+# CMake generated files
+/build/
+/bin/
+/lib/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+
+# Editor/IDE specific files
+.vscode/
+.idea/
+*.swp
+*.bak
+*~
+
+# Object files
+*.o
+*.obj
+
+# Executables
+*.exe
+```
