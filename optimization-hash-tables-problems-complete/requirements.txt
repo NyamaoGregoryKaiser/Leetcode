@@ -1,0 +1,5 @@
+# No specific external dependencies are required for this project,
+# as it primarily uses Python's built-in data structures (dict, set)
+# and the unittest module for testing.
+# For more advanced benchmarking, one might consider `pytest` or `numpy`,
+# but they are not strictly necessary for this foundational project.

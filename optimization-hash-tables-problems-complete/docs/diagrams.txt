@@ -1,0 +1,131 @@
+# ASCII Art Diagrams for Hash Table Concepts and LFU Cache
+
+## 1. Conceptual Hash Table with Chaining
+
+```
++-----------------------------------+
+| Hash Table Array (Buckets)        |
++-----------------------------------+
+| Index 0:  [ (Key1, Val1) ] ---------> NULL
+|            (hash(Key1)%N = 0)
++-----------------------------------+
+| Index 1:  [ (Key2, Val2) ] ---------> [ (Key5, Val5) ] ---------> NULL
+|            (hash(Key2)%N = 1)        (hash(Key5)%N = 1, collision)
++-----------------------------------+
+| Index 2:  [ (Key3, Val3) ] ---------> NULL
+|            (hash(Key3)%N = 2)
++-----------------------------------+
+| ...                               |
++-----------------------------------+
+| Index N-1: [ (Key4, Val4) ] ---------> [ (Key6, Val6) ] ---------> [ (Key7, Val7) ] ---------> NULL
+|             (hash(Key4)%N = N-1)     (hash(Key6)%N = N-1)          (hash(Key7)%N = N-1)
++-----------------------------------+
+```
+
+## 2. LFU Cache Structure
+
+```
+// LFU Cache (Capacity = 3) State Example
+
+// 1. key_to_node: Maps a key to its node object.
+//    Node objects contain key, value, and current frequency (freq).
+//    Nodes are also part of DoublyLinkedLists.
+
+// 2. freq_to_dll: Maps a frequency number to a DoublyLinkedList (DLL).
+//    Each DLL holds nodes that currently have that frequency, ordered by MRU (head) to LRU (tail).
+
+// 3. min_freq: The minimum frequency observed across all nodes in the cache.
+
+
+// Initial State: Cache Empty
+// min_freq = 0
+// key_to_node = {}
+// freq_to_dll = {}
+
+// After put(1, A), put(2, B), put(3, C)
+// All nodes initially have freq 1.
+// min_freq = 1
+
+// key_to_node:
+//   1 -> Node(1, A, freq=1)
+//   2 -> Node(2, B, freq=1)
+//   3 -> Node(3, C, freq=1)
+
+// freq_to_dll:
+//   1: Head <-> Node(3, C, freq=1) <-> Node(2, B, freq=1) <-> Node(1, A, freq=1) <-> Tail
+//      (Nodes with frequency 1. Node(3,C) is MRU, Node(1,A) is LRU for freq 1.)
+
+
+// After get(1)
+// Node(1,A) frequency increases from 1 to 2.
+// Node(1,A) moves from freq 1 DLL to freq 2 DLL.
+// min_freq remains 1 (because Node(2,B) and Node(3,C) still have freq 1).
+
+// key_to_node:
+//   1 -> Node(1, A, freq=2)
+//   2 -> Node(2, B, freq=1)
+//   3 -> Node(3, C, freq=1)
+
+// freq_to_dll:
+//   1: Head <-> Node(3, C, freq=1) <-> Node(2, B, freq=1) <-> Tail
+//      (Node(3,C) is MRU, Node(2,B) is LRU for freq 1)
+//   2: Head <-> Node(1, A, freq=2) <-> Tail
+//      (Node(1,A) is MRU for freq 2)
+
+
+// After get(2)
+// Node(2,B) frequency increases from 1 to 2.
+// Node(2,B) moves from freq 1 DLL to freq 2 DLL.
+// min_freq remains 1 (because Node(3,C) still has freq 1).
+
+// key_to_node:
+//   1 -> Node(1, A, freq=2)
+//   2 -> Node(2, B, freq=2)
+//   3 -> Node(3, C, freq=1)
+
+// freq_to_dll:
+//   1: Head <-> Node(3, C, freq=1) <-> Tail
+//      (Node(3,C) is MRU for freq 1)
+//   2: Head <-> Node(2, B, freq=2) <-> Node(1, A, freq=2) <-> Tail
+//      (Node(2,B) is MRU, Node(1,A) is LRU for freq 2)
+
+
+// After get(3)
+// Node(3,C) frequency increases from 1 to 2.
+// Node(3,C) moves from freq 1 DLL to freq 2 DLL.
+// Now, the DLL for freq 1 becomes empty.
+// Since min_freq was 1 and its DLL is empty, min_freq updates to 2.
+
+// key_to_node:
+//   1 -> Node(1, A, freq=2)
+//   2 -> Node(2, B, freq=2)
+//   3 -> Node(3, C, freq=2)
+
+// freq_to_dll:
+//   1: Head <-> Tail (EMPTY)
+//   2: Head <-> Node(3, C, freq=2) <-> Node(2, B, freq=2) <-> Node(1, A, freq=2) <-> Tail
+//      (Node(3,C) is MRU, Node(1,A) is LRU for freq 2)
+
+// min_freq = 2
+
+
+// After put(4, D) (Cache is full, Capacity = 3)
+// Eviction needed. min_freq is 2.
+// The DLL for freq 2: Head <-> Node(3, C, 2) <-> Node(2, B, 2) <-> Node(1, A, 2) <-> Tail
+// LRU for freq 2 is Node(1,A). So Node(1,A) is evicted.
+// New Node(4,D) is added with freq 1.
+// min_freq updates to 1.
+
+// key_to_node:
+//   2 -> Node(2, B, freq=2)
+//   3 -> Node(3, C, freq=2)
+//   4 -> Node(4, D, freq=1)
+
+// freq_to_dll:
+//   1: Head <-> Node(4, D, freq=1) <-> Tail
+//   2: Head <-> Node(3, C, freq=2) <-> Node(2, B, freq=2) <-> Tail
+
+// min_freq = 1
+```
+
+---
