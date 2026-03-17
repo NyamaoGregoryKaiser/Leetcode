@@ -1,0 +1,24 @@
+```json
+{
+  "name": "graph-algorithms-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Graph Algorithms.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node runTests.js",
+    "benchmark": "node benchmarks/benchmarkRunner.js"
+  },
+  "keywords": [
+    "graph-algorithms",
+    "javascript",
+    "interview-prep",
+    "dijkstra",
+    "bfs",
+    "dfs",
+    "topological-sort",
+    "cycle-detection"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT"
+}
+```
