@@ -1,29 +1,16 @@
-heap-operations-project/
-├── pom.xml
+heap_operations_project/
 ├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── codinginterview/
-│   │   │           └── heapoperations/
-│   │   │               ├── benchmarks/
-│   │   │               │   └── HeapBenchmarks.java
-│   │   │               ├── problems/
-│   │   │               │   ├── KthLargestElement.java
-│   │   │               │   ├── MergeKSortedLists.java
-│   │   │               │   └── TopKFrequentElements.java
-│   │   │               └── utils/
-│   │   │                   ├── CustomMinHeap.java  // Custom implementation of Min-Heap
-│   │   │                   └── ListNode.java       // Helper for MergeKSortedLists
-│   └── test/
-│       └── java/
-│           └── com/
-│               └── codinginterview/
-│                   └── heapoperations/
-│                       ├── KthLargestElementTest.java
-│                       ├── MergeKSortedListsTest.java
-│                       └── TopKFrequentElementsTest.java
+│   ├── main_heap_algo.cpp
+│   ├── min_heap.h
+│   └── max_heap.h
+├── tests/
+│   └── test_heap_problems.cpp
 ├── docs/
-│   ├── AlgorithmsExplanation.md
-│   ├── InterviewTips.md
-│   └── README.md              (This file)
+│   ├── README.md
+│   └── algorithm_explanation.md
+├── benchmarking/
+│   └── benchmark_heap_problems.cpp
+└── extra_implementations/
+    ├── kth_smallest_brute_force.cpp
+    ├── median_finder_naive.cpp
+    └── functional_min_heap.cpp
