@@ -1,0 +1,26 @@
+{
+  "name": "binary-search-interview-prep",
+  "version": "1.0.0",
+  "description": "A comprehensive project for mastering Binary Search for coding interviews.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/runAllTests.js",
+    "benchmark": "node test/performance/benchmark.js",
+    "lint": "eslint src/ test/",
+    "lint:fix": "eslint src/ test/ --fix"
+  },
+  "keywords": [
+    "binary-search",
+    "algorithm",
+    "interview-prep",
+    "javascript"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "prettier": "^3.2.5"
+  }
+}
