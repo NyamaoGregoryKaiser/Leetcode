@@ -1,0 +1,36 @@
+```
+# Maven
+target/
+pom.xml.tag
+pom.xml.next
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.stacktrace
+
+# Java
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# For IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Log Files
+*.log
+
+# History Files
+.history
+
+# JMH output
+jmh-result.json
+jmh-result.txt
+```
