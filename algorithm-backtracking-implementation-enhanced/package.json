@@ -1,0 +1,24 @@
+```json
+{
+  "name": "backtracking-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive project for learning and practicing Backtracking algorithms.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node tests/testRunner.js",
+    "benchmark": "node benchmarks/benchmarkRunner.js",
+    "lint": "echo 'No linting configured, add eslint for production project.'"
+  },
+  "keywords": [
+    "backtracking",
+    "algorithm",
+    "interview",
+    "javascript",
+    "data-structures",
+    "leetcode"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
+```
