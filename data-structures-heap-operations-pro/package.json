@@ -1,0 +1,32 @@
+```json
+{
+  "name": "heap-operations-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Heap operations.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "benchmark:kth-largest": "npm run build && node dist/benchmarks/kth-largest-benchmark.js",
+    "benchmark:top-k-frequent": "npm run build && node dist/benchmarks/top-k-frequent-benchmark.js",
+    "start": "npm run build && node dist/src/main.js"
+  },
+  "keywords": [
+    "heap",
+    "data-structure",
+    "algorithm",
+    "typescript",
+    "coding-interview"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.9",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.5",
+    "typescript": "^5.5.3"
+  }
+}
+```
