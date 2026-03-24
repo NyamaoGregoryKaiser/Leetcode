@@ -1,0 +1,3 @@
+# No external dependencies needed for this project.
+# Standard library modules (heapq, collections, time, random) are used.
+# If using pytest instead of unittest, it would be 'pytest'.
