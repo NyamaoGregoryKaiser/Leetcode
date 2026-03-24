@@ -1,0 +1,23 @@
+{
+  "name": "dp-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive project for Dynamic Programming interview preparation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --detectOpenHandles --forceExit",
+    "benchmark": "node scripts/benchmark.js"
+  },
+  "keywords": [
+    "dynamic-programming",
+    "dp",
+    "interview-prep",
+    "javascript",
+    "algorithms",
+    "data-structures"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
