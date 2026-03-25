@@ -1,0 +1,101 @@
+### === docs/InterviewTips.md ===
+```markdown
+# Interview Tips and Problem Variations for Array Manipulation
+
+This document offers general advice for tackling array manipulation problems in coding interviews, along with potential variations and follow-up questions for the problems covered in this project.
+
+---
+
+## General Interview Advice for Array Problems:
+
+1.  **Clarify the Problem:**
+    *   **Input Constraints:** Ask about `N` (array size), value range (`int`, `long`), `k` (for rotation/window size), positive/negative numbers, duplicates allowed?
+    *   **Output:** What should be returned for edge cases (empty array, null)? Should it be a new array or modified in-place?
+    *   **Time/Space Constraints:** Are there explicit requirements (e.g., O(N) time, O(1) space)?
+2.  **Think Out Loud:**
+    *   Verbalize your thought process. Start with brute-force ideas, then optimize.
+    *   Explain why a certain approach is inefficient (e.g., "O(N^2) would be too slow for N=10^5").
+    *   Don't be afraid to draw diagrams or trace examples.
+3.  **Brainstorm Approaches:**
+    *   **Brute Force:** Always a good starting point to understand the problem, then optimize.
+    *   **Two Pointers:** Common for in-place modifications, sorting-related problems, finding pairs/triplets.
+    *   **Sliding Window:** For sub-array problems where you need to maintain a "window" of a certain size.
+    *   **Prefix Sums/Products:** For range query problems or when accumulating values.
+    *   **Sorting:** Often a prerequisite for problems involving order (e.g., merge intervals, two sum).
+    *   **Binary Search:** When the array is sorted (or partially sorted/rotated), think `log N`.
+    *   **Hash Maps/Sets:** For quick lookups or tracking seen elements.
+4.  **Write Clean Code:**
+    *   Meaningful variable names.
+    *   Clear logic, detailed comments for complex parts.
+    *   Handle edge cases gracefully.
+5.  **Test Thoroughly:**
+    *   Walk through your code with small examples.
+    *   Test edge cases (empty, single element, duplicates, min/max values).
+    *   Consider worst-case scenarios for performance.
+6.  **Analyze Complexity:**
+    *   Always state the time and space complexity of your final solution. Justify it.
+    *   Discuss trade-offs if multiple solutions exist (e.g., space vs. time).
+
+---
+
+## Problem-Specific Interview Tips & Variations:
+
+### 1. Rotate Array
+
+**Tips:**
+*   Emphasize the `k = k % N` normalization.
+*   The reversal technique is usually the expected optimal solution for in-place rotation. If you start with extra space, be ready to optimize.
+
+**Variations:**
+*   **Rotate Left by `k`:** Can be done with reversals (`reverse(0, k-1)`, `reverse(k, N-1)`, then `reverse(0, N-1)`) or by adjusting the modulo arithmetic.
+*   **Rotate a specific sub-array:** Instead of the whole array, rotate elements within `nums[start...end]`.
+*   **Min/Max `k` steps to make array sorted:** This would involve checking the array after each rotation or finding the "break point" in `O(log N)` time if the array was originally sorted.
+*   **Rotate without extra space AND without reversals:** The "Juggling Algorithm" (cyclic replacement) is another O(N) time, O(1) space solution. It's more complex to implement but worth mentioning if you know it.
+    *   *Follow-up question:* "What if `k` is very large, say `10^9`?" -> Reiterate `k % N`.
+
+### 2. Product of Array Except Self
+
+**Tips:**
+*   **Crucial:** Do NOT use division. This is the primary constraint.
+*   Break down the problem into "product of lefts" and "product of rights".
+*   Show how to optimize the space from O(N) to O(1) by reusing the output array.
+
+**Variations:**
+*   **Allow Division:** If division *is* allowed, the problem becomes trivial: calculate total product, then `answer[i] = totalProduct / nums[i]`. But watch out for zeros: if `nums[i]` is zero, its product is `totalProductExceptZero`, if there are multiple zeros, everything is zero.
+*   **Sum of Array Except Self:** Calculate total sum, then `answer[i] = totalSum - nums[i]`.
+*   **Product of Array Except `nums[i]` and `nums[j]`:** Requires a more complex prefix/suffix table or iterating over combinations, could involve `O(N^2)` for simple approach.
+*   **What if results can overflow `int`?** Mention `long` data type for the `answer` array and intermediate products.
+*   **What if negative numbers are present?** Explain that the logic handles it naturally.
+
+### 3. Merge Intervals
+
+**Tips:**
+*   The first thing to mention is **sorting**. Without it, the problem is much harder.
+*   Clearly define the overlap condition: `current.start <= lastMerged.end`.
+*   Explain why `Math.max` is used for the end point.
+
+**Variations:**
+*   **Insert a new interval:** Given a sorted list of non-overlapping intervals, insert a new interval and merge it. This can be done in O(N) by finding its insertion point and merging outwards.
+*   **Remove overlapping intervals:** Instead of merging, remove intervals that overlap with a given target interval.
+*   **Count non-overlapping intervals:** How many intervals can you pick such that no two overlap? This is a classic greedy problem, often solved by sorting by end time and picking the first non-overlapping interval.
+*   **Find intersection of intervals:** Given two lists of intervals, find their common intersections.
+*   **Intervals with a specific property:** E.g., merge intervals where `start` and `end` are dates/times, not just integers. The logic remains the same.
+*   **What if intervals are `[start, end)` (exclusive end)?** Adjust overlap condition slightly (`current.start < lastMerged.end`).
+
+### 4. Find Minimum in Rotated Sorted Array
+
+**Tips:**
+*   This is a classic binary search problem. Highlight the properties of a rotated sorted array: one half is always sorted.
+*   Emphasize how the comparison `nums[mid]` vs. `nums[right]` guides the search.
+*   Stress the importance of the `nums[left] <= nums[right]` check for a non-rotated array.
+
+**Variations:**
+*   **Allow Duplicates:** This is a tougher variation. If `nums[mid] == nums[right] == nums[left]`, you can't determine which side contains the minimum. The common strategy is to shrink the search space by `right--` (or `left++`) until `nums[mid] != nums[right]` or `nums[mid] != nums[left]`. In the worst case (e.g., `[1,1,1,1,0,1,1]`), this can degrade to O(N) time.
+*   **Find a Target Element:** Given a target, find if it exists in the rotated sorted array. This is another binary search variant where you check if `target` is in the sorted half.
+*   **Find Maximum Element:** Similar logic to finding minimum; the maximum is just before the pivot (or the last element if not rotated).
+*   **Count Rotations:** The index of the minimum element is the number of rotations.
+*   **Find first/last occurrence of an element in a rotated sorted array (with duplicates).**
+*   **What if array is very small (2-3 elements)?** Walk through the binary search logic to show it still works.
+
+---
+```
