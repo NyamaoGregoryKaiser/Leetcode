@@ -1,0 +1,35 @@
+```json
+{
+  "name": "tree-traversals-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Tree Traversals.",
+  "main": "dist/src/algorithms/treeTraversals.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "benchmark": "npm run build && node dist/src/utils/benchmarking.js"
+  },
+  "keywords": [
+    "tree",
+    "traversal",
+    "dfs",
+    "bfs",
+    "inorder",
+    "preorder",
+    "postorder",
+    "level-order",
+    "algorithm",
+    "interview",
+    "typescript"
+  ],
+  "author": "Your Name/Organization",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.9",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.5",
+    "typescript": "^5.5.3"
+  }
+}
+```
