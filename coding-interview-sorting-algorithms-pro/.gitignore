@@ -1,0 +1,25 @@
+```
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+releaseArguments.properties
+# Project specific
+*.iml
+.idea/
+.DS_Store
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+# Log files
+*.log
+# OS generated files
+.classpath
+.project
+.settings/
+```
