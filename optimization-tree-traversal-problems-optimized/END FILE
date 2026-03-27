@@ -1,0 +1,22 @@
+```
+To setup and run this project:
+
+1.  **Save the files:** Create a directory `tree_traversals_project`. Inside it, create the `src`, `benchmarking`, and `docs` subdirectories as described in the structure. Place each file in its correct path.
+2.  **`pom.xml`**: Place this file directly in the `tree_traversals_project` directory.
+3.  **Build the project**: Open your terminal or command prompt, navigate to the `tree_traversals_project` directory, and run:
+    ```bash
+    mvn clean install
+    ```
+    This will compile all code and run tests.
+4.  **Run tests only**:
+    ```bash
+    mvn test
+    ```
+5.  **Run benchmarks**:
+    ```bash
+    mvn exec:java@run-benchmark
+    ```
+    This command will execute the `PerformanceBenchmark.java` file, which compares the execution times of different traversal methods.
+6.  **Explore documentation**: Open the `.md` files in the `docs` directory in a markdown viewer for detailed explanations and diagrams.
+
+This setup ensures a complete, runnable, and well-documented project covering a wide range of tree traversal concepts.
