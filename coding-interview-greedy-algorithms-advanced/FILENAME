@@ -1,0 +1,153 @@
+import argparse
+import collections
+import sys
+import os
+
+# Add the project root to the Python path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+# Import all algorithms for demonstration and benchmarking
+from algorithms.activity_selection import max_activities, Activity
+from algorithms.fractional_knapsack import fractional_knapsack, Item
+from algorithms.coin_change_greedy import greedy_coin_change
+from algorithms.job_sequencing import job_sequencing, Job
+from algorithms.huffman_coding import build_huffman_tree, build_huffman_codes, huffman_encode, huffman_decode
+
+# Import comparison solutions
+from solutions_comparison.brute_force_knapsack import brute_force_01_knapsack
+from solutions_comparison.dp_coin_change import dp_min_coin_change
+
+# Import benchmarking utility
+from utils.performance_benchmarking import run_all_benchmarks
+
+
+def run_examples():
+    """
+    Runs example demonstrations for all implemented greedy algorithms
+    and comparison solutions.
+    """
+    print("--- Running Greedy Algorithm Examples ---")
+    print("\n" + "="*50)
+    print("1. Activity Selection Problem")
+    print("="*50)
+    activities1 = [
+        Activity(id=1, start=1, finish=4),
+        Activity(id=2, start=3, finish=5),
+        Activity(id=3, start=0, finish=6),
+        Activity(id=4, start=5, finish=7),
+        Activity(id=5, start=3, finish=9),
+        Activity(id=6, start=5, finish=9),
+        Activity(id=7, start=6, finish=10),
+        Activity(id=8, start=8, finish=11),
+        Activity(id=9, start=8, finish=12),
+        Activity(id=10, start=2, finish=14),
+        Activity(id=11, start=12, finish=16)
+    ]
+    selected_activities = max_activities(activities1)
+    print(f"Original Activities: {activities1}")
+    print(f"Selected Activities (Max Non-overlapping): {selected_activities}")
+
+    print("\n" + "="*50)
+    print("2. Fractional Knapsack Problem")
+    print("="*50)
+    items_fk = [
+        Item(id=1, weight=10, value=60),
+        Item(id=2, weight=20, value=100),
+        Item(id=3, weight=30, value=120)
+    ]
+    capacity_fk = 50
+    total_value_fk, items_taken_fk = fractional_knapsack(capacity_fk, items_fk)
+    print(f"Items: {items_fk}, Capacity: {capacity_fk}")
+    print(f"Max Value (Fractional Knapsack): {total_value_fk}")
+    print(f"Items Taken (ID, Fraction): {items_taken_fk}")
+
+    print("\n" + "="*50)
+    print("3. Coin Change Problem (Greedy vs. DP)")
+    print("="*50)
+    canonical_coins = [1, 5, 10, 25]
+    amount_canonical = 63
+    greedy_change_canonical = greedy_coin_change(canonical_coins, amount_canonical)
+    dp_change_canonical = dp_min_coin_change(canonical_coins, amount_canonical)
+    print(f"Coins: {canonical_coins}, Amount: {amount_canonical}")
+    print(f"  Greedy Result: {greedy_change_canonical} (Count: {len(greedy_change_canonical)})")
+    print(f"  DP Result (Optimal): {dp_change_canonical} (Count: {len(dp_change_canonical)})")
+
+    non_canonical_coins = [1, 3, 4]
+    amount_non_canonical = 6
+    greedy_change_non_canonical = greedy_coin_change(non_canonical_coins, amount_non_canonical)
+    dp_change_non_canonical = dp_min_coin_change(non_canonical_coins, amount_non_canonical)
+    print(f"\nCoins: {non_canonical_coins}, Amount: {amount_non_canonical} (Non-canonical system)")
+    print(f"  Greedy Result: {greedy_change_non_canonical} (Count: {len(greedy_change_non_canonical)})")
+    print(f"  DP Result (Optimal): {dp_change_non_canonical} (Count: {len(dp_change_non_canonical)})")
+    print("  Note: Greedy fails for non-canonical systems like this (3 coins vs 2 coins optimal).")
+
+    print("\n" + "="*50)
+    print("4. Job Sequencing with Deadlines")
+    print("="*50)
+    jobs_js = [
+        Job('j1', 2, 100),
+        Job('j2', 1, 19),
+        Job('j3', 2, 27),
+        Job('j4', 1, 25),
+        Job('j5', 3, 15)
+    ]
+    max_profit_js, scheduled_jobs_js = job_sequencing(jobs_js)
+    print(f"Jobs: {jobs_js}")
+    print(f"Max Profit (Job Sequencing): {max_profit_js}")
+    print(f"Scheduled Job Sequence: {scheduled_jobs_js}")
+
+    print("\n" + "="*50)
+    print("5. Huffman Coding")
+    print("="*50)
+    text_huffman = "this is a test text for huffman coding"
+    print(f"Original Text: '{text_huffman}'")
+
+    huffman_tree = build_huffman_tree(text_huffman)
+    huffman_codes = build_huffman_codes(huffman_tree)
+    encoded_text = huffman_encode(text_huffman, huffman_codes)
+    decoded_text = huffman_decode(encoded_text, huffman_tree)
+
+    print(f"Huffman Codes: {huffman_codes}")
+    print(f"Encoded Text: {encoded_text}")
+    print(f"Decoded Text: '{decoded_text}'")
+    print(f"Original bits (ASCII 8-bit): {len(text_huffman)*8}")
+    print(f"Encoded bits: {len(encoded_text)}")
+    print(f"Decoding successful: {decoded_text == text_huffman}")
+
+    print("\n" + "="*50)
+    print("6. 0/1 Knapsack Problem (Brute Force)")
+    print("="*50)
+    items_01_knapsack = [
+        Item(id=1, weight=10, value=60),
+        Item(id=2, weight=20, value=100),
+        Item(id=3, weight=30, value=120)
+    ]
+    capacity_01_knapsack = 50
+    # Expected: (220, [2, 3])
+    value_01_knapsack, taken_01_knapsack = brute_force_01_knapsack(capacity_01_knapsack, items_01_knapsack)
+    print(f"Items: {items_01_knapsack}, Capacity: {capacity_01_knapsack}")
+    print(f"Max Value (Brute Force 0/1 Knapsack): {value_01_knapsack}")
+    print(f"Items Taken: {taken_01_knapsack}")
+    print("  Note: For 0/1 knapsack, a simple greedy approach fails. DP or brute-force is needed.")
+    print("\n--- All Examples Complete ---")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Greedy Algorithms Project Driver Script")
+    parser.add_argument(
+        "--benchmark",
+        action="store_true",
+        help="Run performance benchmarks for all algorithms."
+    )
+    parser.add_argument(
+        "--scale",
+        type=int,
+        default=1,
+        help="Scaling factor for benchmark input sizes (e.g., 2 for double size). Default is 1."
+    )
+    args = parser.parse_args()
+
+    if args.benchmark:
+        run_all_benchmarks(args.scale)
+    else:
+        run_examples()
