@@ -1,0 +1,31 @@
+```
+# Maven
+target/
+pom.xml.tag
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+.repository/
+.flattened-pom.xml
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# OS
+.DS_Store
+*.log
+*.txt (except docs/*.txt)
+
+# Binaries
+*.class
+*.jar
+*.war
+```
