@@ -1,0 +1,26 @@
+```json
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "lib": ["es2018", "dom"],
+    "outDir": "./dist",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "declaration": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "perf/**/*.ts",
+    "implementations/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+```
