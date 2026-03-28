@@ -1,0 +1,30 @@
+```
+Merge Sort Diagram (High-Level)
+---------------------------------
+
+Illustrates the 'Divide and Conquer' approach.
+
+**Phase 1: Divide (Recursively split array in half)**
+
+Original Array: [38, 27, 43, 3, 9, 82, 10]
+              /                       \
+        [38, 27, 43, 3]           [9, 82, 10]
+          /         \               /       \
+    [38, 27]     [43, 3]        [9, 82]    [10]
+      /   \       /   \         /   \
+   [38]   [27]   [43]   [3]    [9]   [82]   [10]
+
+(Base case: Single-element arrays are considered sorted)
+
+**Phase 2: Conquer (Merge sorted sub-arrays)**
+
+(From bottom-up)
+
+   [38]   [27]   [43]   [3]    [9]   [82]   [10]
+      \   /          \   /         \   /      |
+       [27, 38]     [3, 43]       [9, 82]    [10]
+          \         /               \       /
+        [3, 27, 38, 43]         [9, 10, 82]
+              \                   /
+             [3, 9, 10, 27, 38, 43, 82]
+```

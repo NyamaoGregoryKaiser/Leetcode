@@ -1,0 +1,52 @@
+```
+Quick Sort Diagram (Partitioning Example)
+-----------------------------------------
+
+Illustrates a single 'Partition' step with the last element as pivot.
+
+Original Array: [10, 80, 30, 90, 40, 50, 70]
+Indices:         0   1   2   3   4   5   6
+Pivot chosen: arr[high] = arr[6] = 70
+
+Initial state:
+low = 0, high = 6
+pivot = 70
+i = -1 (index of smaller element)
+
+Iteration 1: j = 0, arr[0] = 10 (10 <= 70)
+  i becomes 0. swap(arr[0], arr[0]) (no change)
+  Array: [10, 80, 30, 90, 40, 50, 70]
+
+Iteration 2: j = 1, arr[1] = 80 (80 > 70)
+  (no swap, i remains 0)
+  Array: [10, 80, 30, 90, 40, 50, 70]
+
+Iteration 3: j = 2, arr[2] = 30 (30 <= 70)
+  i becomes 1. swap(arr[1], arr[2])
+  Array: [10, 30, 80, 90, 40, 50, 70]
+
+Iteration 4: j = 3, arr[3] = 90 (90 > 70)
+  (no swap, i remains 1)
+  Array: [10, 30, 80, 90, 40, 50, 70]
+
+Iteration 5: j = 4, arr[4] = 40 (40 <= 70)
+  i becomes 2. swap(arr[2], arr[4])
+  Array: [10, 30, 40, 90, 80, 50, 70]
+
+Iteration 6: j = 5, arr[5] = 50 (50 <= 70)
+  i becomes 3. swap(arr[3], arr[5])
+  Array: [10, 30, 40, 50, 80, 90, 70]
+
+(Loop ends as j reaches high-1)
+
+Final swap: swap(arr[i+1], arr[high])  => swap(arr[4], arr[6]) (pivot)
+  Array: [10, 30, 40, 50, 70, 90, 80]
+Partition Index (pi) = i + 1 = 4
+
+Result after one partition:
+  [Elements < Pivot]   [Pivot]   [Elements > Pivot]
+  [10, 30, 40, 50]       [70]      [90, 80]
+
+The pivot (70) is now in its final sorted position.
+Recursively sort the left sub-array [10, 30, 40, 50] and the right sub-array [90, 80].
+```

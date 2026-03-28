@@ -1,28 +1,49 @@
-# Sorting Algorithms Project
-
-This project explores different sorting algorithms and their applications through several problems.  Each problem demonstrates various approaches and optimization techniques.
-
-**Problems:**
-
-1. **Array Sorting:** Sort a given array of integers in ascending order using different algorithms (Merge Sort, Quick Sort, Heap Sort).
-2. **Kth Smallest Element:** Find the kth smallest element in an unsorted array.
-3. **Sort a Linked List:** Implement sorting for a singly linked list.
-4. **Sort an array of strings lexicographically:** Sort an array of strings based on alphabetical order.
-5. **Largest and smallest elements:** Find the largest and smallest elements in an array using efficient sorting principles.
-
-
-**Algorithms Implemented:**
-
-* Merge Sort
-* Quick Sort
-* Heap Sort
-* Bubble Sort (for comparison purposes - less efficient)
-
-
-**Project Structure:**
-
-* `sorting_algorithms.py`: Contains the core algorithm implementations.
-* `test_sorting.py`: Unit tests for the algorithms.
-* `utils.py`: Helper functions and data structures.
-* `benchmark.py`: Performance benchmarking code.
-* `documentation.md`: Detailed algorithm explanations, diagrams, and edge cases.
+sorting-algorithms-project/
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       └── com/
+│   │           └── example/
+│   │               └── sorting/
+│   │                   ├── algorithms/
+│   │                   │   ├── AbstractSorter.java         // Base for all sorters
+│   │                   │   ├── BubbleSort.java
+│   │                   │   ├── SelectionSort.java
+│   │                   │   ├── InsertionSort.java
+│   │                   │   ├── MergeSort.java
+│   │                   │   ├── QuickSort.java
+│   │                   │   ├── HeapSort.java
+│   │                   │   ├── CountingSort.java
+│   │                   │   └── RadixSort.java
+│   │                   ├── problems/
+│   │                   │   ├── P1_KthLargestElement.java   // Problem 1
+│   │                   │   ├── P2_MergeIntervals.java      // Problem 2
+│   │                   │   ├── P3_DutchNationalFlag.java   // Problem 3
+│   │                   │   ├── P4_SortByFrequency.java     // Problem 4
+│   │                   │   └── P5_FindMissingPositive.java // Problem 5
+│   │                   └── utils/
+│   │                       ├── ArrayGenerator.java
+│   │                       └── Interval.java               // Helper for P2
+│   ├── test/
+│   │   └── java/
+│   │       └── com/
+│   │           └── example/
+│   │               └── sorting/
+│   │                   ├── algorithms/
+│   │                   │   └── SortAlgorithmTest.java
+│   │                   │   └── PerformanceBenchmark.java
+│   │                   └── problems/
+│   │                       ├── P1_KthLargestElementTest.java
+│   │                       ├── P2_MergeIntervalsTest.java
+│   │                       ├── P3_DutchNationalFlagTest.java
+│   │                       ├── P4_SortByFrequencyTest.java
+│   │                       └── P5_FindMissingPositiveTest.java
+├── docs/
+│   ├── README.md                           // Project overview, problem descriptions
+│   ├── SortingAlgorithmsExplained.md       // Detailed algorithm explanations
+│   ├── InterviewTipsAndVariations.md       // Interview strategies
+│   └── diagrams/
+│       ├── merge_sort_diagram.txt
+│       ├── quick_sort_diagram.txt
+│       └── heap_sort_diagram.txt
+└── pom.xml                                 // Maven project file
