@@ -1,0 +1,27 @@
+```json
+{
+  "name": "heap-operations-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Heap Operations.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "keywords": [
+    "heap",
+    "min-heap",
+    "max-heap",
+    "priority-queue",
+    "algorithms",
+    "data-structures",
+    "coding-interview",
+    "javascript"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
+```
