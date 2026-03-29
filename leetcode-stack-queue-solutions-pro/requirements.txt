@@ -1,0 +1,4 @@
+# No specific external dependencies needed for this project
+# Basic Python libraries are sufficient.
+# If you use pytest, uncomment the following line:
+# pytest
