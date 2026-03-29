@@ -1,0 +1,4 @@
+pytest
+# If using `unittest` only, `pytest` is not strictly necessary for running tests,
+# but it's a popular testing framework and often used in projects.
+# For benchmarking: no specific external libraries needed beyond standard `timeit`.
