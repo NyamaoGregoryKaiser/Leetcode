@@ -1,0 +1,1 @@
+npx jest tests/performance.test.ts
