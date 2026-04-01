@@ -1,139 +1,86 @@
-```markdown
-# Comprehensive Tree Traversals Project
+# Tree Traversals Project
 
-This project provides a comprehensive resource for understanding and implementing various binary tree traversal algorithms, specifically tailored for coding interview preparation. It includes multiple problem statements, diverse solutions (recursive vs. iterative, DFS vs. BFS), detailed explanations, extensive test cases, and performance benchmarking.
+This project serves as a comprehensive guide and implementation set for various tree traversal algorithms, specifically designed for coding interview preparation. It includes multiple problems, different solution approaches (recursive and iterative), detailed complexity analysis, extensive unit tests, performance benchmarks, and thorough documentation.
 
 ## Project Structure
 
-```
-tree-traversals-project/
-├── src/
-│   └── main/
-│       └── java/
-│           └── com/
-│               └── example/
-│                   └── treetraversals/
-│                       ├── models/
-│                       │   └── TreeNode.java                       # Helper: Node structure for binary trees
-│                       ├── utils/
-│                       │   └── TreeUtils.java                      # Helper: Utilities for tree creation/serialization
-│                       ├── BasicTraversals.java                    # Problem 1: Inorder, Preorder, Postorder (Recursive & Iterative)
-│                       ├── LevelOrderProblems.java                 # Problem 2: Level Order and Zigzag Level Order Traversals
-│                       └── BinaryTreeProperties.java               # Problem 3: Maximum Depth of Binary Tree (DFS & BFS)
-├── src/
-│   └── test/
-│       └── java/
-│           └── com/
-│               └── example/
-│                   └── treetraversals/
-│                       ├── BasicTraversalsTest.java
-│                       ├── LevelOrderProblemsTest.java
-│                       └── BinaryTreePropertiesTest.java
-├── docs/
-│   ├── AlgorithmExplanation.md                                     # In-depth explanation of algorithms
-│   ├── InterviewTips.md                                            # Tips for tree traversal interviews
-│   └── VisualDiagrams.md                                           # ASCII art diagrams for visualization
-├── benchmarking/
-│   └── TreeTraversalBenchmarking.java                              # Performance comparison of different approaches
-└── README.md                                                       # This file
-```
+*   `README.md`: This file, providing an overview of the project, problem descriptions, and execution instructions.
+*   `documentation.md`: Contains detailed explanations of algorithms, ASCII diagrams, edge cases, and interview tips.
+*   `src/`:
+    *   `tree_node.py`: Defines the `TreeNode` class and helper functions to construct binary trees from array representations.
+    *   `basic_traversals.py`: Implementations for Inorder, Preorder, and Postorder traversals (both recursive and iterative).
+    *   `level_order_traversals.py`: Implementations for Level Order (BFS) and Zigzag Level Order traversals.
+    *   `bst_traversals.py`: Implementations for validating a Binary Search Tree (BST) and finding the Kth smallest element in a BST.
+*   `tests/`: Contains `unittest` based test files for each problem category, ensuring correctness across various tree structures and edge cases.
+*   `benchmarks/`: Contains scripts for benchmarking the performance of different solution approaches.
 
-## Problem Descriptions
+## Problems Covered
 
-### Problem 1: Basic Tree Traversals (Depth-First Search)
+### 1. Basic Tree Traversals (Inorder, Preorder, Postorder)
 
-Implement the three fundamental Depth-First Search (DFS) traversals for a binary tree: Inorder, Preorder, and Postorder. For each traversal, provide both a **recursive** and an **iterative** solution.
+These are the fundamental ways to visit nodes in a binary tree.
 
-*   **Inorder Traversal (Left -> Root -> Right):**
-    *   Visits the left subtree, then the root node, then the right subtree.
-    *   For a Binary Search Tree (BST), inorder traversal yields elements in non-decreasing order.
-*   **Preorder Traversal (Root -> Left -> Right):**
-    *   Visits the root node, then the left subtree, then the right subtree.
-    *   Useful for creating a copy of the tree or for serializing it.
-*   **Postorder Traversal (Left -> Right -> Root):**
-    *   Visits the left subtree, then the right subtree, then the root node.
-    *   Useful for deleting a tree or evaluating expressions (e.g., postfix expressions).
+*   **Inorder Traversal**: Left -> Root -> Right. For a BST, this yields elements in non-decreasing order.
+*   **Preorder Traversal**: Root -> Left -> Right. Useful for creating a copy of the tree or expressing prefix notation.
+*   **Postorder Traversal**: Left -> Right -> Root. Useful for deleting a tree or expressing postfix notation.
 
-**File:** `src/main/java/com/example/treetraversals/BasicTraversals.java`
+For each, both recursive and iterative solutions are provided.
 
-### Problem 2: Level Order and Zigzag Level Order Traversals (Breadth-First Search)
+### 2. Level Order Traversal (BFS)
 
-Implement the standard Level Order Traversal and its common variation, Zigzag Level Order Traversal. Both are examples of Breadth-First Search (BFS).
+Also known as Breadth-First Search (BFS), this traversal visits nodes level by level, from left to right.
 
-*   **Level Order Traversal (BFS):**
-    *   Visits nodes level by level, from left to right within each level.
-    *   Typically implemented using a queue.
-*   **Zigzag Level Order Traversal:**
-    *   Visits nodes level by level, but alternates the order of traversal within each level.
-    *   The first level is left-to-right, the second is right-to-left, the third is left-to-right, and so on.
+### 3. Zigzag Level Order Traversal
 
-**File:** `src/main/java/com/example/treetraversals/LevelOrderProblems.java`
+A variation of Level Order Traversal where nodes at odd levels are visited from right to left, and nodes at even levels from left to right.
 
-### Problem 3: Maximum Depth of Binary Tree
+### 4. Validate Binary Search Tree (BST)
 
-Calculate the maximum depth of a binary tree. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node. Provide solutions using both a **DFS (recursive)** approach and a **BFS (iterative)** approach.
+Given the `root` of a binary tree, determine if it is a valid Binary Search Tree (BST). A valid BST is defined as follows:
+*   The left subtree of a node contains only nodes with keys less than the node's key.
+*   The right subtree of a node contains only nodes with keys greater than the node's key.
+*   Both the left and right subtrees must also be BSTs.
+*   There can be no duplicate values (for strict BST definition, though some definitions allow equality).
 
-*   **DFS Approach:**
-    *   Recursively calculate the depth of left and right subtrees.
-    *   The depth of the current node is `1 + max(left_subtree_depth, right_subtree_depth)`.
-*   **BFS Approach:**
-    *   Perform a level-order traversal.
-    *   The maximum depth is the number of levels traversed.
+### 5. Kth Smallest Element in a BST
 
-**File:** `src/main/java/com/example/treetraversals/BinaryTreeProperties.java`
+Given the `root` of a Binary Search Tree (BST) and an integer `k`, return the `k`th smallest value (1-indexed) of all the values of the nodes in the tree.
 
----
+## How to Run and Test
 
-## How to Run
-
-### Prerequisites
-
-*   Java Development Kit (JDK) 8 or higher
-*   Maven (for building and running tests)
-
-### Setup
-
-1.  Clone this repository:
+1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/tree-traversals-project.git
-    cd tree-traversals-project
+    git clone https://github.com/your-username/tree_traversals_project.git
+    cd tree_traversals_project
     ```
 
-### Compile
+2.  **Explore the source code:**
+    Navigate to the `src/` directory to view the implementations.
 
-```bash
-mvn clean install
-```
-
-### Run Tests
-
-To execute all JUnit test cases:
-
-```bash
-mvn test
-```
-
-### Run Benchmarking
-
-The benchmarking code can be run as a standard Java application.
-
-1.  Compile the project first (`mvn clean install`).
-2.  Run the main method of `TreeTraversalBenchmarking`:
-
+3.  **Run Tests:**
+    From the project root directory, you can run all tests using `unittest`:
     ```bash
-    mvn exec:java -Dexec.mainClass="com.example.treetraversals.benchmarking.TreeTraversalBenchmarking"
+    python -m unittest discover tests
     ```
-    This will print performance results to the console.
+    Or, to run specific test files:
+    ```bash
+    python -m unittest tests.test_basic_traversals
+    python -m unittest tests.test_level_order_traversals
+    python -m unittest tests.test_bst_traversals
+    ```
 
-## Documentation
+4.  **Run Benchmarks:**
+    From the project root directory:
+    ```bash
+    python benchmarks/benchmark_traversals.py
+    ```
+    This script will compare the performance of different approaches for selected problems.
 
-The `docs` directory contains detailed explanations and resources:
+5.  **Read Documentation:**
+    Open `documentation.md` in a Markdown viewer to get an in-depth understanding of the algorithms, visualize traversals with ASCII diagrams, and learn about interview tips and common pitfalls.
 
-*   **`AlgorithmExplanation.md`**: In-depth explanations of each algorithm, including recursive vs. iterative concepts, stack/queue usage, and time/space complexity analysis.
-*   **`InterviewTips.md`**: Guidance for approaching tree traversal problems in an interview setting, common variations, edge cases, and crucial considerations.
-*   **`VisualDiagrams.md`**: ASCII art diagrams to help visualize tree structures and traversal paths, enhancing understanding.
+## Contribution
+
+Feel free to open issues or submit pull requests if you have suggestions for improvements, new problems, or additional test cases.
 
 ---
-
-Feel free to explore the code, run the tests, and delve into the documentation for a thorough understanding of binary tree traversals!
-```
