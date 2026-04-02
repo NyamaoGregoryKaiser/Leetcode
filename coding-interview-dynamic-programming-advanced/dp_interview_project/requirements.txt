@@ -1,0 +1,5 @@
+```
+# No special requirements beyond standard Python libraries for this project.
+# If using pytest, add:
+# pytest
+```
