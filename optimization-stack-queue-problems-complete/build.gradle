@@ -1,0 +1,33 @@
+```gradle
+plugins {
+    id 'java'
+}
+
+group 'com.stackqueue'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JUnit 5 for testing
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Task to run performance benchmarks
+task benchmark(type: JavaExec) {
+    classpath sourceSets.main.runtimeClasspath
+    classpath configurations.runtimeClasspath
+
+    mainClass = 'com.stackqueue.util.PerformanceBenchmarker'
+
+    // Pass environment variables or system properties if needed for benchmarks
+    // Example: systemProperties 'iterations': '1000'
+}
+```
