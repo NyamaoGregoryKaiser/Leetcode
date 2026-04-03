@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JUnit Jupiter API for writing tests
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    // JUnit Jupiter Engine for running tests
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    // JUnit Jupiter Params for parameterized tests
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.0'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+// Configuration for 'run' task
+application {
+    mainClass = 'com.example.mathproblems.Main'
+}
+
+// Task to run the Main class directly with a specific classpath if needed, for manual runs
+task runMain(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.example.mathproblems.Main'
+}
+
+// Task for benchmark runner (used by benchmark.sh)
+// This task can be used if you want to run the BenchmarkRunner.java directly from Gradle
+// However, for dynamic method calls based on shell script args, direct `java -cp` call is easier.
+task runBenchmark(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.example.mathproblems.BenchmarkRunner'
+    standardInput = System.in
+    args System.getProperty("exec.args", "").split()
+}

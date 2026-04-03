@@ -1,0 +1,44 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Gradle
+.gradle/
+build/
+
+# Compiled class files
+*.class
+
+# Maven
+target/
+
+# Log files
+*.log
+
+# VS Code
+.vscode/
+
+# Project-specific temp files
+tmp/
+*.bak
+*.swp
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Executables
+*.exe
+*.jar
+*.war
+*.zip
+*.tar
+*.gz
+
+# Runtime
+/out/
+/lib/
+/bin/
