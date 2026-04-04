@@ -1,0 +1,30 @@
+```json
+{
+  "name": "graph-algorithms-interview",
+  "version": "1.0.0",
+  "description": "A comprehensive project for Graph Algorithms interview preparation.",
+  "main": "src/graphAlgorithms.js",
+  "scripts": {
+    "test": "jest",
+    "benchmark": "node src/utils/performanceBenchmarking.js"
+  },
+  "keywords": [
+    "graph-algorithms",
+    "interview-prep",
+    "javascript",
+    "bfs",
+    "dfs",
+    "dijkstra",
+    "prim",
+    "topological-sort",
+    "data-structures"
+  ],
+  "author": "Your Name/AI",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {}
+}
+```
+---
