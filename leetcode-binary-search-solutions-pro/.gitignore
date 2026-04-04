@@ -1,0 +1,19 @@
+```
+# Build artifacts
+build/
+bin/
+*.o
+*.exe
+*.out
+cmake-build-*/
+
+# Dependencies (if any were downloaded directly)
+# venv/
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Logs
+*.log
+```
