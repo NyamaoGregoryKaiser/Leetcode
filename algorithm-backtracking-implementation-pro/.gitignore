@@ -1,0 +1,26 @@
+# CMake related
+/build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Executables
+*.exe
+*.out
+a.out
+
+# Object files
+*.o
+*.obj
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Other
+*~
+*.log
+*.tmp
