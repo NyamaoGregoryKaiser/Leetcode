@@ -1,0 +1,32 @@
+```json
+{
+  "name": "greedy-algorithms-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Greedy Algorithms.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "benchmark": "ts-node benchmarking/benchmark.ts",
+    "start": "ts-node src/main.ts"
+  },
+  "keywords": [
+    "greedy",
+    "algorithms",
+    "interview",
+    "typescript",
+    "data-structures",
+    "coding-challenge"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
+```
