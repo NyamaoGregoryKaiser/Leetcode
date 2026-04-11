@@ -1,0 +1,10 @@
+```
+# Binaries
+bin/
+
+# Object files (if any intermediate are generated)
+*.o
+
+# Executables
+*.exe
+```
