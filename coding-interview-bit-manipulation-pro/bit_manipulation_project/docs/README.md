@@ -1,129 +1,189 @@
-```markdown
 # Bit Manipulation Coding Interview Project
 
-This project serves as a comprehensive resource for mastering Bit Manipulation techniques, a crucial topic for coding interviews. It includes multiple problems, various optimized solutions, detailed explanations, and performance benchmarks.
+This project provides a comprehensive set of problems, solutions, tests, benchmarks, and documentation for bit manipulation, a common topic in coding interviews. It's designed to help you master bitwise operations and approach related problems effectively.
 
 ## Table of Contents
 
-1.  [Project Overview](#project-overview)
-2.  [Problem Descriptions](#problem-descriptions)
-3.  [Project Structure](#project-structure)
-4.  [How to Compile and Run](#how-to-compile-and-run)
-    *   [Prerequisites](#prerequisites)
-    *   [Building the Main Executable](#building-the-main-executable)
-    *   [Running the Main Executable](#running-the-main-executable)
-    *   [Building and Running Tests](#building-and-running-tests)
-5.  [Detailed Documentation](#detailed-documentation)
-    *   [Algorithm Explanations](docs/ALGORITHM_EXPLANATION.md)
-    *   [Interview Tips and Variations](docs/INTERVIEW_TIPS.md)
-
-## Project Overview
-
-The goal of this project is to provide a solid foundation for understanding and implementing bit manipulation algorithms. It covers a range of problems from simple bit counting to more complex insertions and pattern detection. Each problem is tackled with optimal and, where applicable, alternative solutions, along with their time and space complexity analysis.
-
-## Problem Descriptions
-
-Here's a brief overview of the problems addressed in this project. For detailed explanations, examples, and ASCII diagrams, please refer to [ALGORITHM_EXPLANATION.md](docs/ALGORITHM_EXPLANATION.md).
-
-1.  **Count Set Bits (Hamming Weight)**
-    *   **Problem:** Count the number of '1' bits in a 32-bit unsigned integer.
-    *   **Approaches:** Brute-force (iterating through bits), Brian Kernighan's Algorithm, and Lookup Table method.
-
-2.  **Check if a number is a Power of Two**
-    *   **Problem:** Determine if a given positive integer is a power of two.
-    *   **Approach:** Utilizes the unique bit pattern of powers of two (`n > 0 && (n & (n - 1)) == 0`).
-
-3.  **Reverse Bits**
-    *   **Problem:** Reverse the bits of a 32-bit unsigned integer.
-    *   **Approach:** Iteratively builds the reversed number by shifting bits from the source to the destination.
-
-4.  **Single Number**
-    *   **Problem:** Given a non-empty array of integers, every element appears twice except for one. Find that single one.
-    *   **Approach:** Leverages the properties of the XOR bitwise operator (`a ^ a = 0`, `a ^ 0 = a`).
-
-5.  **Insert M into N**
-    *   **Problem:** Insert the bits of number `M` into number `N` from bit position `j` down to bit position `i`.
-    *   **Approach:** Involves creating appropriate masks to clear bits in `N` and then OR-ing with `M` shifted to the correct position.
+1.  [Project Structure](#project-structure)
+2.  [Setup and Installation](#setup-and-installation)
+3.  [Problem Descriptions](#problem-descriptions)
+    *   [1. Count Set Bits (Hamming Weight)](#1-count-set-bits-hamming-weight)
+    *   [2. Power of Two](#2-power-of-two)
+    *   [3. Reverse Bits](#3-reverse-bits)
+    *   [4. Single Number](#4-single-number)
+    *   [5. Insert M into N](#5-insert-m-into-n)
+4.  [How to Run Tests](#how-to-run-tests)
+5.  [How to Run Benchmarks](#how-to-run-benchmarks)
+6.  [Documentation](#documentation)
+7.  [Contributing](#contributing)
 
 ## Project Structure
 
 ```
-.
-├── src/                            # Source code for the main algorithm implementations
-│   ├── main.cpp                    # Main executable to demonstrate functionality
-│   ├── bit_manipulation_solver.hpp # Header file for BitManipulationSolver class
-│   └── bit_manipulation_solver.cpp # Implementation file for BitManipulationSolver methods
-├── tests/                          # Test suite for verifying correctness and performance
-│   ├── test_bit_manipulation.cpp   # Unit tests using Google Test for correctness
-│   └── test_performance.cpp        # Performance benchmarks using Google Test and custom stopwatch
-├── docs/                           # Documentation files
-│   ├── README.md                   # This file
-│   ├── ALGORITHM_EXPLANATION.md    # Detailed algorithm descriptions with diagrams
-│   └── INTERVIEW_TIPS.md           # Tips for interviewers and candidates, variations
-├── utils/                          # Utility files
-│   └── stopwatch.hpp               # Simple C++11 stopwatch class for performance measurement
-└── .gitignore                      # Git ignore file
+bit_manipulation_project/
+├── src/
+│   ├── algorithms.py               # Main algorithms with multiple approaches
+│   └── __init__.py
+├── tests/
+│   ├── test_algorithms.py          # Extensive test cases using pytest
+│   └── __init__.py
+├── docs/
+│   ├── README.md                   # Project overview, setup, and problem descriptions (YOU ARE HERE)
+│   ├── algorithm_explanation.md    # Detailed logic, ASCII diagrams, edge cases
+│   └── interview_tips.md           # Interview strategies, variations, common gotchas
+├── benchmarks/
+│   ├── benchmark_algorithms.py     # Performance comparison of different solutions
+│   └── __init__.py
+├── utils/
+│   ├── bit_visualizer.py           # Helper for visualizing binary representations
+│   └── __init__.py
+└── requirements.txt                # Project dependencies
 ```
 
-## How to Compile and Run
+## Setup and Installation
 
-### Prerequisites
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/bit_manipulation_project.git
+    cd bit_manipulation_project
+    ```
+    (Note: Replace `https://github.com/your-username/bit_manipulation_project.git` with your actual repo URL if you host this project).
 
-*   A C++11 compatible compiler (e.g., g++).
-*   CMake (optional, but recommended for larger projects and cross-platform builds).
-*   Google Test library (for running unit and performance tests). If not installed globally, you might need to build it from source or use a package manager.
-    *   **Ubuntu/Debian:** `sudo apt-get install libgtest-dev cmake`
-    *   **Manual build (if above fails or for other OS):**
-        ```bash
-        cd /usr/src/gtest
-        sudo cmake CMakeLists.txt
-        sudo make
-        sudo cp *.a /usr/lib
-        ```
+2.  **Create a virtual environment (recommended):**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate # On Windows: `venv\Scripts\activate`
+    ```
 
-### Building the Main Executable
+3.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-Navigate to the project root directory and compile `main.cpp` along with `bit_manipulation_solver.cpp`:
+## Problem Descriptions
 
+This section outlines the problems implemented in `src/algorithms.py`. For detailed explanations of the algorithms, complexity analysis, and more, refer to `docs/algorithm_explanation.md`.
+
+---
+
+### 1. Count Set Bits (Hamming Weight)
+
+**Problem Statement:**
+Write a function that takes an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).
+
+**Example:**
+Input: `n = 00000000000000000000000000001011` (decimal 11)
+Output: `3` (because there are three '1' bits)
+
+**Approaches Implemented:**
+*   **Approach 1:** Iterating through bits (Right Shift and AND)
+*   **Approach 2:** Brian Kernighan's Algorithm (Optimal)
+
+---
+
+### 2. Power of Two
+
+**Problem Statement:**
+Given an integer `n`, return `true` if it is a power of two. Otherwise, return `false`.
+An integer `n` is a power of two if there exists an integer `x` such that `n == 2^x`.
+
+**Examples:**
+*   Input: `n = 1` -> Output: `true` (2^0)
+*   Input: `n = 16` -> Output: `true` (2^4)
+*   Input: `n = 3` -> Output: `false`
+
+**Approaches Implemented:**
+*   **Approach 1:** Loop and Divide
+*   **Approach 2:** Bit Manipulation (`n > 0 and (n & (n - 1)) == 0`) (Optimal)
+
+---
+
+### 3. Reverse Bits
+
+**Problem Statement:**
+Reverse the bits of a given 32-bit unsigned integer.
+
+**Example:**
+Input: `n = 00000010100101000001111010011100` (decimal 43261596)
+Output: `00111001011110000010100101000000` (decimal 964176192)
+
+**Approaches Implemented:**
+*   **Approach 1:** Iterative Shifting and Building (Most common in interviews)
+*   *(Approach 2: Optimized Swapping using masks for fixed-size ints is discussed in documentation but not fully generalized in code for clarity)*
+
+---
+
+### 4. Single Number
+
+**Problem Statement:**
+Given a non-empty array of integers `nums`, every element appears twice except for one. Find that single one.
+
+**Constraints:**
+*   The array is non-empty.
+*   Every element appears twice except for one.
+
+**Examples:**
+*   Input: `nums = [2, 2, 1]` -> Output: `1`
+*   Input: `nums = [4, 1, 2, 1, 2]` -> Output: `4`
+
+**Approaches Implemented:**
+*   **Approach 1:** Hash Map (Brute Force / Common non-bit approach)
+*   **Approach 2:** Bit Manipulation (XOR Property) (Optimal)
+
+---
+
+### 5. Insert M into N
+
+**Problem Statement:**
+Given two 32-bit (or `num_bits`) numbers, `N` and `M`, and two bit positions, `i` and `j`. Write a method to insert `M` into `N` such that `M` starts at bit `j` and ends at bit `i`. Assume that bits `j` through `i` have enough space to fit `M`. Bits are 0-indexed, with bit 0 being the least significant bit.
+
+**Example:**
+*   `N = 10000000000_2` (decimal 1024)
+*   `M = 10011_2` (decimal 19)
+*   `i = 2`
+*   `j = 6`
+*   Result: `N` becomes `10001001100_2` (decimal 1164)
+
+**Approach Implemented:**
+*   **Single Optimal Approach:** Clear bits in `N` using a mask, then OR with `M` shifted to its target position.
+
+---
+
+## How to Run Tests
+
+Ensure you have activated your virtual environment and installed dependencies.
+
+To run all tests:
 ```bash
-g++ -std=c++11 -O2 src/main.cpp src/bit_manipulation_solver.cpp -o bin/bit_manipulation_demo
+pytest
 ```
-*(You might need to create a `bin` directory: `mkdir -p bin`)*
 
-### Running the Main Executable
-
+To run tests with verbose output:
 ```bash
-./bin/bit_manipulation_demo
+pytest -v
 ```
 
-### Building and Running Tests
-
-To build the tests, you'll need to link against the Google Test library.
-
+To run a specific test file:
 ```bash
-# First, ensure you have a 'bin' directory for executables
-mkdir -p bin
-
-# Compile test_bit_manipulation.cpp (unit tests)
-g++ -std=c++11 -O2 -Isrc -Iutils -I/usr/include/gtest -I/usr/include/gtest/include tests/test_bit_manipulation.cpp src/bit_manipulation_solver.cpp -L/usr/lib -lgtest -lgtest_main -pthread -o bin/run_unit_tests
-
-# Compile test_performance.cpp (performance tests)
-g++ -std=c++11 -O2 -Isrc -Iutils -I/usr/include/gtest -I/usr/include/gtest/include tests/test_performance.cpp src/bit_manipulation_solver.cpp -L/usr/lib -lgtest -lgtest_main -pthread -o bin/run_performance_tests
-
-# Run unit tests
-echo "--- Running Unit Tests ---"
-./bin/run_unit_tests
-
-# Run performance tests
-echo -e "\n--- Running Performance Tests ---"
-./bin/run_performance_tests
+pytest tests/test_algorithms.py
 ```
-**Note:** The paths to Google Test headers (`-I/usr/include/gtest`) and libraries (`-L/usr/lib`) might vary depending on your system. Adjust `gtest` and `gtest_main` library names if needed (e.g., `libgtest.a`, `libgtest_main.a`). Some systems might use `-L/usr/local/lib`.
 
-## Detailed Documentation
+## How to Run Benchmarks
 
-For a deeper dive into the algorithms, visual aids, edge cases, and interview preparation advice, refer to the following documents:
+The benchmarks compare the performance of different approaches for each problem.
 
-*   **[Algorithm Explanations](docs/ALGORITHM_EXPLANATION.md)**: Detailed breakdown of each problem, the logic behind the solutions, and ASCII diagrams illustrating bitwise operations.
-*   **[Interview Tips and Variations](docs/INTERVIEW_TIPS.md)**: General tips for tackling bit manipulation problems, common pitfalls, and potential variations for each problem in an interview setting.
+To run all benchmarks:
+```bash
+pytest --benchmark-columns='mean,stddev,rounds,min,max' --benchmark-sort=mean benchmarks/benchmark_algorithms.py
 ```
+*   `--benchmark-columns`: Specifies which columns to show in the benchmark report.
+*   `--benchmark-sort`: Sorts the results by a given column.
+
+## Documentation
+
+*   **`docs/algorithm_explanation.md`**: Provides in-depth explanations of the logic behind each algorithm, including visual ASCII diagrams for bit manipulations, detailed time and space complexity analysis, and discussions of edge cases and potential "gotchas."
+*   **`docs/interview_tips.md`**: Offers general advice for approaching bit manipulation questions in interviews, common patterns, variations of the problems, and strategies for demonstrating your understanding.
+
+## Contributing
+
+Feel free to fork this repository, add more problems, optimize existing solutions, improve documentation, or extend test cases. Pull requests are welcome!

@@ -1,15 +1,18 @@
 bit_manipulation_project/
 ├── src/
-│   ├── main.cpp
-│   ├── bit_manipulation_solver.hpp
-│   └── bit_manipulation_solver.cpp
+│   ├── algorithms.py               # Main algorithms with multiple approaches
+│   └── __init__.py
 ├── tests/
-│   ├── test_bit_manipulation.cpp
-│   └── test_performance.cpp
+│   ├── test_algorithms.py          # Extensive test cases using pytest
+│   └── __init__.py
 ├── docs/
-│   ├── README.md
-│   ├── ALGORITHM_EXPLANATION.md
-│   └── INTERVIEW_TIPS.md
+│   ├── README.md                   # Project overview, setup, and problem descriptions
+│   ├── algorithm_explanation.md    # Detailed logic, ASCII diagrams, edge cases
+│   └── interview_tips.md           # Interview strategies, variations, common gotchas
+├── benchmarks/
+│   ├── benchmark_algorithms.py     # Performance comparison of different solutions
+│   └── __init__.py
 ├── utils/
-│   └── stopwatch.hpp
-└── .gitignore
+│   ├── bit_visualizer.py           # Helper for visualizing binary representations
+│   └── __init__.py
+└── requirements.txt                # Project dependencies
