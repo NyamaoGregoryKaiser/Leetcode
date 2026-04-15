@@ -1,0 +1,32 @@
+```json
+{
+  "name": "hash-tables-interview-project",
+  "version": "1.0.0",
+  "description": "Comprehensive coding interview project for Hash Tables with multiple problems and solutions.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "benchmark": "ts-node benchmarking/benchmark.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "hash-tables",
+    "data-structures",
+    "algorithms",
+    "typescript",
+    "coding-interview"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.7",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
+```
