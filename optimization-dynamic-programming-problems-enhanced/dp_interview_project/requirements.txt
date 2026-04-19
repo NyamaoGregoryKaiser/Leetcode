@@ -1,0 +1,3 @@
+# No special dependencies for this project, just standard Python.
+# If you were using pytest, it would be listed here:
+# pytest==X.Y.Z
