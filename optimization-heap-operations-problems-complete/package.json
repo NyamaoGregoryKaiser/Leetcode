@@ -1,0 +1,35 @@
+```json
+{
+  "name": "heap-operations-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Heap operations.",
+  "main": "dist/index.js",
+  ""scripts"": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "keywords": [
+    "heap",
+    "min-heap",
+    "max-heap",
+    "data-structures",
+    "algorithms",
+    "typescript",
+    "coding-interview",
+    "kth-element",
+    "merge-k-sorted",
+    "top-k-frequent",
+    "find-median"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.7",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.5"
+  }
+}
+```
