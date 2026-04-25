@@ -1,0 +1,70 @@
+```gradle
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2' // For JMH execution
+}
+
+group 'com.greedy'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17) // Or your preferred Java version
+    }
+}
+
+dependencies {
+    // JUnit for testing
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+
+    // JMH for benchmarking
+    implementation 'org.openjdk.jmh:jmh-core:1.37'
+    annotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
+    testImplementation 'org.openjdk.jmh:jmh-core:1.37'
+    testAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Task to run JMH benchmarks
+task runBenchmarks(type: JavaExec) {
+    description "Runs all JMH benchmarks"
+    group "Verification"
+
+    classpath sourceSets.main.runtimeClasspath, sourceSets.test.runtimeClasspath
+    classpath configurations.testAnnotationProcessor
+
+    mainClass = "org.openjdk.jmh.Main"
+    args = [
+            ".*GreedyPerformanceBenchmarking.*", // Regex to select benchmarks
+            "-rf", "json", // Report format (e.g., json, text, csv)
+            "-rff", "build/reports/jmh/benchmark-results.json", // Report file
+            "-i", "5",    // 5 iterations
+            "-wi", "5",   // 5 warm-up iterations
+            "-f", "1",    // 1 fork
+            "-t", "1"     // 1 thread
+    ]
+    // If you need more memory for benchmarks
+    // jvmArgs = ['-Xms1024m', '-Xmx2048m']
+}
+
+// Optionally, configure shadowJar for JMH
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.openjdk.jmh.Main'
+    }
+    archiveBaseName.set('greedy-benchmarks')
+}
+
+shadowJar {
+    archiveClassifier.set('benchmark')
+    configurations = [project.configurations.runtimeClasspath] // Or create a custom one
+}
+```
