@@ -1,0 +1,152 @@
+```
+# ASCII Art Diagrams for Stack and Queue Problems
+
+## Problem: Daily Temperatures (Monotonic Stack)
+
+Imagine processing `temperatures = [73, 74, 75, 71, 69, 72, 76, 73]`
+
+Stack stores (index, temperature) or just index. Let's show indices.
+
+Initial: `answer = [0,0,0,0,0,0,0,0]`, `stack = []`
+
+1.  **i=0, temp=73:**
+    Stack empty. Push 0.
+    `stack = [0]`
+    `temperatures[0]=73`
+
+2.  **i=1, temp=74:**
+    `temp=74` > `temperatures[stack.top()=0]=73`. Pop 0. `answer[0] = 1-0 = 1`.
+    `stack = []`
+    Push 1.
+    `stack = [1]`
+    `temperatures[1]=74`
+
+3.  **i=2, temp=75:**
+    `temp=75` > `temperatures[stack.top()=1]=74`. Pop 1. `answer[1] = 2-1 = 1`.
+    `stack = []`
+    Push 2.
+    `stack = [2]`
+    `temperatures[2]=75`
+
+4.  **i=3, temp=71:**
+    `temp=71` < `temperatures[stack.top()=2]=75`. Push 3.
+    `stack = [2, 3]` (Indices, where `temperatures[2]=75`, `temperatures[3]=71`)
+
+5.  **i=4, temp=69:**
+    `temp=69` < `temperatures[stack.top()=3]=71`. Push 4.
+    `stack = [2, 3, 4]` (Indices, where `temperatures[2]=75`, `temperatures[3]=71`, `temperatures[4]=69`)
+
+6.  **i=5, temp=72:**
+    `temp=72` > `temperatures[stack.top()=4]=69`. Pop 4. `answer[4] = 5-4 = 1`.
+    `stack = [2, 3]`
+    `temp=72` > `temperatures[stack.top()=3]=71`. Pop 3. `answer[3] = 5-3 = 2`.
+    `stack = [2]`
+    `temp=72` < `temperatures[stack.top()=2]=75`. Stop.
+    Push 5.
+    `stack = [2, 5]` (Indices, where `temperatures[2]=75`, `temperatures[5]=72`)
+
+7.  **i=6, temp=76:**
+    `temp=76` > `temperatures[stack.top()=5]=72`. Pop 5. `answer[5] = 6-5 = 1`.
+    `stack = [2]`
+    `temp=76` > `temperatures[stack.top()=2]=75`. Pop 2. `answer[2] = 6-2 = 4`.
+    `stack = []`
+    Stack empty. Stop.
+    Push 6.
+    `stack = [6]`
+    `temperatures[6]=76`
+
+8.  **i=7, temp=73:**
+    `temp=73` < `temperatures[stack.top()=6]=76`. Push 7.
+    `stack = [6, 7]` (Indices, where `temperatures[6]=76`, `temperatures[7]=73`)
+
+Final `answer = [1, 1, 4, 2, 1, 1, 0, 0]`
+
+---
+
+## Problem: Trapping Rain Water (Stack Approach)
+
+`height = [0,1,0,2,1,0,1,3,2,1,2,1]`
+
+The stack stores indices of bars that are potential "left walls" or "bottoms" of a well. It maintains a decreasing sequence of bar heights.
+
+`total_water = 0`, `stack = []` (stores indices)
+
+Visualizing the stack's state and calculations:
+
+```
+Heights:   0 1 0 2 1 0 1 3 2 1 2 1
+Indices:   0 1 2 3 4 5 6 7 8 9 0 1 (10,11)
+
+i = 0, h = 0: Push 0.              stack = [0]
+i = 1, h = 1: h > H[S.top()] (1>0). Pop 0 (bottom). stack is empty. break.
+              Push 1.              stack = [1]
+i = 2, h = 0: h < H[S.top()] (0<1). Push 2.              stack = [1, 2]
+i = 3, h = 2: h > H[S.top()] (2>0).
+              Pop 2 (bottom_idx).  stack = [1]
+              left_wall_idx = 1 (H[1]=1)
+              right_wall_idx = 3 (H[3]=2)
+              min_h = min(H[1], H[3]) = min(1,2) = 1
+              water_h = min_h - H[bottom_idx](0) = 1 - 0 = 1
+              width = right - left - 1 = 3 - 1 - 1 = 1
+              total_water += 1 * 1 = 1.
+              Now, check again with new S.top(): H[3](2) is NOT > H[S.top()=1](1) (it is, I made a mistake, 2 > 1).
+              Let's correct: 2 > H[1](1) is TRUE.
+              Pop 1 (bottom_idx).  stack = []
+              stack is empty. break.
+              Push 3.              stack = [3]  <-- H[3]=2, this is the current potential left wall
+total_water = 1
+
+i = 4, h = 1: h < H[S.top()] (1<2). Push 4.              stack = [3, 4]
+i = 5, h = 0: h < H[S.top()] (0<1). Push 5.              stack = [3, 4, 5]
+i = 6, h = 1: h > H[S.top()] (1>0).
+              Pop 5 (bottom_idx).  stack = [3, 4]
+              left_wall_idx = 4 (H[4]=1)
+              right_wall_idx = 6 (H[6]=1)
+              min_h = min(H[4], H[6]) = min(1,1) = 1
+              water_h = min_h - H[bottom_idx](0) = 1 - 0 = 1
+              width = 6 - 4 - 1 = 1
+              total_water += 1 * 1 = 2.
+              Check again: H[6](1) is NOT > H[S.top()=4](1). (1 not > 1). Stop popping.
+              Push 6.              stack = [3, 4, 6]
+total_water = 2
+
+i = 7, h = 3: h > H[S.top()] (3>1).
+              Pop 6 (bottom_idx).  stack = [3, 4]
+              left_wall_idx = 4 (H[4]=1)
+              right_wall_idx = 7 (H[7]=3)
+              min_h = min(H[4], H[7]) = min(1,3) = 1
+              water_h = min_h - H[bottom_idx](1) = 1 - 1 = 0. (No water, H[4] is too low)
+              total_water remains 2.
+              Check again: H[7](3) > H[S.top()=4](1). (3 > 1).
+              Pop 4 (bottom_idx).  stack = [3]
+              left_wall_idx = 3 (H[3]=2)
+              right_wall_idx = 7 (H[7]=3)
+              min_h = min(H[3], H[7]) = min(2,3) = 2
+              water_h = min_h - H[bottom_idx](1) = 2 - 1 = 1
+              width = 7 - 3 - 1 = 3
+              total_water += 1 * 3 = 3. `total_water = 5`.
+              Check again: H[7](3) > H[S.top()=3](2). (3 > 2).
+              Pop 3 (bottom_idx).  stack = []
+              stack is empty. break.
+              Push 7.              stack = [7]
+total_water = 5
+
+i = 8, h = 2: h < H[S.top()] (2<3). Push 8.              stack = [7, 8]
+i = 9, h = 1: h < H[S.top()] (1<2). Push 9.              stack = [7, 8, 9]
+i = 10, h = 2: h > H[S.top()] (2>1).
+              Pop 9 (bottom_idx). stack = [7, 8]
+              left_wall_idx = 8 (H[8]=2)
+              right_wall_idx = 10 (H[10]=2)
+              min_h = min(H[8], H[10]) = min(2,2) = 2
+              water_h = min_h - H[bottom_idx](1) = 2 - 1 = 1
+              width = 10 - 8 - 1 = 1
+              total_water += 1 * 1 = 1. `total_water = 6`.
+              Check again: H[10](2) is NOT > H[S.top()=8](2). Stop popping.
+              Push 10.             stack = [7, 8, 10]
+total_water = 6
+
+i = 11, h = 1: h < H[S.top()] (1<2). Push 11.             stack = [7, 8, 10, 11]
+
+End of array. Final `total_water = 6`. This matches the expected result.
+The stack logic can be tricky to trace manually!
+```
