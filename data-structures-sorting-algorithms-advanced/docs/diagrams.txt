@@ -1,0 +1,263 @@
+```text
+# ASCII Art Diagrams for Sorting Algorithms
+
+This file contains simple ASCII art diagrams to help visualize the core mechanics of some sorting algorithms and problem concepts.
+
+---
+
+## 1. QuickSort Partition (Lomuto Scheme)
+
+Imagine an array `[P1, P2, P3, P4, P5, P6, P7]`
+Let's choose `P7` as the pivot.
+
+Initial Array:
+[ X X X X X X   P ]   (X = unsorted element, P = pivot)
+  ^             ^
+  low           high
+
+We maintain `i` as the boundary for elements <= pivot, and `j` iterates.
+
+`pivot = P`
+`i = low - 1`
+
+Loop `j` from `low` to `high - 1`:
+
+If `arr[j] <= pivot`:
+    `i++`
+    `swap(arr[i], arr[j])`
+
+Example: `arr = [3, 8, 2, 5, 1, 9, 7]` and `pivot = 7` (initially at `arr[6]`)
+`low = 0`, `high = 6`
+`pivot_val = 7`
+`i = -1`
+
+Iteration 1: `j = 0`, `arr[0] = 3` (3 <= 7)
+    `i = 0`
+    `swap(arr[0], arr[0])` -> `[3, 8, 2, 5, 1, 9, 7]`
+
+Iteration 2: `j = 1`, `arr[1] = 8` (8 > 7)
+    No swap.
+
+Iteration 3: `j = 2`, `arr[2] = 2` (2 <= 7)
+    `i = 1`
+    `swap(arr[1], arr[2])` -> `[3, 2, 8, 5, 1, 9, 7]`
+
+Iteration 4: `j = 3`, `arr[3] = 5` (5 <= 7)
+    `i = 2`
+    `swap(arr[2], arr[3])` -> `[3, 2, 5, 8, 1, 9, 7]`
+
+Iteration 5: `j = 4`, `arr[4] = 1` (1 <= 7)
+    `i = 3`
+    `swap(arr[3], arr[4])` -> `[3, 2, 5, 1, 8, 9, 7]`
+
+Iteration 6: `j = 5`, `arr[5] = 9` (9 > 7)
+    No swap.
+
+After loop (j reaches high-1):
+Array: `[3, 2, 5, 1, 8, 9, 7]`
+Elements less than or equal to pivot are at `arr[0...i]` (`[3, 2, 5, 1]`)
+
+Final swap: `swap(arr[i+1], arr[high])` (swap pivot into its correct place)
+`i+1 = 4`, `high = 6`
+`swap(arr[4], arr[6])` -> `[3, 2, 5, 1, 7, 9, 8]`
+
+Partition result:
+[ <= P | P | > P ]
+[ 3, 2, 5, 1 | 7 | 9, 8 ]
+The pivot (7) is now in its sorted position.
+
+---
+
+## 2. Merge Sort - Merge Step
+
+Merging two sorted sub-arrays: `L` and `R` into `arr`.
+
+`arr`: `[ ... L_sorted ... | ... R_sorted ... ]`
+       `^left             ^mid              ^right`
+
+`L = [2, 5, 7, 9]`
+`R = [1, 3, 6, 8]`
+`arr` (initial): `[ ?, ?, ?, ?, ?, ?, ?, ? ]`
+
+Pointers: `i` for `L`, `j` for `R`, `k` for `arr`
+
+```
+L: [2, 5, 7, 9]
+   ^i
+
+R: [1, 3, 6, 8]
+   ^j
+
+arr: [ ?, ?, ?, ?, ?, ?, ?, ? ]
+     ^k
+```
+
+Comparison: `L[0]` (2) vs `R[0]` (1). `1` is smaller.
+`arr[k] = 1`. `j++`, `k++`.
+
+```
+L: [2, 5, 7, 9]
+   ^i
+
+R: [1, 3, 6, 8]
+      ^j
+
+arr: [ 1, ?, ?, ?, ?, ?, ?, ? ]
+        ^k
+```
+
+Comparison: `L[0]` (2) vs `R[1]` (3). `2` is smaller.
+`arr[k] = 2`. `i++`, `k++`.
+
+```
+L: [2, 5, 7, 9]
+      ^i
+
+R: [1, 3, 6, 8]
+      ^j
+
+arr: [ 1, 2, ?, ?, ?, ?, ?, ? ]
+           ^k
+```
+
+... and so on. This continues until one of the sub-arrays `L` or `R` is exhausted. Then, the remaining elements from the other sub-array are simply copied over.
+
+Final merged `arr`: `[1, 2, 3, 5, 6, 7, 8, 9]`
+
+---
+
+## 3. Max Heap (Example)
+
+A Max Heap is a binary tree where each parent node is greater than or equal to its children.
+Represented as an array: `[ Root, LeftChild, RightChild, LeftLeftChild, LeftRightChild, ... ]`
+
+Example Max Heap for array `[16, 14, 10, 8, 7, 9, 3, 2, 4, 1]`
+
+Tree visualization:
+```
+        16
+       /  \
+      14   10
+     / \  / \
+    8  7  9  3
+   / \ /
+  2  4 1
+```
+
+Array representation:
+`Index: 0  1  2  3  4  5  6  7  8  9`
+`Value: [16,14,10, 8, 7, 9, 3, 2, 4, 1]`
+
+*   Parent of node `i`: `(i-1)/2`
+*   Left child of node `i`: `2*i + 1`
+*   Right child of node `i`: `2*i + 2`
+
+Heap Sort involves:
+1.  **Build Max-Heap**: Convert an unsorted array into a max heap (O(N)).
+    Start from the last non-leaf node `(N/2 - 1)` and `heapify` upwards.
+2.  **Extract Max**:
+    *   Swap `arr[0]` (root, max element) with `arr[N-1]` (last element).
+    *   Reduce heap size by 1.
+    *   `heapify` the new root `arr[0]` (O(log N)).
+    *   Repeat N-1 times.
+
+---
+
+## 4. Dutch National Flag Problem (Sort Colors)
+
+Partitioning an array of 0s, 1s, and 2s into three sections:
+
+`low`: pointer for 0s. `[0...low-1]` are all 0s.
+`mid`: current element being examined.
+`high`: pointer for 2s. `[high+1...N-1]` are all 2s.
+
+Initial state:
+```
+[ ? ? ? ? ? ? ? ]
+  ^         ^   ^
+ low,mid   high
+```
+
+Algorithm:
+```
+while (mid <= high) {
+    if nums[mid] == 0:
+        swap(nums[low], nums[mid])
+        low++
+        mid++
+    else if nums[mid] == 1:
+        mid++
+    else if nums[mid] == 2:
+        swap(nums[mid], nums[high])
+        high--
+        // No mid++ here because the swapped element from high might be 0 or 1
+        // and needs to be re-evaluated.
+}
+```
+
+Example walk-through: `[2, 0, 2, 1, 1, 0]`
+
+1.  `low=0, mid=0, high=5`
+    `nums[mid]` (2) == 2. Swap `nums[0]` with `nums[5]`.
+    `[0, 0, 2, 1, 1, 2]`
+    `high=4`. (`mid` stays at 0)
+
+2.  `low=0, mid=0, high=4`
+    `nums[mid]` (0) == 0. Swap `nums[0]` with `nums[0]`.
+    `[0, 0, 2, 1, 1, 2]`
+    `low=1, mid=1`.
+
+3.  `low=1, mid=1, high=4`
+    `nums[mid]` (0) == 0. Swap `nums[1]` with `nums[1]`.
+    `[0, 0, 2, 1, 1, 2]`
+    `low=2, mid=2`.
+
+4.  `low=2, mid=2, high=4`
+    `nums[mid]` (2) == 2. Swap `nums[2]` with `nums[4]`.
+    `[0, 0, 1, 1, 2, 2]`
+    `high=3`. (`mid` stays at 2)
+
+5.  `low=2, mid=2, high=3`
+    `nums[mid]` (1) == 1.
+    `mid=3`.
+
+6.  `low=2, mid=3, high=3`
+    `nums[mid]` (1) == 1.
+    `mid=4`.
+
+7.  `mid` (4) > `high` (3). Loop terminates.
+
+Final sorted array: `[0, 0, 1, 1, 2, 2]`
+
+---
+
+## 5. Meeting Rooms II - Sweep Line
+
+Events: (time, type) where type is `+1` for start, `-1` for end.
+
+Meetings: `[[0,30], [5,10], [15,20]]`
+
+Events:
+`(0, +1)`
+`(5, +1)`
+`(10, -1)`
+`(15, +1)`
+`(20, -1)`
+`(30, -1)`
+
+Sorted events (by time, then by type +1 before -1):
+```
+Time | Type | current_rooms | max_rooms
+-----|------|---------------|----------
+0    | +1   | 1             | 1
+5    | +1   | 2             | 2  <- Max rooms needed at this point
+10   | -1   | 1             | 2
+15   | +1   | 2             | 2
+20   | -1   | 1             | 2
+30   | -1   | 0             | 2
+```
+
+Result: `max_rooms = 2`
+
+---
+```
