@@ -1,26 +1,17 @@
-bit-manipulation-interview-project/
+bit_manipulation_project/
 ├── src/
-│   ├── main/
-│   │   └── java/
-│   │       └── com/
-│   │           └── bitmanipulation/
-│   │               └── BitManipulationProblems.java    // Main algorithms
-│   ├── test/
-│   │   └── java/
-│   │       └── com/
-│   │           └── bitmanipulation/
-│   │               └── BitManipulationProblemsTest.java // Unit tests
+│   ├── bit_manipulation_optimized.cpp       // Main optimized solutions
+│   ├── bit_manipulation_bruteforce.cpp      // Brute-force/alternative solutions for comparison
+│   ├── bit_manipulation_utils.h             // Helper utilities (e.g., print binary, test assertions)
+│   ├── bit_manipulation_utils.cpp           // Implementation for utilities
+│   └── main.cpp                             // Entry point to demonstrate usage
+├── tests/
+│   └── test_bit_manipulation.cpp            // Extensive unit tests
+├── benchmarking/
+│   └── benchmark.cpp                        // Performance comparison between approaches
 ├── docs/
-│   ├── README.md                                 // Project overview and problem descriptions
-│   ├── AlgorithmExplanation.md                   // Detailed explanation of bitwise operators and tricks
-│   ├── VisualDiagrams.md                         // ASCII art diagrams for conceptual clarity
-│   └── InterviewTips.md                          // Advice for bit manipulation interviews
-├── benchmark/
-│   └── PerformanceBenchmark.java                 // Performance comparison of solutions
-├── solutions/
-│   └── java/
-│       └── com/
-│           └── bitmanipulation/
-│               ├── BruteForceSolutions.java      // Non-bit-manipulation approaches for comparison
-│               └── MemoryEfficientSolutions.java // Emphasizing memory optimization with bit ops
-└── .gitignore
+│   ├── README.md                            // Project overview, problem descriptions, how to run
+│   ├── algorithms.md                        // Detailed algorithm explanations, logic, complexity
+│   ├── diagrams.txt                         // ASCII art visual aids
+│   └── interview_tips.md                    // Edge cases, gotchas, interview variations, tips
+└── .gitignore                               // Standard git ignore

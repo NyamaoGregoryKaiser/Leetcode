@@ -1,127 +1,159 @@
 ```markdown
-# Bit Manipulation Interview Project
+# Bit Manipulation Coding Interview Project
 
-This project serves as a comprehensive resource for mastering bit manipulation techniques, crucial for coding interviews, especially at companies like Bit which value low-level optimization and efficient algorithms.
+This project is a comprehensive guide and implementation for common bit manipulation problems frequently encountered in coding interviews. It provides optimized solutions, alternative approaches, detailed explanations, and performance benchmarks.
 
-It includes:
-- Multiple bit manipulation problems with optimal solutions.
-- Detailed explanations, time/space complexity analysis.
-- Extensive unit tests for correctness.
-- Performance benchmarking for solution comparison.
-- In-depth documentation covering concepts, visual aids, and interview strategies.
+## Table of Contents
+
+1.  [Project Structure](#project-structure)
+2.  [Problems Covered](#problems-covered)
+    *   [1. Count Set Bits (Hamming Weight)](#1-count-set-bits-hamming-weight)
+    *   [2. Single Number](#2-single-number)
+    *   [3. Reverse Bits](#3-reverse-bits)
+    *   [4. Check if a number is a Power of Two](#4-check-if-a-number-is-a-power-of-two)
+    *   [5. Check if a number is a Power of Four](#5-check-if-a-number-is-a-power-of-four)
+3.  [How to Compile and Run](#how-to-compile-and-run)
+4.  [Documentation Details](#documentation-details)
+5.  [Contributing](#contributing)
+
+---
 
 ## Project Structure
 
 ```
-bit-manipulation-interview-project/
+bit_manipulation_project/
 ├── src/
-│   ├── main/
-│   │   └── java/
-│   │       └── com/
-│   │           └── bitmanipulation/
-│   │               └── BitManipulationProblems.java    // Main algorithms implementation
-│   ├── test/
-│   │   └── java/
-│   │       └── com/
-│   │           └── bitmanipulation/
-│   │               └── BitManipulationProblemsTest.java // Unit tests for main algorithms
+│   ├── bit_manipulation_optimized.cpp       // Main optimized solutions
+│   ├── bit_manipulation_bruteforce.cpp      // Brute-force/alternative solutions for comparison
+│   ├── bit_manipulation_utils.h             // Helper utilities (e.g., print binary, test assertions)
+│   ├── bit_manipulation_utils.cpp           // Implementation for utilities
+│   └── main.cpp                             // Entry point to demonstrate usage
+├── tests/
+│   └── test_bit_manipulation.cpp            // Extensive unit tests
+├── benchmarking/
+│   └── benchmark.cpp                        // Performance comparison between approaches
 ├── docs/
-│   ├── README.md                                 // This file
-│   ├── AlgorithmExplanation.md                   // Detailed explanation of bitwise operators and tricks
-│   ├── VisualDiagrams.md                         // ASCII art diagrams for conceptual clarity
-│   └── InterviewTips.md                          // Advice for bit manipulation interviews
-├── benchmark/
-│   └── PerformanceBenchmark.java                 // Performance comparison of solutions
-└── solutions/
-    └── java/
-        └── com/
-            └── bitmanipulation/
-                ├── BruteForceSolutions.java      // Non-bit-manipulation approaches for comparison
-                └── MemoryEfficientSolutions.java // Emphasizing memory optimization with bit ops
+│   ├── README.md                            // Project overview, problem descriptions, how to run (THIS FILE)
+│   ├── algorithms.md                        // Detailed algorithm explanations, logic, complexity
+│   ├── diagrams.txt                         // ASCII art visual aids
+│   └── interview_tips.md                    // Edge cases, gotchas, interview variations, tips
+└── .gitignore                               // Standard git ignore
 ```
 
-## Problems Implemented
+## Problems Covered
 
 ### 1. Count Set Bits (Hamming Weight)
-Counts the number of '1' bits in a 32-bit unsigned integer.
-- **Approaches:**
-    - Iteration and Check LSB
-    - Brian Kernighan's Algorithm
-    - Java Built-in `Integer.bitCount()`
-- **Key Concepts:** `&`, `>>>`, `n & (n-1)`
+
+**Description:** Write a function that takes an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).
+
+**Example:**
+Input: `n = 00000000000000000000000000001011` (decimal 11)
+Output: `3` (since 11 has 3 set bits)
+
+**Solutions:**
+*   `countSetBits_Kernighan` (Optimized): Brian Kernighan's algorithm.
+*   `countSetBits_Shift` (Optimized): Iterative shifting and checking LSB.
+*   `countSetBits_Brute` (Brute Force): Repeated division and modulus.
 
 ### 2. Single Number
-Finds the unique element in an array where all other elements appear twice.
-- **Approach:** XOR Property
-- **Key Concepts:** `^` properties (identity, inverse, commutative, associative)
-- **Contrast:** Often solved with HashMaps, but XOR offers an O(1) space solution.
 
-### 3. Power of Two
-Determines if a given integer is a power of two.
-- **Approaches:**
-    - Bitwise AND Trick `n > 0 && (n & (n - 1)) == 0`
-    - Loop and Divide
-- **Key Concepts:** `&`, `n-1` behavior for powers of two
+**Description:** Given a non-empty array of integers, every element appears twice except for one. Find that single one. You must implement a solution with a linear runtime complexity and use only constant extra space.
 
-### 4. Reverse Bits
-Reverses the bits of a 32-bit unsigned integer.
-- **Approaches:**
-    - Iteration, building the result bit by bit
-    - Java Built-in `Integer.reverse()`
-- **Key Concepts:** `<<`, `|`, `&`, `>>>`
+**Example:**
+Input: `nums = [4, 1, 2, 1, 2]`
+Output: `4`
 
-### 5. Update Bits (Insert M into N)
-Inserts a 32-bit number `M` into another 32-bit number `N` between bit positions `i` and `j`.
-- **Approach:**
-    - Create a mask to clear the target bits in `N`.
-    - Shift `M` to align with the target positions.
-    - OR the modified `N` with the shifted `M`.
-- **Key Concepts:** `~`, `<<`, `|`, `&`
+**Solutions:**
+*   `singleNumber` (Optimized): Using the XOR bitwise property.
+*   `singleNumber_Brute_HashMap` (Brute Force): Using a hash map for frequency counting.
 
-## How to Run
+### 3. Reverse Bits
 
-### Prerequisites
-- Java Development Kit (JDK) 8 or higher
-- Maven (for build automation and dependency management, specifically JUnit 5)
+**Description:** Reverse the bits of a given unsigned 32-bit integer.
 
-### Build and Run Tests
-1. **Navigate to the project root:**
-   ```bash
-   cd bit-manipulation-interview-project
-   ```
-2. **Compile and run all tests using Maven:**
-   ```bash
-   mvn test
-   ```
-   This will execute `BitManipulationProblemsTest.java` and show the test results.
+**Example:**
+Input: `n = 00000010100101000001111010011100` (decimal 964176124)
+Output: `00111001011110000010100101000000` (decimal 1887399424)
 
-### Run Performance Benchmarks
-The `PerformanceBenchmark.java` file is a standalone Java application.
+**Solutions:**
+*   `reverseBits` (Optimized): Iterative shifting and building the reversed number.
+*   `reverseBits_Brute` (Brute Force): Arithmetic operations for shifting/modulus.
 
-1. **Compile from project root:**
-   ```bash
-   mvn compile
-   ```
-2. **Run the benchmark class:**
-   ```bash
-   mvn exec:java -Dexec.mainClass="benchmark.PerformanceBenchmark"
-   ```
-   *Note: If you encounter issues with `exec:java`, you might need to specify the full path to the class or create a separate Maven module for benchmarks.*
-   Alternatively, you can compile and run directly if not using Maven for that specific file:
-   ```bash
-   javac -d target/classes benchmark/PerformanceBenchmark.java
-   java -cp target/classes benchmark.PerformanceBenchmark
-   ```
+### 4. Check if a number is a Power of Two
 
-## Documentation
+**Description:** Given an integer `n`, return `true` if it is a power of two. Otherwise, return `false`. An integer `n` is a power of two, if there exists an integer `x` such that `n == 2^x`.
 
-Explore the `docs/` directory for in-depth explanations:
+**Example:**
+Input: `n = 16`
+Output: `true` (since `16 = 2^4`)
 
-- `AlgorithmExplanation.md`: Dive into the theory behind bitwise operators and common bit manipulation patterns.
-- `VisualDiagrams.md`: Understand complex operations with ASCII art diagrams.
-- `InterviewTips.md`: Get advice on how to approach bit manipulation questions in interviews, common pitfalls, and variations.
+**Solutions:**
+*   `isPowerOfTwo` (Optimized): Using the `n > 0 && (n & (n - 1)) == 0` property.
+*   `isPowerOfTwo_Brute` (Brute Force): Repeated division by 2.
+
+### 5. Check if a number is a Power of Four
+
+**Description:** Given an integer `n`, return `true` if it is a power of four. Otherwise, return `false`. An integer `n` is a power of four, if there exists an integer `x` such that `n == 4^x`.
+
+**Example:**
+Input: `n = 64`
+Output: `true` (since `64 = 4^3`)
+
+**Solutions:**
+*   `isPowerOfFour` (Optimized): Combining power of two check with a bitmask `(n & 0x55555555) != 0`.
+*   `isPowerOfFour_Brute` (Brute Force): Repeated division by 4.
+
+---
+
+## How to Compile and Run
+
+This project uses standard C++ features and can be compiled with `g++` (or Clang++).
+
+**1. Navigate to the project root:**
+
+```bash
+cd bit_manipulation_project
+```
+
+**2. Compile the `main` demonstration:**
+
+```bash
+g++ -std=c++17 -O2 src/*.cpp -o bin/bit_demo
+```
+*(You might need to create a `bin` directory first: `mkdir bin`)*
+
+**3. Run the demonstration:**
+
+```bash
+./bin/bit_demo
+```
+
+**4. Compile and Run Tests:**
+
+```bash
+g++ -std=c++17 -O2 tests/test_bit_manipulation.cpp src/*.cpp -o bin/test_runner
+./bin/test_runner
+```
+
+**5. Compile and Run Benchmarks:**
+
+```bash
+g++ -std=c++17 -O2 benchmarking/benchmark.cpp src/*.cpp -o bin/benchmark_runner
+./bin/benchmark_runner
+```
+*(Note: Use `-O2` or `-O3` for benchmarks to get realistic performance numbers, as compiler optimizations can heavily impact bit manipulation code.)*
+
+---
+
+## Documentation Details
+
+*   **`docs/algorithms.md`**: Provides in-depth explanations of the logic behind each optimized solution, including step-by-step walkthroughs and formal time/space complexity analysis.
+*   **`docs/diagrams.txt`**: Contains ASCII art diagrams to visually explain complex bitwise operations, such as Brian Kernighan's algorithm or the power of two check.
+*   **`docs/interview_tips.md`**: Offers guidance on how to approach bit manipulation problems in interviews, common pitfalls, edge cases to consider, and variations of the problems presented.
+
+---
 
 ## Contributing
 
-Feel free to fork this repository, add more problems, alternative solutions, or improve existing explanations/tests.
+Feel free to open issues or pull requests if you have suggestions for improvements, find bugs, or want to add more problems/solutions.
 ```
