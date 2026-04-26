@@ -1,18 +1,24 @@
-bit_manipulation_project/
+bit-manipulation-project/
 ├── src/
-│   ├── algorithms.py               # Main algorithms with multiple approaches
-│   └── __init__.py
+│   ├── algorithms/
+│   │   ├── bitManipulationProblems.ts
+│   │   └── types.ts
+│   ├── utils/
+│   │   ├── benchmark.ts
+│   │   ├── benchmarkRunner.ts
+│   │   └── bitUtils.ts
+│   └── index.ts
 ├── tests/
-│   ├── test_algorithms.py          # Extensive test cases using pytest
-│   └── __init__.py
+│   ├── algorithms/
+│   │   └── bitManipulationProblems.test.ts
+│   └── utils/
+│       └── bitUtils.test.ts
 ├── docs/
-│   ├── README.md                   # Project overview, setup, and problem descriptions
-│   ├── algorithm_explanation.md    # Detailed logic, ASCII diagrams, edge cases
-│   └── interview_tips.md           # Interview strategies, variations, common gotchas
-├── benchmarks/
-│   ├── benchmark_algorithms.py     # Performance comparison of different solutions
-│   └── __init__.py
-├── utils/
-│   ├── bit_visualizer.py           # Helper for visualizing binary representations
-│   └── __init__.py
-└── requirements.txt                # Project dependencies
+│   ├── README.md
+│   ├── ALGORITHMS.md
+│   ├── VISUAL_DIAGRAMS.md
+│   └── INTERVIEW_TIPS.md
+├── package.json
+├── tsconfig.json
+├── jest.config.js
+└── .gitignore
