@@ -1,0 +1,31 @@
+```json
+{
+  "name": "bit-manipulation-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Bit Manipulation with multiple problems, solutions, tests, and documentation.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "benchmark": "jest --config jest.benchmark.config.js",
+    "start": "tsc && node dist/index.js"
+  },
+  "keywords": [
+    "bit-manipulation",
+    "interview",
+    "coding-interview",
+    "typescript",
+    "algorithms",
+    "data-structures"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.5"
+  }
+}
+```
