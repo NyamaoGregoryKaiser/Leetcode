@@ -1,0 +1,22 @@
+{
+  "name": "dp-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive Dynamic Programming project for coding interview preparation, featuring multiple problems, optimal solutions, tests, benchmarks, and documentation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "benchmark": "node benchmarks/benchmark.js"
+  },
+  "keywords": [
+    "dynamic-programming",
+    "interview",
+    "javascript",
+    "algorithms",
+    "data-structures"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
