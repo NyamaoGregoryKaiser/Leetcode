@@ -1,26 +1,25 @@
-string-manipulation-project/
+string_manipulation_project/
 ├── src/
-│   ├── algorithms/
-│   │   ├── anagram-grouper.js
-│   │   ├── decode-string.js
-│   │   ├── longest-common-prefix.js
-│   │   └── palindrome-checker.js
-│   └── utils/
-│       └── string-helpers.js
-├── tests/
-│   ├── anagram-grouper.test.js
-│   ├── decode-string.test.js
-│   ├── longest-common-prefix.test.js
-│   ├── palindrome-checker.test.js
-│   └── setup.js
+│   ├── main/
+│   │   └── java/
+│   │       └── com/
+│   │           └── stringmanipulation/
+│   │               ├── algorithms/
+│   │               │   ├── StringAlgorithms.java             <- Core algorithm implementations
+│   │               │   └── StringAlgorithmUtils.java         <- Utility methods (e.g., for char arrays)
+│   │               ├── benchmarks/
+│   │               │   └── PerformanceBenchmarks.java        <- JMH benchmarks
+│   │               └── StringManipulationApp.java            <- Main entry point for demonstration
+│   └── test/
+│       └── java/
+│           └── com/
+│               └── stringmanipulation/
+│                   └── tests/
+│                       └── StringAlgorithmsTest.java         <- JUnit 5 test cases
 ├── docs/
-│   ├── algorithm-explanations.md
-│   ├── interview-tips.md
-│   └── README.md
-├── benchmarking/
-│   ├── benchmark-anagram-grouper.js
-│   ├── benchmark-decode-string.js
-│   ├── benchmark-longest-common-prefix.js
-│   └── benchmark-palindrome-checker.js
-├── package.json
-└── .gitignore
+│   ├── README.md                                   <- Project overview and setup instructions
+│   ├── algorithms_explanation.md                   <- Detailed explanation of algorithms
+│   ├── interview_tips.md                           <- Interview preparation tips and variations
+│   └── diagrams.txt                                <- ASCII art diagrams for visualization
+├── .gitignore
+└── pom.xml                                         <- Maven project file

@@ -1,158 +1,128 @@
 ```markdown
-# 🚀 String Manipulation Interview Project
+# String Manipulation Project for Coding Interviews
 
-This project serves as a comprehensive resource for mastering string manipulation problems commonly encountered in coding interviews. It includes multiple problems with optimal solutions, detailed explanations, extensive test cases, performance benchmarks, and interview tips.
+This project provides a comprehensive resource for mastering string manipulation problems commonly encountered in coding interviews. It includes implementations of several key algorithms, extensive test cases, performance benchmarks, and detailed documentation.
 
----
-
-## 📚 Table of Contents
-
-1.  [Project Structure](#-project-structure)
-2.  [Problems Covered](#-problems-covered)
-3.  [Setup and Installation](#-setup-and-installation)
-4.  [Running Tests](#-running-tests)
-5.  [Running Benchmarks](#-running-benchmarks)
-6.  [Documentation](#-documentation)
-7.  [Contribution](#-contribution)
-8.  [License](#-license)
-
----
-
-## 📂 Project Structure
+## Project Structure
 
 ```
-string-manipulation-project/
-├── src/                      # Source code for algorithms and utilities
-│   ├── algorithms/           # Core algorithm implementations for each problem
-│   │   ├── anagram-grouper.js
-│   │   ├── decode-string.js
-│   │   ├── longest-common-prefix.js
-│   │   └── palindrome-checker.js
-│   └── utils/                # Helper utilities (e.g., string cleaners)
-│       └── string-helpers.js
-├── tests/                    # Jest test files for each algorithm
-│   ├── anagram-grouper.test.js
-│   ├── decode-string.test.js
-│   ├── longest-common-prefix.test.js
-│   ├── palindrome-checker.test.js
-│   └── setup.js              # Jest setup file for global configurations
-├── docs/                     # Comprehensive documentation
-│   ├── algorithm-explanations.md  # Detailed algorithm breakdowns
-│   ├── interview-tips.md          # General interview advice and specific problem variations
-│   └── README.md                  # This file
-├── benchmarking/             # Performance benchmarking scripts
-│   ├── benchmark-anagram-grouper.js
-│   ├── benchmark-decode-string.js
-│   ├── benchmark-longest-common-prefix.js
-│   └── benchmark-palindrome-checker.js
-├── package.json              # Project metadata and dependencies
-└── .gitignore                # Files to ignore in Git
+string_manipulation_project/
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       └── com/
+│   │           └── stringmanipulation/
+│   │               ├── algorithms/
+│   │               │   ├── StringAlgorithms.java             <- Core algorithm implementations
+│   │               │   └── StringAlgorithmUtils.java         <- Utility methods (e.g., for char arrays)
+│   │               ├── benchmarks/
+│   │               │   └── PerformanceBenchmarks.java        <- JMH benchmarks
+│   │               └── StringManipulationApp.java            <- Main entry point for demonstration
+│   └── test/
+│       └── java/
+│           └── com/
+│               └── stringmanipulation/
+│                   └── tests/
+│                       └── StringAlgorithmsTest.java         <- JUnit 5 test cases
+├── docs/
+│   ├── README.md                                   <- This file: Project overview and setup instructions
+│   ├── algorithms_explanation.md                   <- Detailed explanation of algorithms
+│   ├── interview_tips.md                           <- Interview preparation tips and variations
+│   └── diagrams.txt                                <- ASCII art diagrams for visualization
+├── .gitignore
+└── pom.xml                                         <- Maven project file
 ```
 
----
+## Problems Implemented
 
-## 🧠 Problems Covered
+1.  **Longest Palindromic Substring**
+    *   Find the longest palindromic substring within a given string.
+    *   **Approaches:** Brute Force (O(N^3)), Expand Around Center (O(N^2) optimal).
 
-Each problem includes:
-*   A clear problem description.
-*   Multiple solution approaches (where applicable), including optimal ones.
-*   Detailed inline comments explaining the logic.
-*   Time and Space Complexity analysis.
-*   Robust test cases.
-*   Performance benchmarks.
+2.  **Group Anagrams**
+    *   Given an array of strings, group anagrams together.
+    *   **Approaches:** Character Count Array as Key (O(N*K) optimal), Sorting String as Key (O(N*K log K)).
 
-### 1. Palindrome Checker
-*   **Description:** Determine if a given string is a palindrome, considering only alphanumeric characters and ignoring cases.
-*   **Solutions:** Two-pointer approach (optimal), Reverse-and-compare.
+3.  **Minimum Window Substring**
+    *   Find the smallest substring in a source string `S` that contains all characters of a target string `T` (including duplicates).
+    *   **Approach:** Sliding Window with Two Hash Maps (O(N+M) optimal).
 
-### 2. Longest Common Prefix
-*   **Description:** Find the longest common prefix string amongst an array of strings.
-*   **Solutions:** Vertical scanning, Horizontal scanning, Divide and Conquer.
+4.  **String to Integer (atoi)**
+    *   Implement the `atoi` function to convert a string to a 32-bit signed integer, handling whitespace, signs, non-digit characters, and overflow/underflow.
+    *   **Approach:** Robust Parsing with Edge Case Handling and Overflow Checks (O(N) optimal).
 
-### 3. Decode String
-*   **Description:** Given an encoded string, return its decoded string. The encoding rule is `k[encoded_string]`, where `encoded_string` inside the square brackets is repeated `k` times.
-*   **Solutions:** Stack-based iterative approach, Recursive approach.
+## Getting Started
 
-### 4. Group Anagrams
-*   **Description:** Given an array of strings, group anagrams together.
-*   **Solutions:** Sort characters as key, Character count array as key.
+This project uses Apache Maven for build automation and dependency management.
 
----
+### Prerequisites
 
-## 🛠️ Setup and Installation
+*   Java Development Kit (JDK) 11 or newer
+*   Apache Maven
+
+### Setup and Build
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/string-manipulation-project.git
-    cd string-manipulation-project
+    git clone https://github.com/your-username/string_manipulation_project.git
+    cd string_manipulation_project
     ```
-    *(Note: Replace `your-username` with the actual path if this were a real GitHub project.)*
-
-2.  **Install dependencies:**
+2.  **Compile the project:**
     ```bash
-    npm install
+    mvn clean install
     ```
-    This will install `jest` for testing and `chalk` for colored console output in benchmarks.
+    This command will compile the Java code, run tests, and package the project.
 
----
+## How to Run
 
-## 🧪 Running Tests
+### 1. Run the Main Application
 
-We use [Jest](https://jestjs.io/) for testing.
+To see a demonstration of all algorithms with predefined examples:
 
-To run all tests:
 ```bash
-npm test
+mvn exec:java -Dexec.mainClass="com.stringmanipulation.StringManipulationApp"
 ```
 
-To run tests in watch mode (reruns on file changes):
+### 2. Run Tests
+
+To execute all JUnit 5 test cases:
+
 ```bash
-npm run test:watch
+mvn test
 ```
 
-To run a specific test file (e.g., `palindrome-checker.test.js`):
-```bash
-npx jest tests/palindrome-checker.test.js
-```
+### 3. Run Performance Benchmarks
 
----
+The project uses [JMH (Java Microbenchmark Harness)](https://openjdk.org/projects/code-tools/jmh/) for robust performance testing.
 
-## ⏱️ Running Benchmarks
+1.  **Build the benchmark JAR (if not already done by `mvn install`):**
+    ```bash
+    mvn clean package
+    ```
+    This will create `target/benchmarks.jar`.
 
-Each problem has its own benchmarking script in the `benchmarking/` directory. These scripts use Node.js's `perf_hooks` to measure execution time for different solutions and input sizes.
+2.  **Run the benchmarks:**
+    ```bash
+    java -jar target/benchmarks.jar
+    ```
+    You can also target specific benchmarks or configure JMH runs:
+    *   To run only `LongestPalindromicSubstring` benchmarks:
+        ```bash
+        java -jar target/benchmarks.jar LongestPalindromicSubstring
+        ```
+    *   For quicker (less accurate) results, you can reduce warmup and iteration counts:
+        ```bash
+        java -jar target/benchmarks.jar -f 1 -wi 3 -i 3 -t 1
+        ```
+        (1 fork, 3 warm-up iterations, 3 actual iterations, 1 thread)
 
-To run benchmarks for a specific problem:
-```bash
-npm run benchmark:palindrome
-npm run benchmark:lcp
-npm run benchmark:decode
-npm run benchmark:anagram
-```
+## Documentation
 
-To run all benchmarks:
-```bash
-npm run benchmark:all
-```
+The `docs/` directory contains detailed explanations for the project:
 
----
+*   **`algorithms_explanation.md`**: Provides in-depth descriptions of each algorithm, including logic, pseudocode (where applicable), different approaches, and a thorough analysis of time and space complexity.
+*   **`diagrams.txt`**: Contains ASCII art diagrams to visually explain key algorithmic concepts like "Expand Around Center" for palindromes and the "Sliding Window" technique.
+*   **`interview_tips.md`**: Offers general advice for tackling string manipulation problems in interviews, common pitfalls, important questions to ask, and strategies for optimal solutions.
 
-## 📖 Documentation
-
-The `docs/` directory contains detailed explanations and resources:
-
-*   **`docs/algorithm-explanations.md`**: Provides in-depth discussions of the logic behind each algorithm, including step-by-step walkthroughs and ASCII art diagrams for complex scenarios.
-*   **`docs/interview-tips.md`**: Offers general advice for coding interviews, common pitfalls for string problems, and potential follow-up questions or variations for the problems in this project.
-*   **`docs/README.md`**: You are reading it!
-
----
-
-## 🤝 Contribution
-
-Feel free to open issues or submit pull requests if you have suggestions for improvements, find bugs, or want to add more problems/solutions.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License. See the `LICENSE` file (if it existed, implicitly MIT as stated in `package.json`) for details.
+Feel free to explore these documents for a deeper understanding of the solutions and interview preparation.
 ```
