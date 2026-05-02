@@ -1,0 +1,29 @@
+```
+# CMake
+/build/
+/CMakeCache.txt
+/CMakeFiles/
+/Makefile
+/cmake_install.cmake
+
+# Executables
+*.exe
+*.out
+*.app
+*.dSYM
+
+# Object files
+*.o
+*.lo
+*.la
+*.so
+*.a
+
+# IDE files (e.g., VS Code)
+.vscode/
+.history/
+
+# Gtest/Benchmark specific
+gtest-build/
+benchmark-build/
+```
