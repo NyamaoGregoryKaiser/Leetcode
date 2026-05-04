@@ -1,0 +1,23 @@
+```json
+{
+  "name": "array-manipulation-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Array Manipulation.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node tests/testRunner.js",
+    "benchmark": "node benchmarks/runAllBenchmarks.js",
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "array",
+    "manipulation",
+    "coding interview",
+    "javascript",
+    "algorithms",
+    "data structures"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT"
+}
+```
