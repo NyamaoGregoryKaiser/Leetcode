@@ -1,0 +1,36 @@
+```json
+{
+  "name": "array-manipulation-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Array Manipulation problems.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest tests/arrayManipulation.test.js",
+    "test:performance": "node scripts/benchmark.js",
+    "test:all": "jest"
+  },
+  "keywords": [
+    "array",
+    "manipulation",
+    "coding interview",
+    "javascript",
+    "algorithms",
+    "data structures"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/performance.test.js"
+    ]
+  }
+}
+```
