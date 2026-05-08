@@ -1,0 +1,32 @@
+```json
+{
+  "name": "graph-algorithms-interview-prep",
+  "version": "1.0.0",
+  "description": "Comprehensive project for Graph Algorithms coding interview preparation.",
+  "main": "src/graph-problems.js",
+  "scripts": {
+    "test": "jest",
+    "benchmark": "node benchmarks/benchmark.js"
+  },
+  "keywords": [
+    "graph-algorithms",
+    "interview-prep",
+    "javascript",
+    "data-structures",
+    "bfs",
+    "dfs",
+    "dijkstra",
+    "kruskal",
+    "mst",
+    "shortest-path",
+    "cycle-detection",
+    "union-find"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {}
+}
+```

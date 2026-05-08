@@ -1,0 +1,273 @@
+```text
+# Graph Algorithms: Visual Diagrams (ASCII Art)
+
+This file provides ASCII art diagrams to help visualize graph structures and the execution of key algorithms.
+
+---
+
+## 1. Graph Representations
+
+### Adjacency List (Used in this project)
+
+Nodes are keys in a map, and their values are lists of objects representing neighbors and edge weights.
+
+```
+Graph (Directed, Weighted):
+
+A ----(4)----> B
+|              ^
+(2)            |
+|              (3)
+v              |
+C ----(2)----> D ----(3)----> E
+|                     ^
+(4)                   |
+|                     (1)
+v                     |
+F <-------------------
+
+
+Map Representation (adjacencyList):
+A: [{ node: B, weight: 4 }, { node: C, weight: 2 }]
+B: []
+C: [{ node: D, weight: 2 }, { node: F, weight: 4 }]
+D: [{ node: E, weight: 3 }]
+E: [{ node: B, weight: 3 }]
+F: []
+```
+
+### Adjacency Matrix (Alternative, not primarily used here)
+
+A 2D array where `matrix[i][j]` stores the weight of the edge from `i` to `j`, or `0`/`Infinity` if no edge.
+(For the graph above, nodes A, B, C, D, E, F might be mapped to 0, 1, 2, 3, 4, 5)
+
+```
+      A  B  C  D  E  F
+   A [0, 4, 2, 0, 0, 0]
+   B [0, 0, 0, 0, 0, 0]
+   C [0, 0, 0, 2, 0, 4]
+   D [0, 0, 0, 0, 3, 0]
+   E [0, 3, 0, 0, 0, 0]
+   F [0, 0, 0, 0, 0, 0]
+```
+
+---
+
+## 2. Breadth-First Search (BFS) Traversal
+
+Starting from A, in an unweighted undirected graph.
+
+Graph:
+A -- B
+|    |
+C -- D -- E
+
+Steps:
+1.  **Queue: [A]**, Visited: {A}
+2.  Dequeue A. Neighbors: B, C.
+    **Queue: [B, C]**, Visited: {A, B, C}
+3.  Dequeue B. Neighbors: A (visited), D.
+    **Queue: [C, D]**, Visited: {A, B, C, D}
+4.  Dequeue C. Neighbors: A (visited), D (visited).
+    **Queue: [D]**, Visited: {A, B, C, D}
+5.  Dequeue D. Neighbors: B (visited), C (visited), E.
+    **Queue: [E]**, Visited: {A, B, C, D, E}
+6.  Dequeue E. Neighbors: D (visited).
+    **Queue: []**, Visited: {A, B, C, D, E}
+Queue empty. Traversal complete: A -> B -> C -> D -> E (or similar order for same level)
+
+---
+
+## 3. Depth-First Search (DFS) Traversal (and Cycle Detection)
+
+Starting from A, in a directed graph.
+
+Graph:
+A -> B -> C
+^    |
+|    v
+E <- D
+
+States:
+0: Unvisited
+1: Visiting (in recursion stack)
+2: Visited (finished processing)
+
+Initial: A(0), B(0), C(0), D(0), E(0)
+
+DFS(A):
+1.  A(1)
+2.  Neighbor B:
+    DFS(B):
+    1.  B(1)
+    2.  Neighbor C:
+        DFS(C):
+        1.  C(1)
+        2.  No unvisited neighbors.
+        3.  C(2)  <-- popped from stack
+    3.  Neighbor D:
+        DFS(D):
+        1.  D(1)
+        2.  Neighbor E:
+            DFS(E):
+            1.  E(1)
+            2.  Neighbor A: A is VISITING (A(1)). **CYCLE DETECTED!** (E -> A is a back-edge)
+            (Immediately returns true up the stack)
+        (DFS(E) returns true)
+    (DFS(D) returns true)
+(DFS(B) returns true)
+(DFS(A) returns true)
+
+Result: Cycle detected.
+
+---
+
+## 4. Dijkstra's Algorithm Steps
+
+Graph (Directed, Weighted):
+A --(4)--> B
+|          ^
+(2)        |
+|          (3)
+v          |
+C --(2)--> D --(3)--> E
+|
+(4)
+|
+v
+F
+
+Source: A
+
+Initial state:
+Distances: {A:0, B:∞, C:∞, D:∞, E:∞, F:∞}
+Previous:  {A:null, B:null, C:null, D:null, E:null, F:null}
+PQ: [{A, 0}]
+
+1.  Dequeue {A, 0}.
+    *   A neighbors: B (wt 4), C (wt 2)
+    *   Dist B: min(∞, 0+4) = 4. Prev B: A. PQ: [{B, 4}]
+    *   Dist C: min(∞, 0+2) = 2. Prev C: A. PQ: [{C, 2}, {B, 4}]
+    PQ: [{C, 2}, {B, 4}]
+
+2.  Dequeue {C, 2}.
+    *   C neighbors: D (wt 2), F (wt 4)
+    *   Dist D: min(∞, 2+2) = 4. Prev D: C. PQ: [{B, 4}, {D, 4}]
+    *   Dist F: min(∞, 2+4) = 6. Prev F: C. PQ: [{B, 4}, {D, 4}, {F, 6}]
+    PQ: [{B, 4}, {D, 4}, {F, 6}] (order of B, D might depend on stable sort or exact implementation)
+
+3.  Dequeue {B, 4} (or D, if D was ahead). Let's assume B.
+    *   B has no outgoing edges.
+    PQ: [{D, 4}, {F, 6}]
+
+4.  Dequeue {D, 4}.
+    *   D neighbors: E (wt 3)
+    *   Dist E: min(∞, 4+3) = 7. Prev E: D. PQ: [{F, 6}, {E, 7}]
+    PQ: [{F, 6}, {E, 7}]
+
+5.  Dequeue {F, 6}.
+    *   F has no outgoing edges.
+    PQ: [{E, 7}]
+
+6.  Dequeue {E, 7}.
+    *   E neighbors: B (wt 3)
+    *   Dist B: min(4, 7+3) = 4. (No update, existing path A->B is shorter).
+    PQ: []
+
+Final Distances: {A:0, B:4, C:2, D:4, E:7, F:6}
+Final Paths (from previousNodes):
+A: null
+B: A
+C: A
+D: C
+E: D
+F: C
+Shortest path A to E: A -> C -> D -> E (total weight 2+2+3 = 7)
+
+---
+
+## 5. Kruskal's Algorithm Steps (MST)
+
+Graph (Undirected, Weighted):
+  (7)   (8)
+A --- B --- C
+| \   / \   /
+(5)\ (9) (7)/ (5)
+|   X   X   X
+| /   \ /   \
+D --- E --- F
+  (6)   (15) (8)
+
+Sorted Edges:
+(A,D,5), (C,E,5), (D,F,6), (A,B,7), (B,E,7), (B,C,8), (E,F,8), (B,D,9), (D,E,15)
+
+DSU Initial Sets: {A}, {B}, {C}, {D}, {E}, {F}
+
+1.  Edge (A,D,5): A and D are in different sets.
+    MST: [(A,D,5)]
+    DSU: {A,D}, {B}, {C}, {E}, {F}
+
+2.  Edge (C,E,5): C and E are in different sets.
+    MST: [(A,D,5), (C,E,5)]
+    DSU: {A,D}, {B}, {C,E}, {F}
+
+3.  Edge (D,F,6): D and F are in different sets.
+    MST: [(A,D,5), (C,E,5), (D,F,6)]
+    DSU: {A,D,F}, {B}, {C,E}
+
+4.  Edge (A,B,7): A and B are in different sets.
+    MST: [(A,D,5), (C,E,5), (D,F,6), (A,B,7)]
+    DSU: {A,D,F,B}, {C,E}
+
+5.  Edge (B,E,7): B ({A,D,F,B}) and E ({C,E}) are in different sets.
+    MST: [(A,D,5), (C,E,5), (D,F,6), (A,B,7), (B,E,7)]
+    DSU: {A,D,F,B,C,E}
+
+    (MST now has V-1 = 6-1 = 5 edges. We can stop.)
+
+Final MST Edges (total weight: 5+5+6+7+7 = 30):
+(A,D,5), (C,E,5), (D,F,6), (A,B,7), (B,E,7)
+
+---
+
+## 6. Number of Islands (Grid Traversal)
+
+Grid (5x5):
+1 1 0 0 0
+1 1 0 0 0
+0 0 1 0 0
+0 0 0 1 1
+
+BFS/DFS Iteration:
+1.  **Grid[0][0] is '1'**: Increment islands = 1. Start BFS/DFS from (0,0).
+    *   (0,0) becomes '0'. Add neighbors (0,1), (1,0) to queue/stack.
+    *   (0,1) becomes '0'. Add neighbor (1,1).
+    *   (1,0) becomes '0'. (0,0) visited.
+    *   (1,1) becomes '0'. (0,1), (1,0) visited.
+    All connected '1's in the top-left island are now '0's.
+    Grid after 1st island processed:
+    0 0 0 0 0
+    0 0 0 0 0
+    0 0 1 0 0
+    0 0 0 1 1
+
+2.  Continue scan. **Grid[2][2] is '1'**: Increment islands = 2. Start BFS/DFS from (2,2).
+    *   (2,2) becomes '0'. No other connected '1's.
+    Grid after 2nd island processed:
+    0 0 0 0 0
+    0 0 0 0 0
+    0 0 0 0 0
+    0 0 0 1 1
+
+3.  Continue scan. **Grid[3][3] is '1'**: Increment islands = 3. Start BFS/DFS from (3,3).
+    *   (3,3) becomes '0'. Add neighbor (3,4).
+    *   (3,4) becomes '0'.
+    All connected '1's in bottom-right island are now '0's.
+    Grid after 3rd island processed:
+    0 0 0 0 0
+    0 0 0 0 0
+    0 0 0 0 0
+    0 0 0 0 0
+
+Result: 3 islands found.
+```
