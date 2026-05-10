@@ -1,0 +1,26 @@
+```json
+{
+  "name": "string-manipulation-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for String Manipulation.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node tests/runAllTests.js",
+    "test:lps": "node tests/longestPalindromicSubstring.test.js",
+    "test:anagrams": "node tests/groupAnagrams.test.js",
+    "test:kmp": "node tests/kmpStringMatching.test.js",
+    "test:mws": "node tests/minimumWindowSubstring.test.js",
+    "benchmark": "node benchmarks/benchmark.js"
+  },
+  "keywords": [
+    "string-manipulation",
+    "interview",
+    "javascript",
+    "algorithms",
+    "data-structures"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {}
+}
+```
