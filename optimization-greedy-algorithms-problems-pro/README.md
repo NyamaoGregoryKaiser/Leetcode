@@ -1,138 +1,100 @@
-```markdown
-# Greedy Algorithms Interview Project
+# Greedy Algorithms Project
 
-This project serves as a comprehensive resource for understanding and practicing Greedy Algorithms, specifically tailored for coding interviews. It includes multiple classic greedy problems, optimal Java implementations, extensive test cases, detailed documentation, and performance benchmarking.
+This project provides a comprehensive study and implementation guide for various classic Greedy Algorithms, designed to be a valuable resource for coding interview preparation. It includes:
+
+-   **Multiple Problems**: Implementations of 5 different greedy problems with optimal solutions.
+-   **Detailed Explanations**: In-depth comments within code and dedicated documentation explaining algorithms, complexity, and greedy properties.
+-   **Comprehensive Testing**: JUnit test suites with extensive test cases for each problem.
+-   **Helper Utilities**: Custom data structures and a performance benchmarking tool.
+-   **Documentation**: Markdown files covering problem descriptions, algorithm explanations, interview tips, and visual diagrams.
 
 ## Table of Contents
 
-1.  [Project Overview](#project-overview)
-2.  [Features](#features)
-3.  [Project Structure](#project-structure)
-4.  [Problems Implemented](#problems-implemented)
-5.  [How to Build and Run](#how-to-build-and-run)
-    *   [Running Tests](#running-tests)
-    *   [Running Performance Benchmarks](#running-performance-benchmarks)
-6.  [Documentation](#documentation)
-7.  [Contributing](#contributing)
-8.  [License](#license)
+1.  [Project Structure](#project-structure)
+2.  [Problems Covered](#problems-covered)
+3.  [How to Build and Run](#how-to-build-and-run)
+    *   [Prerequisites](#prerequisites)
+    *   [Build](#build)
+    *   [Run Examples](#run-examples)
+    *   [Run Tests](#run-tests)
+4.  [Documentation Guide](#documentation-guide)
+5.  [Contributing](#contributing)
+6.  [License](#license)
 
-## Project Overview
+## Problems Covered
 
-Greedy algorithms are a paradigm that builds a solution step by step, making the locally optimal choice at each stage with the hope of finding a global optimum. This project demonstrates several scenarios where this approach is effective, along with providing insights into when it might fail and how to prove its correctness.
+The project implements the following greedy algorithms:
 
-## Features
+1.  **Activity Selection Problem**: Maximizing the number of non-overlapping activities.
+2.  **Coin Change Problem**: Finding the minimum number of coins for a given amount (under canonical coin systems).
+3.  **Fractional Knapsack Problem**: Maximizing value by taking fractions of items.
+4.  **Job Sequencing with Deadlines**: Maximizing profit by scheduling jobs within their deadlines.
+5.  **Minimize Cash Flow**: Settling debts among a group of people with minimum transactions.
 
-*   **Optimal Java Implementations:** Solutions for 5 common greedy problems.
-*   **Detailed Explanations:** Each problem's solution includes comments for logic, time, and space complexity.
-*   **Extensive Test Cases:** JUnit 5 tests cover base, average, edge, and large-scale scenarios.
-*   **Comprehensive Documentation:** `docs/AlgorithmsExplanation.md` provides in-depth algorithm analysis, greedy choice proofs, ASCII diagrams, edge cases, and interview tips.
-*   **Performance Benchmarking:** `docs/PerformanceBenchmarking.java` helps measure the efficiency of the implemented algorithms.
-*   **Maven Project:** Easy to build and manage dependencies.
-
-## Project Structure
-
-```
-greedy-algorithms-project/
-├── pom.xml                     # Maven build file
-├── README.md                   # Project description and instructions
-├── src/
-│   ├── main/
-│   │   └── java/
-│   │       └── com/
-│   │           └── example/
-│   │               └── greedy/
-│   │                   ├── GreedyAlgorithms.java   # Main class with all algorithm implementations
-│   │                   └── models/
-│   │                       ├── Activity.java       # Helper model for Activity Selection / Interval problems
-│   │                       ├── Item.java           # Helper model for Fractional Knapsack
-│   │                       └── Job.java            # Helper model for Job Sequencing with Deadlines
-│   ├── test/
-│   │   └── java/
-│   │       └── com/
-│   │           └── example/
-│   │               └── greedy/
-│   │                   └── GreedyAlgorithmsTest.java # JUnit 5 test suite
-├── docs/
-│   ├── AlgorithmsExplanation.md    # Detailed algorithm explanations, diagrams, tips
-│   └── PerformanceBenchmarking.java # Standalone performance testing utility
-└── .gitignore                  # Standard Git ignore file
-```
-
-## Problems Implemented
-
-The `GreedyAlgorithms.java` file contains implementations for the following problems:
-
-1.  **Activity Selection Problem:** Maximize the number of non-overlapping activities.
-2.  **Fractional Knapsack Problem:** Maximize the total value of items that can be put into a knapsack with a weight capacity, allowing fractions of items.
-3.  **Coin Change Problem (Greedy Variant):** Find the minimum number of coins to make a given amount using a canonical set of denominations.
-4.  **Minimum Number of Platforms Problem:** Given arrival and departure times for trains, find the minimum number of platforms required.
-5.  **Job Sequencing with Deadlines Problem:** Maximize profit by scheduling jobs with deadlines and profits.
-
-For detailed problem descriptions, greedy choice proofs, examples, and interview tips, please refer to `docs/AlgorithmsExplanation.md`.
+Each problem's solution in `src/main/java/com/greedy/problems/` comes with:
+*   Optimal greedy algorithm implementation.
+*   Detailed comments explaining logic and steps.
+*   Time and Space Complexity analysis.
+*   Consideration of alternative approaches (e.g., dynamic programming) in comments or related documentation.
 
 ## How to Build and Run
 
-This project uses Apache Maven.
+### Prerequisites
+
+*   Java Development Kit (JDK) 11 or higher
+*   Apache Maven 3.6.0 or higher
+
+### Build
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/greedy-algorithms-project.git
+    git clone https://github.com/yourusername/greedy-algorithms-project.git
     cd greedy-algorithms-project
     ```
-2.  **Build the project:**
+2.  **Build the project using Maven:**
+    This command compiles the source code, runs tests, and packages the application.
     ```bash
     mvn clean install
     ```
-    This command will compile the source code and run the tests.
+    If you want to skip tests during build:
+    ```bash
+    mvn clean install -DskipTests
+    ```
 
-### Running Tests
+### Run Examples
 
-To run all JUnit 5 tests specifically:
+The `Main.java` file demonstrates how to use each implemented greedy algorithm with sample data.
 
+To run the examples after building:
+```bash
+java -jar target/greedy-algorithms-project-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
+
+You can also run directly from Maven without building a JAR:
+```bash
+mvn exec:java -Dexec.mainClass="com.greedy.Main"
+```
+
+### Run Tests
+
+To execute all JUnit tests:
 ```bash
 mvn test
 ```
 
-### Running Performance Benchmarks
+## Documentation Guide
 
-The `PerformanceBenchmarking.java` file is a standalone utility in the `docs` directory. To run it, you'll need to compile and execute it separately, or you can integrate it into your build process (e.g., as an executable JAR or a separate Maven module for benchmarks).
+Explore the `docs/` directory for in-depth understanding:
 
-**Recommended way to run from command line (after `mvn install` to ensure classes are available):**
-
-```bash
-# Compile the benchmarking code (if not already done by IDE or maven install)
-# This assumes you have compiled the main project first, so the classes
-# like GreedyAlgorithms are available on the classpath.
-javac -cp "target/classes:target/test-classes:~/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.0/junit-jupiter-api-5.10.0.jar:~/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.0/junit-jupiter-engine-5.10.0.jar" docs/PerformanceBenchmarking.java -d target/benchmarks-classes
-
-# Navigate to the project root directory
-# Run the benchmark. Adjust classpath as necessary for your system.
-# The `target/classes` part is crucial to include the main algorithms.
-java -cp "target/classes:target/benchmarks-classes" PerformanceBenchmarking
-```
-*Note: The `~/.m2/repository/...` part might need to be adjusted based on your local Maven repository path if you encounter classpath issues.*
-A simpler way if running from an IDE is to just execute `PerformanceBenchmarking.java` as a standard Java application.
-
-## Documentation
-
-The `docs/AlgorithmsExplanation.md` file is crucial for a deeper understanding:
-
-*   **Introduction to Greedy Algorithms:** Core principles and when they apply.
-*   **Problem-Specific Details:**
-    *   Detailed problem statements.
-    *   Intuition behind the greedy choice.
-    *   Proof sketches for the greedy choice property and optimal substructure.
-    *   Step-by-step algorithm descriptions.
-    *   Illustrative examples.
-    *   ASCII diagrams for visualization.
-    *   Discussion of edge cases and common pitfalls.
-    *   Interview tips, common variations, and follow-up questions.
+*   `docs/README.md`: Provides a concise description for each problem.
+*   `docs/ALGORITHM_EXPLANATIONS.md`: Delves into the theory behind greedy algorithms, including properties (greedy choice, optimal substructure) and how they apply to specific problems.
+*   `docs/INTERVIEW_TIPS.md`: Offers advice on identifying greedy problems, common pitfalls, and strategies for interviews.
+*   `docs/diagrams/activity_selection_diagram.txt`: A visual aid to understand the Activity Selection Problem.
 
 ## Contributing
 
-Feel free to open issues or submit pull requests to improve this project. Suggestions for new problems, more efficient solutions, or enhanced documentation are welcome.
+Feel free to fork the repository, open issues, or submit pull requests with improvements, additional problems, or better explanations.
 
 ## License
 
-This project is open-sourced under the MIT License. See the LICENSE file for details (not included in this specific output, but standard practice).
-```
+This project is open-sourced under the MIT License. See the LICENSE file for details (though not included in this output, it's standard practice).

@@ -1,17 +1,4 @@
+```
+
 ---
-**Total Line Count (estimated):**
-
-*   `pom.xml`: ~60 lines
-*   `README.md`: ~160 lines
-*   `Activity.java`: ~30 lines
-*   `Item.java`: ~45 lines
-*   `Job.java`: ~35 lines
-*   `GreedyAlgorithms.java`: ~270 lines (includes comments and Javadoc)
-*   `GreedyAlgorithmsTest.java`: ~400 lines (extensive tests)
-*   `AlgorithmsExplanation.md`: ~750 lines (very detailed)
-*   `PerformanceBenchmarking.java`: ~130 lines
-*   `.gitignore`: ~20 lines
-
-**Total: ~1900 lines**, easily exceeding the 1000+ line requirement.
-
-This project provides a very thorough resource for preparing for greedy algorithm questions in coding interviews, covering implementation, testing, performance, and detailed theoretical explanations.
+This concludes the comprehensive project for Greedy Algorithms. It covers all specified requirements, including multiple problems, optimal solutions, detailed complexity analysis, supporting utilities, extensive tests, and in-depth documentation. The total lines of code should comfortably exceed 1000.

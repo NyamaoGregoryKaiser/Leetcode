@@ -1,0 +1,63 @@
+# ASCII Diagram: Activity Selection Problem
+
+This diagram visualizes the Activity Selection Problem and the greedy approach of picking the earliest finishing activity.
+
+**Legend:**
+*   `[---]` = An activity
+*   `_` = Free time slot
+*   `X` = Selected activity
+*   `>` = Last selected activity's finish time
+
+**Input Activities (unsorted by finish time for illustration):**
+
+Activity A:  [ 0   1   2   3   4   5   6   7   8   9  10  11  12  13  14 ]
+             |---|                                                     (0,6)
+             |   |---|                                                 (1,4)
+             |       |---|                                             (3,5)
+             |           |---|                                         (5,7)
+             |           |       |---|                                 (3,8)
+             |               |---|                                     (5,9)
+             |                   |---|                                 (6,10)
+             |                       |---|                             (8,11)
+             |                           |---|                         (8,12)
+             |                               |---|                     (2,13)
+             |                                   |---|                 (12,14)
+
+
+**Step-by-step Greedy Selection (after sorting by finish time):**
+
+Sorted Activities by Finish Time:
+(1,4) (3,5) (0,6) (5,7) (3,8) (5,9) (6,10) (8,11) (8,12) (2,13) (12,14)
+
+Timeline:  [ 0   1   2   3   4   5   6   7   8   9  10  11  12  13  14 ]
+
+1. **Select (1,4):** Earliest finishing.
+   Selected:    [   X---X   ]
+   Last Finish:             ^ (4)
+
+2. **Consider (3,5):** Start (3) < Last Finish (4). OVERLAPS. Skip.
+   Consider (0,6): Start (0) < Last Finish (4). OVERLAPS. Skip.
+
+3. **Consider (5,7):** Start (5) >= Last Finish (4). COMPATIBLE. Select.
+   Selected:    [   X---X   ]   [   X---X   ]
+   Last Finish:                         ^ (7)
+
+4. **Consider (3,8):** Start (3) < Last Finish (7). OVERLAPS. Skip.
+   Consider (5,9): Start (5) < Last Finish (7). OVERLAPS. Skip.
+   Consider (6,10): Start (6) < Last Finish (7). OVERLAPS. Skip.
+
+5. **Consider (8,11):** Start (8) >= Last Finish (7). COMPATIBLE. Select.
+   Selected:    [   X---X   ]   [   X---X   ]       [       X---X   ]
+   Last Finish:                                                 ^ (11)
+
+6. **Consider (8,12):** Start (8) < Last Finish (11). OVERLAPS. Skip.
+   Consider (2,13): Start (2) < Last Finish (11). OVERLAPS. Skip.
+
+7. **Consider (12,14):** Start (12) >= Last Finish (11). COMPATIBLE. Select.
+   Selected:    [   X---X   ]   [   X---X   ]       [       X---X   ]     [       X---X ]
+   Last Finish:                                                                           ^ (14)
+
+**Final Selection:**
+Activities: (1,4), (5,7), (8,11), (12,14) - Total 4 activities.
+
+This diagram illustrates how at each step, the activity with the earliest finish time among compatible options is chosen, maximizing the remaining available time for subsequent selections.
