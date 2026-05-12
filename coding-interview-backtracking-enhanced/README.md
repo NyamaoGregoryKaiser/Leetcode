@@ -1,126 +1,164 @@
-```markdown
 # Backtracking Interview Project
 
-This project provides a comprehensive overview and implementation of backtracking algorithms, commonly encountered in coding interviews. It includes multiple classic backtracking problems with optimal solutions, various approaches, detailed explanations, and supporting utilities for testing and performance analysis.
+This project serves as a comprehensive resource for understanding and implementing Backtracking algorithms, a fundamental technique in computer science and a common topic in coding interviews. It includes several classic backtracking problems, optimal solutions, detailed explanations, extensive test cases, and performance benchmarks.
 
 ## Table of Contents
 
-1.  [Introduction to Backtracking](#introduction-to-backtracking)
+1.  [Project Overview](#project-overview)
 2.  [Project Structure](#project-structure)
-3.  [Problems Implemented](#problems-implemented)
+3.  [Problem Descriptions](#problem-descriptions)
     *   [Subsets](#subsets)
     *   [Permutations](#permutations)
     *   [Combination Sum II](#combination-sum-ii)
     *   [N-Queens](#n-queens)
-4.  [Building and Running the Project](#building-and-running-the-project)
+4.  [Getting Started](#getting-started)
+    *   [Prerequisites](#prerequisites)
+    *   [Installation](#installation)
+    *   [Running Tests](#running-tests)
+    *   [Running Benchmarks](#running-benchmarks)
 5.  [Documentation](#documentation)
-    *   [Algorithm Explanation](#algorithm-explanation)
-    *   [Interview Tips & Variations](#interview-tips--variations)
-6.  [Performance Benchmarking](#performance-benchmarking)
+6.  [Core Concepts](#core-concepts)
+7.  [Interview Tips](#interview-tips)
+8.  [License](#license)
 
-## Introduction to Backtracking
+## Project Overview
 
-Backtracking is a general algorithmic technique for finding all (or some) solutions to some computational problems, notably constraint satisfaction problems, that incrementally builds candidates to the solutions and abandons a candidate ("backtracks") as soon as it determines that the candidate cannot possibly be completed to a valid solution. It's often visualized as searching a state-space tree.
+Backtracking is an algorithmic paradigm that attempts to find solutions by incrementally building candidates to the solutions and abandoning a candidate ("backtracking") as soon as it determines that the candidate cannot possibly be completed to a valid solution. It's often used for problems involving searching through a state space, typically represented as a tree structure.
+
+This project aims to:
+*   Provide clear, well-commented, and optimal Python implementations for common backtracking problems.
+*   Offer thorough explanations of the algorithms, including time and space complexity analysis.
+*   Demonstrate robust testing practices with a wide range of test cases.
+*   Showcase performance characteristics through benchmarking.
+*   Furnish comprehensive documentation to solidify understanding.
 
 ## Project Structure
 
 ```
 backtracking_interview_project/
-├── README.md                          <- This file
-├── main.cpp                           <- Entry point, runs tests and benchmarks
-├── src/                               <- Source code for backtracking problems
-│   ├── backtracking_problems.h        <- Declarations of problem functions
-│   └── backtracking_problems.cpp      <- Implementations of problem functions
-├── tests/                             <- Unit tests for each problem
-│   └── test_backtracking.cpp          <- Contains test cases and assertion framework
-├── utils/                             <- Utility functions
-│   └── profiler.h                     <- Simple timer and print utilities
-└── docs/                              <- Documentation files
-    ├── backtracking_explanation.md    <- Detailed explanation of backtracking algorithm
-    └── interview_tips.md              <- Tips for tackling backtracking problems in interviews
+├── src/                          # Main algorithm implementations
+│   ├── __init__.py               # Python package marker
+│   ├── subsets.py                # Finds all possible subsets of a given set.
+│   ├── permutations.py           # Finds all possible permutations of a given set.
+│   ├── combination_sum_ii.py     # Finds unique combinations that sum to a target (with duplicates).
+│   └── n_queens.py               # Solves the N-Queens problem.
+├── tests/                        # Unit tests for each problem
+│   ├── __init__.py
+│   ├── test_subsets.py
+│   ├── test_permutations.py
+│   ├── test_combination_sum_ii.py
+│   └── test_n_queens.py
+├── docs/                         # Comprehensive algorithm explanation and diagrams
+│   └── ALGORITHM_EXPLANATION.md
+├── performance/                  # Performance benchmarking scripts
+│   └── benchmark.py
+├── utils/                        # Helper utilities (e.g., for displaying N-Queens board)
+│   ├── __init__.py
+│   └── display.py
+└── README.md                     # Project overview and instructions
 ```
 
-## Problems Implemented
+## Problem Descriptions
 
 ### Subsets
 
-*   **Problem Description**: Given an integer array `nums` of unique elements, return all possible subsets (the power set). The solution set must not contain duplicate subsets.
-*   **Approaches Implemented**:
-    *   **Backtracking (Recursive)**: The standard recursive approach exploring choices to include or not include an element.
-    *   **Iterative**: Builds subsets by iteratively adding each element to all existing subsets.
-*   **Key Concepts**: Decision tree, include/exclude, `start_index` to prevent duplicates.
-*   **Complexity**:
-    *   Time: O(N * 2^N)
-    *   Space: O(N * 2^N) (for storing results) + O(N) (recursion stack)
+Given an integer array `nums` of unique elements, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Return the solution in any order.
+
+*   **Example:**
+    *   Input: `nums = [1, 2, 3]`
+    *   Output: `[[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]`
 
 ### Permutations
 
-*   **Problem Description**: Given an array `nums` of distinct integers, return all the possible permutations.
-*   **Approaches Implemented**:
-    *   **Backtracking (In-place Swap)**: Modifies the input array by swapping elements to generate permutations, then swaps back to backtrack.
-    *   **Backtracking (Visited Array)**: Uses a boolean array to keep track of which elements have already been added to the current permutation.
-*   **Key Concepts**: State tracking (visited elements or current permutation order), `swap` for state change, `backtrack` to restore state.
-*   **Complexity**:
-    *   Time: O(N * N!)
-    *   Space: O(N * N!) (for storing results) + O(N) (recursion stack/visited array)
+Given an array `nums` of distinct integers, return all possible permutations. You can return the answer in any order.
+
+*   **Example:**
+    *   Input: `nums = [1, 2, 3]`
+    *   Output: `[[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]`
 
 ### Combination Sum II
 
-*   **Problem Description**: Given a collection of candidate numbers (`candidates`) and a target number (`target`), find all unique combinations in `candidates` where the candidate numbers sum to `target`. Each number in `candidates` may only be used once in the combination.
-*   **Approach Implemented**:
-    *   **Backtracking with Pruning & Duplicate Handling**: Similar to subsets but includes a target sum constraint and careful handling of duplicate numbers in the input array. Requires sorting the input array.
-*   **Key Concepts**: `start_index` for unique combinations, pruning (`target < 0` or `candidates[i] > target`), skipping adjacent duplicates (`i > start && candidates[i] == candidates[i-1]`).
-*   **Complexity**:
-    *   Time: Exponential, roughly O(2^N) * N in worst case (pruning makes it better in practice).
-    *   Space: O(N) (recursion stack) + O(Result Size * N) (for storing results).
+Given a collection of candidate numbers (`candidates`) and a target number (`target`), find all unique combinations in `candidates` where the candidate numbers sum to `target`. Each number in `candidates` may only be used **once** in the combination. The solution set must not contain duplicate combinations.
+
+*   **Example:**
+    *   Input: `candidates = [10, 1, 2, 7, 6, 1, 5]`, `target = 8`
+    *   Output: `[[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]]`
+    *   Note: `1` is used twice in `[1, 1, 6]` because it appears twice in `candidates`.
 
 ### N-Queens
 
-*   **Problem Description**: The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other. Return all distinct solutions.
-*   **Approach Implemented**:
-    *   **Backtracking with Board State Validation**: Places queens row by row. For each cell, it checks if placing a queen there is valid given previously placed queens. If valid, it places a queen and recurses for the next row. If no valid placement is found in a row, it backtracks.
-*   **Key Concepts**: Board state representation, `isValid` helper function (checks column, diagonals), row-by-row decision making.
-*   **Complexity**:
-    *   Time: Exponential, roughly O(N!) or O(exp(N)) due to heavy pruning. Each solution takes O(N^2) to copy.
-    *   Space: O(N^2) (for board representation) + O(N) (recursion stack) + O(Number of Solutions * N^2) (for storing results).
+The N-Queens puzzle is the problem of placing N non-attacking queens on an N×N chessboard. This means no two queens share the same row, column, or diagonal. Given an integer `n`, return all distinct solutions to the N-Queens puzzle. Each solution contains a distinct board configuration of the N queens' placement, where `'Q'` and `'.'` both indicate a queen and an empty space, respectively.
 
-## Building and Running the Project
+*   **Example:**
+    *   Input: `n = 4`
+    *   Output:
+        ```
+        [[".Q..",  // Solution 1
+          "...Q",
+          "Q...",
+          "..Q."],
 
-To build and run this project, you will need a C++ compiler (e.g., g++).
+         ["..Q.",  // Solution 2
+          "Q...",
+          "...Q",
+          ".Q.."]]
+        ```
 
-**1. Navigate to the project root:**
+## Getting Started
+
+### Prerequisites
+
+*   Python 3.6+
+
+### Installation
+
+No specific installation steps are required beyond cloning the repository.
+
 ```bash
+git clone https://github.com/your-username/backtracking_interview_project.git
 cd backtracking_interview_project
 ```
 
-**2. Compile the code:**
-You can use a simple `g++` command:
-```bash
-g++ main.cpp src/backtracking_problems.cpp -o backtracking_solver -std=c++17 -Wall -Wextra -pedantic
-```
-*   `-std=c++17`: Enables C++17 features (optional, but good practice).
-*   `-Wall -Wextra -pedantic`: Enables strict warnings.
+### Running Tests
 
-**3. Run the executable:**
+To run all unit tests:
+
 ```bash
-./backtracking_solver
+python -m unittest discover tests
 ```
 
-This will execute all unit tests and then run the performance benchmarks.
+### Running Benchmarks
+
+To execute the performance benchmarks:
+
+```bash
+python performance/benchmark.py
+```
 
 ## Documentation
 
-### Algorithm Explanation
+For a deep dive into the backtracking algorithm, its general template, problem-specific explanations, visual diagrams, edge cases, and interview tips, please refer to:
 
-Refer to `docs/backtracking_explanation.md` for a detailed explanation of the backtracking algorithm, its components, analogies, and how to visualize it.
+[`docs/ALGORITHM_EXPLANATION.md`](./docs/ALGORITHM_EXPLANATION.md)
 
-### Interview Tips & Variations
+## Core Concepts
 
-Refer to `docs/interview_tips.md` for advice on approaching backtracking problems in interviews, common pitfalls, complexity analysis tips, and typical variations of standard problems.
+The `docs/ALGORITHM_EXPLANATION.md` covers these in detail:
+*   **Decision Tree:** How problems can be visualized as a tree of choices.
+*   **State:** What information needs to be maintained at each step of the recursion.
+*   **Choices:** The options available at the current state.
+*   **Constraints:** Rules that limit valid choices and allow for pruning.
+*   **Goal/Base Case:** The condition under which a valid solution is found or the recursion terminates.
+*   **Backtracking Step:** Reverting choices to explore alternative paths.
 
-## Performance Benchmarking
+## Interview Tips
 
-The `main.cpp` file includes a `runBenchmarks()` function that measures the execution time of each implemented problem for a reasonably sized input. This helps illustrate the practical performance characteristics and compare different approaches (e.g., recursive vs. iterative subsets, swap vs. visited permutations).
+*   **Understand the template:** A common recursive structure applies to many backtracking problems.
+*   **Identify State:** What do you need to pass in your recursive helper function?
+*   **Pruning:** How can you optimize by avoiding invalid paths early?
+*   **Handle Duplicates:** Sorting and conditional skips are often key.
+*   **Practice Visualization:** Draw recursion trees.
 
-Expected output will show execution times in microseconds (µs) for each problem, along with the size of the generated result set. Keep in mind that performance can vary greatly depending on hardware and compiler optimizations.
-```
+## License
+
+This project is open-sourced under the MIT License. See the LICENSE file for more details (not included in this output for brevity, but a standard one would be here).
