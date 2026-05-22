@@ -1,0 +1,28 @@
+```json
+{
+  "name": "sorting-algorithms-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Sorting Algorithms.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive tests/",
+    "benchmark": "node tests/benchmark.js",
+    "lint": "eslint src/ tests/"
+  },
+  "keywords": [
+    "sorting",
+    "algorithms",
+    "javascript",
+    "interview",
+    "data-structures",
+    "computer-science"
+  ],
+  "author": "Your Name/AI",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "eslint": "^8.57.0",
+    "mocha": "^10.2.0"
+  }
+}
+```
