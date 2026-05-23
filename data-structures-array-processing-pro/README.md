@@ -1,122 +1,182 @@
+```markdown
 # Array Manipulation Interview Project
 
-This project is a comprehensive guide and implementation for common array manipulation problems encountered in coding interviews. It provides multiple solutions, detailed explanations, performance analysis, and supporting documentation to help solidify understanding and prepare for technical interviews.
+This project provides a comprehensive set of problems, solutions, tests, and documentation related to array manipulation, designed to prepare for coding interviews.
 
 ## Table of Contents
 
 1.  [Project Structure](#project-structure)
 2.  [Problems Covered](#problems-covered)
-3.  [How to Build and Run](#how-to-build-and-run)
-4.  [File Descriptions](#file-descriptions)
-5.  [Documentation](#documentation)
+    *   [Rotate Array](#rotate-array)
+    *   [Maximum Subarray Sum](#maximum-subarray-sum)
+    *   [Trapping Rain Water](#trapping-rain-water)
+    *   [Product of Array Except Self](#product-of-array-except-self)
+3.  [Getting Started](#getting-started)
+    *   [Installation](#installation)
+    *   [Running Tests](#running-tests)
+    *   [Running Benchmarks](#running-benchmarks)
+4.  [Documentation](#documentation)
+    *   [Algorithms Explanation (`docs/algorithms.md`)](#algorithms-explanation-docsalgorithmsmd)
+    *   [Visual Diagrams (`docs/diagrams.md`)](#visual-diagrams-docsdiagramsmd)
+    *   [Interview Tips & Variations (`docs/interviewTips.md`)](#interview-tips--variations-docsinterviewtipsmd)
+5.  [Additional Implementations](#additional-implementations)
+    *   [Brute Force vs. Optimized](#brute-force-vs-optimized)
+    *   [Different Paradigms (e.g., Functional)](#different-paradigms-eg-functional)
+    *   [Memory-Efficient Versions](#memory-efficient-versions)
 6.  [Contributing](#contributing)
+7.  [License](#license)
 
 ## Project Structure
 
 ```
 array_manipulation_project/
-├── src/
-│   ├── array_manipulation.hpp    // Header for main algorithm functions
-│   ├── array_manipulation.cpp    // Implementation of array manipulation algorithms
-│   └── utils.hpp                 // Utility functions (e.g., vector printing, simple timer)
-├── tests/
-│   └── test_array_manipulation.cpp // Unit tests for all problems
-├── benchmarks/
-│   └── benchmark.cpp             // Performance benchmarking for different solutions
-├── docs/
-│   ├── algorithms.md             // Detailed algorithm explanations
-│   ├── diagrams.md               // ASCII art diagrams for key concepts
-│   └── interview_guide.md        // Interview tips, edge cases, and variations
-├── CMakeLists.txt                // Build system configuration
-└── README.md                     // Project overview, setup, and problem descriptions
+├── src/                          # Main source code for optimal solutions
+│   ├── problems/                 # Core algorithm implementations
+│   │   ├── rotateArray.js
+│   │   ├── maxSubarraySum.js
+│   │   ├── trappingRainWater.js
+│   │   └── productExceptSelf.js
+│   └── utils/                    # Helper utilities (if any specific ones are needed)
+│       └── arrayHelpers.js
+├── tests/                        # Jest test files for each problem
+│   ├── rotateArray.test.js
+│   ├── maxSubarraySum.test.js
+│   ├── trappingRainWater.test.js
+│   └── productExceptSelf.test.js
+├── bench/                        # Performance benchmarking scripts
+│   └── benchmark.js
+├── docs/                         # Comprehensive documentation
+│   ├── algorithms.md             # Detailed algorithm explanations
+│   ├── diagrams.md               # ASCII art for visual understanding
+│   └── interviewTips.md          # Interview tips, edge cases, and problem variations
+├── additional_implementations/   # Alternative implementations (brute force, functional, etc.)
+│   ├── rotateArray_bruteForce.js
+│   ├── maxSubarraySum_bruteForce.js
+│   ├── trappingRainWater_bruteForce.js
+│   ├── productExceptSelf_division.js
+│   ├── rotateArray_functional.js
+│   └── trappingRainWater_dp.js
+├── README.md                     # This file
+├── package.json                  # Project metadata and dependencies
 ```
 
 ## Problems Covered
 
-This project addresses the following fundamental array manipulation problems:
+### Rotate Array
 
-1.  **Rotate Array**:
-    *   **Problem**: Rotate an array to the right by `k` steps.
-    *   **Solutions**: Brute Force (k rotations), Using Extra Space (temp array), Three Reversals, Juggling Algorithm.
-    *   **Concepts**: In-place modification, modular arithmetic.
+**Problem Description:**
+Given an array, rotate the array to the right by `k` steps, where `k` is non-negative.
+The rotation should be performed in-place.
 
-2.  **Product of Array Except Self**:
-    *   **Problem**: Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`. The algorithm must run in O(n) time and without using the division operation.
-    *   **Solutions**: Brute Force (division allowed), Prefix/Suffix Products.
-    *   **Concepts**: Prefix sums/products, efficient array traversal.
+**Example:**
+Input: `nums = [1,2,3,4,5,6,7], k = 3`
+Output: `[5,6,7,1,2,3,4]`
 
-3.  **Maximum Subarray Sum (Kadane's Algorithm)**:
-    *   **Problem**: Find the contiguous subarray (containing at least one number) which has the largest sum.
-    *   **Solutions**: Brute Force, Dynamic Programming (Kadane's Algorithm).
-    *   **Concepts**: Dynamic programming, greedy approach.
+Explanation:
+1. `rotate 1 steps: [7,1,2,3,4,5,6]`
+2. `rotate 2 steps: [6,7,1,2,3,4,5]`
+3. `rotate 3 steps: [5,6,7,1,2,3,4]`
 
-4.  **Merge Intervals**:
-    *   **Problem**: Given an array of `intervals` where `intervals[i] = [start_i, end_i]`, merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
-    *   **Solutions**: Sorting and Merging.
-    *   **Concepts**: Sorting custom objects/pairs, greedy algorithm, interval management.
+### Maximum Subarray Sum
 
-## How to Build and Run
+**Problem Description:**
+Given an integer array `nums`, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
 
-To build and run this project, you will need a C++ compiler (like g++) and CMake.
+**Example:**
+Input: `nums = [-2,1,-3,4,-1,2,1,-5,4]`
+Output: `6`
+Explanation: `[4,-1,2,1]` has the largest sum = `6`.
 
-1.  **Clone the Repository (or save files locally):**
+### Trapping Rain Water
+
+**Problem Description:**
+Given `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+
+**Example:**
+Input: `height = [0,1,0,2,1,0,1,3,2,1,2,1]`
+Output: `6`
+
+### Product of Array Except Self
+
+**Problem Description:**
+Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`.
+The product of any prefix or suffix of `nums` is guaranteed to fit in a 32-bit integer.
+You must write an algorithm that runs in `O(n)` time and without using the division operation.
+
+**Example:**
+Input: `nums = [1,2,3,4]`
+Output: `[24,12,8,6]`
+Explanation:
+`answer[0] = 2 * 3 * 4 = 24`
+`answer[1] = 1 * 3 * 4 = 12`
+`answer[2] = 1 * 2 * 4 = 8`
+`answer[3] = 1 * 2 * 3 = 6`
+
+## Getting Started
+
+### Installation
+
+1.  **Clone the repository:**
     ```bash
     git clone https://github.com/your-username/array_manipulation_project.git
     cd array_manipulation_project
     ```
-    (Replace with your actual repo URL if hosted, otherwise ensure all files are in the correct directories.)
-
-2.  **Create a build directory:**
+2.  **Install dependencies:**
     ```bash
-    mkdir build
-    cd build
+    npm install
     ```
 
-3.  **Configure CMake:**
-    ```bash
-    cmake ..
-    ```
+### Running Tests
 
-4.  **Build the executables:**
-    ```bash
-    cmake --build .
-    ```
+To run all tests using Jest:
 
-5.  **Run Tests:**
-    To run the unit tests:
-    ```bash
-    ./array_manipulation_tests
-    ```
+```bash
+npm test
+```
 
-6.  **Run Benchmarks:**
-    To run the performance benchmarks:
-    ```bash
-    ./array_manipulation_benchmarks
-    ```
+To run tests for a specific file:
 
-## File Descriptions
+```bash
+npx jest tests/rotateArray.test.js
+```
 
-*   `src/array_manipulation.hpp`: Declares the functions for all array manipulation problems.
-*   `src/array_manipulation.cpp`: Contains the implementations for various approaches to each problem. Each solution includes detailed comments, time/space complexity analysis, and multiple approaches where applicable.
-*   `src/utils.hpp`: Provides utility functions like `printVector` for debugging and a `Timer` class for performance measurement.
-*   `tests/test_array_manipulation.cpp`: Contains unit tests using a simple assertion framework to verify the correctness of all implemented solutions across a wide range of test cases, including edge cases.
-*   `benchmarks/benchmark.cpp`: Utilizes the `Timer` utility to measure and compare the performance of different algorithms or approaches for a given problem (e.g., different `rotateArray` methods).
-*   `docs/algorithms.md`: Offers in-depth explanations of the logic behind each algorithm, including step-by-step breakdowns and rationale for optimal choices.
-*   `docs/diagrams.md`: Features ASCII art diagrams to visually represent key algorithm steps or data structures, enhancing understanding.
-*   `docs/interview_guide.md`: Provides general interview tips, common variations of the problems, follow-up questions, and identifies common edge cases and potential pitfalls.
-*   `CMakeLists.txt`: Defines the build process for the project, specifying how source files are compiled into executables.
+### Running Benchmarks
+
+To run the performance benchmarks:
+
+```bash
+npm run benchmark
+```
 
 ## Documentation
 
-The `docs/` directory is crucial for understanding the project in depth:
+### Algorithms Explanation (`docs/algorithms.md`)
+This document provides detailed explanations of the optimal algorithms used for each problem, breaking down the logic and reasoning.
 
-*   **`algorithms.md`**: Dive into the "why" and "how" of each solution.
-*   **`diagrams.md`**: Visual learners will appreciate the ASCII art.
-*   **`interview_guide.md`**: Essential for interview preparation, covering variations, edge cases, and discussion points.
+### Visual Diagrams (`docs/diagrams.md`)
+Includes ASCII art and step-by-step illustrations to help visualize the algorithms, especially for problems like "Rotate Array" and "Trapping Rain Water".
+
+### Interview Tips & Variations (`docs/interviewTips.md`)
+Offers advice on how to approach these problems in an interview setting, discusses common pitfalls, edge cases, and potential variations of the problems.
+
+## Additional Implementations
+
+The `additional_implementations/` directory contains alternative solutions for some problems, showcasing different approaches:
+
+### Brute Force vs. Optimized
+For many problems, a simpler, less efficient "brute force" solution is provided alongside the optimal one, highlighting the trade-offs in complexity.
+
+### Different Paradigms (e.g., Functional)
+Some problems might have solutions implemented using different programming paradigms (e.g., a more functional approach for array transformations).
+
+### Memory-Efficient Versions
+While optimal solutions often aim for space efficiency, this section might sometimes provide explicit examples or discussions around further memory optimization if relevant.
 
 ## Contributing
 
-Feel free to open issues or submit pull requests if you have suggestions for improvements, new problems, or additional solutions.
+Feel free to open issues or submit pull requests for improvements, additional problems, or alternative solutions.
 
----
-© 2023 [Your Name/Company]. All rights reserved.
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details (though not explicitly created in this output, it's standard practice).
+```
