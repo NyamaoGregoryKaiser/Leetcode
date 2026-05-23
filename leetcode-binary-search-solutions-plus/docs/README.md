@@ -1,120 +1,135 @@
+```markdown
 # Binary Search Interview Project
 
-This project is a comprehensive guide and implementation set for mastering Binary Search, a crucial algorithm for coding interviews. It includes multiple problem types, various optimal solutions, detailed explanations, robust testing, and performance benchmarking.
+This project serves as a comprehensive resource for understanding, implementing, testing, and benchmarking various Binary Search algorithms frequently encountered in coding interviews. It includes multiple problem patterns, optimal solutions, brute-force comparisons, performance analysis, and detailed documentation.
 
 ## Table of Contents
 
-1.  [Introduction](#introduction)
-2.  [Project Structure](#project-structure)
-3.  [Building and Running](#building-and-running)
-    *   [Prerequisites](#prerequisites)
-    *   [Build Steps](#build-steps)
-    *   [Running Tests](#running-tests)
-    *   [Running Benchmarks](#running-benchmarks)
-4.  [Problems Covered](#problems-covered)
-5.  [Documentation](#documentation)
-    *   [Algorithm Explanation](#algorithm-explanation)
-    *   [Visual Diagrams](#visual-diagrams)
-6.  [Contributing](#contributing)
-7.  [License](#license)
-
-## Introduction
-
-Binary Search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing in half the portion of the list that could contain the item, until you've narrowed down the possible locations to just one. This project aims to provide a thorough understanding and practical implementation experience for common binary search interview questions.
+1.  [Project Structure](#project-structure)
+2.  [Setup and Installation](#setup-and-installation)
+3.  [Problems Covered](#problems-covered)
+    *   [Problem 1: Standard Binary Search](#problem-1-standard-binary-search)
+    *   [Problem 2: Find First and Last Occurrence](#problem-2-find-first-and-last-occurrence)
+    *   [Problem 3: Search in Rotated Sorted Array](#problem-3-search-in-rotated-sorted-array)
+    *   [Problem 4: Find Peak Element](#problem-4-find-peak-element)
+    *   [Problem 5: Koko Eating Bananas (Binary Search on Answer)](#problem-5-koko-eating-bananas-binary-search-on-answer)
+4.  [Running Tests](#running-tests)
+5.  [Running Benchmarks](#running-benchmarks)
+6.  [Documentation](#documentation)
+7.  [Contributing](#contributing)
+8.  [License](#license)
 
 ## Project Structure
 
--   `src/`: Contains all source code for algorithm implementations and helper utilities.
-    -   `algorithms.h`: Function declarations for all binary search problems.
-    -   `algorithms.cpp`: Implementations of various binary search algorithms.
-    -   `helpers.h`, `helpers.cpp`: General utility functions (e.g., vector printing, random data generation).
--   `tests/`: Contains unit tests for all implemented algorithms using the Google Test framework.
--   `benchmarks/`: Contains performance benchmarks using the Google Benchmark framework, comparing different approaches and showcasing efficiency.
--   `docs/`: Contains detailed documentation for the project.
-    -   `README.md`: This file.
-    -   `binary_search_explained.md`: In-depth explanation of the binary search algorithm, its variations, pitfalls, and interview tips.
-    -   `diagrams.md`: ASCII art diagrams to visually explain complex binary search scenarios.
-    -   `problems_description.md`: Detailed descriptions for each problem solved in `src/algorithms.cpp`.
--   `CMakeLists.txt`: Top-level CMake file for building the entire project.
--   `.gitignore`: Specifies intentionally untracked files to ignore.
+```
+binary-search-interview-project/
+├── src/
+│   ├── algorithms/
+│   │   ├── binarySearchProblems.js    # Core Binary Search implementations (5 problems)
+│   │   └── bruteForceSolutions.js     # Brute-force counterparts for comparison
+│   ├── utils/
+│   │   ├── arrayGenerator.js          # Utility to generate diverse test arrays
+│   │   └── performanceMonitor.js      # Utility to measure function execution time
+│   └── data-structures/
+│       # (Placeholder for potential future complex data structures)
+├── tests/
+│   ├── binarySearchProblems.test.js   # Jest tests for correctness of algorithms
+│   └── performance.test.js            # Performance benchmarks comparing algorithms
+├── docs/
+│   ├── README.md                      # This file
+│   ├── ALGORITHM_EXPLANATION.md       # Detailed explanation of Binary Search, diagrams, edge cases
+│   └── INTERVIEW_TIPS.md              # Advice for tackling Binary Search problems in interviews
+├── .gitignore
+├── package.json
+├── babel.config.js
+└── jest.config.js
+```
 
-## Building and Running
-
-### Prerequisites
-
-You'll need the following installed:
--   A C++ compiler (GCC/Clang recommended) supporting C++11 or later.
--   CMake (version 3.10 or higher).
--   Google Test (will be fetched automatically by CMake if not found globally).
--   Google Benchmark (will be fetched automatically by CMake if not found globally).
-
-### Build Steps
+## Setup and Installation
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/binary_search_project.git
-    cd binary_search_project
+    git clone https://github.com/your-username/binary-search-interview-project.git
+    cd binary-search-interview-project
     ```
-    (Note: Replace `your-username` with your actual GitHub username or remove this line if this is a local project setup.)
-
-2.  **Create a build directory and run CMake:**
+2.  **Install dependencies:**
     ```bash
-    mkdir build
-    cd build
-    cmake ..
+    npm install
     ```
-    This will configure the project and download Google Test and Google Benchmark if they are not already installed on your system.
-
-3.  **Compile the project:**
-    ```bash
-    cmake --build .
-    ```
-    This will compile all source files, creating executables for tests and benchmarks.
-
-### Running Tests
-
-After building, you can run all unit tests:
-```bash
-./tests/binary_search_tests
-```
-
-### Running Benchmarks
-
-After building, you can run all performance benchmarks:
-```bash
-./benchmarks/binary_search_benchmarks
-```
 
 ## Problems Covered
 
-This project covers the following essential binary search problems:
+This project implements optimal (O(log N)) solutions for a variety of binary search problems.
 
-1.  **Standard Binary Search:** Finding an exact element in a sorted array.
-    *   Iterative Approach
-    *   Recursive Approach
-    *   Comparison with Linear Search (Brute Force)
-2.  **Find First and Last Occurrence:** Locating the first and last indices of a target in a sorted array with duplicates.
-3.  **Search in Rotated Sorted Array:** Finding an element in a sorted array that has been rotated at an unknown pivot.
-4.  **Find Peak Element:** Identifying a peak element in an array where `nums[i] > nums[i-1]` and `nums[i] > nums[i+1]`.
-5.  **Smallest Divisor Given a Threshold (Binary Search on Answer):** Finding the smallest positive divisor such that the sum of the division results (rounded up) is less than or equal to a given threshold. This demonstrates binary search on the *answer space* rather than directly on the input array.
+### Problem 1: Standard Binary Search
 
-For detailed descriptions of each problem, refer to `docs/problems_description.md`.
+*   **Description**: Given a sorted array of integers `nums` and an integer `target`, return the index of `target` if it is in the array, otherwise return -1.
+*   **Implementations**:
+    *   `standardBinarySearchIterative(nums, target)`
+    *   `standardBinarySearchRecursive(nums, target)`
+*   **Time Complexity**: O(log N)
+*   **Space Complexity**: O(1) for iterative, O(log N) for recursive (due to call stack).
+
+### Problem 2: Find First and Last Occurrence
+
+*   **Description**: Given a sorted array `nums` with potentially duplicate elements and a `target` value, return an array of two integers `[first_occurrence_index, last_occurrence_index]`. If the target is not found, return `[-1, -1]`.
+*   **Implementation**: `findFirstAndLastOccurrence(nums, target)`
+*   **Time Complexity**: O(log N)
+*   **Space Complexity**: O(1)
+
+### Problem 3: Search in Rotated Sorted Array
+
+*   **Description**: Given a sorted array `nums` that has been rotated at an unknown pivot, search for a `target` value. Return its index or -1 if not found.
+*   **Implementation**: `searchInRotatedSortedArray(nums, target)`
+*   **Time Complexity**: O(log N)
+*   **Space Complexity**: O(1)
+
+### Problem 4: Find Peak Element
+
+*   **Description**: A peak element is an element strictly greater than its neighbors. Given an array `nums` where `nums[i] != nums[i+1]`, find *any* peak element and return its index. Assume `nums[-1] = nums[n] = -Infinity`.
+*   **Implementation**: `findPeakElement(nums)`
+*   **Time Complexity**: O(log N)
+*   **Space Complexity**: O(1)
+
+### Problem 5: Koko Eating Bananas (Binary Search on Answer)
+
+*   **Description**: Koko wants to eat `piles` of bananas within `h` hours. Find the minimum integer eating speed `k` such that she can finish all bananas.
+*   **Implementation**: `minEatingSpeed(piles, h)`
+*   **Time Complexity**: O(N log M) where N is number of piles and M is the maximum pile size (range of `k`).
+*   **Space Complexity**: O(1)
+
+## Running Tests
+
+To run the unit tests for correctness:
+
+```bash
+npm test
+```
+
+This will execute all tests in the `tests/` directory.
+
+## Running Benchmarks
+
+To run the performance benchmarks and compare binary search against brute-force solutions:
+
+```bash
+npm run benchmark
+```
+
+This command specifically runs `tests/performance.test.js` and outputs the execution times to the console. The performance tests are configured to run sequentially (`--runInBand`) to avoid interference and ensure accurate time measurements.
 
 ## Documentation
 
-### Algorithm Explanation
-For a deep dive into the theory, common variations, and interview strategies for Binary Search, check out `docs/binary_search_explained.md`.
+The `docs/` directory contains detailed explanations:
 
-### Visual Diagrams
-Visual aids using ASCII art to understand the mechanics of binary search are available in `docs/diagrams.md`.
+*   **`ALGORITHM_EXPLANATION.md`**: A deep dive into the Binary Search algorithm, its principles, variations, common pitfalls, and ASCII diagrams to illustrate the search process.
+*   **`INTERVIEW_TIPS.md`**: Practical advice and strategies for approaching and acing Binary Search questions in coding interviews.
 
 ## Contributing
 
-Feel free to open issues or submit pull requests if you have suggestions for improvements, find bugs, or want to add more problems/solutions.
+Feel free to open issues or submit pull requests to improve this project. Suggestions for new problems, optimizations, or documentation enhancements are welcome.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-(Note: A `LICENSE` file would typically be added to a real project.)
-
----
+This project is licensed under the MIT License - see the `LICENSE` file for details (not included in this specific output, but would be standard in a real project).
+```
