@@ -1,522 +1,457 @@
 ```markdown
-# Algorithm Explanations
+# Graph Algorithm Explanations
 
-This document provides a detailed breakdown of the graph algorithms implemented in this project, including their principles, time/space complexity, and visual ASCII diagrams.
+This document provides detailed explanations, pseudocode, and visual diagrams for the core graph algorithms implemented in this project.
 
----
+## 1. Breadth-First Search (BFS)
 
-## 1. Number of Islands (Connected Components)
+BFS is an algorithm for traversing or searching tree or graph data structures. It explores all of the neighbor nodes at the present depth prior to moving on to the nodes at the next depth level.
 
-**Problem:** Given a 2D binary grid, count the number of islands. An island is a group of connected '1's (land) surrounded by '0's (water). Connection is horizontal or vertical.
+### Concept
+Imagine a ripple spreading out from a stone dropped in water. BFS explores the graph in the same way, expanding outwards from the starting node layer by layer. It uses a **queue** to manage which nodes to visit next, ensuring that nodes closer to the source are visited first.
 
-### Core Idea
-
-The problem is a classic application of graph traversal algorithms (BFS or DFS) on a grid. Each '1' can be considered a node in an implicit graph, and adjacent '1's are connected by edges. When we find an unvisited '1', it signifies the discovery of a new island. We then traverse all connected '1's of this island, marking them as visited, to ensure they are not counted again.
-
-### Approach 1: Breadth-First Search (BFS)
-
-**Principle:** BFS explores all the neighbor nodes at the current depth level before moving on to the nodes at the next depth level. It uses a queue data structure.
-
-**Algorithm Steps:**
-
-1.  Initialize `islandCount = 0`.
-2.  Iterate through each cell `(r, c)` of the grid.
-3.  If `grid[r][c]` is '1':
-    a.  Increment `islandCount`.
-    b.  Start a BFS:
-        i.  Mark `grid[r][c]` as '0' (visited).
-        ii. Add `(r, c)` to a queue.
-        iii. While the queue is not empty:
-            -   Dequeue a cell `(currR, currC)`.
-            -   For each of its four neighbors `(nR, nC)`:
-                -   If `(nR, nC)` is within bounds and `grid[nR][nC]` is '1':
-                    -   Mark `grid[nR][nC]` as '0'.
-                    -   Enqueue `(nR, nC)`.
-4.  Return `islandCount`.
-
-**Time Complexity:** O(R \* C)
-Each cell is visited at most once (by the outer loop, and then by BFS if it's land), and constant time operations are performed for each.
-**Space Complexity:** O(R \* C)
-In the worst case (grid full of land), the queue can hold up to all R\*C cells.
-
-**Visual Diagram (BFS):**
-
-```
-Initial Grid:
-1 1 0 0
-0 1 1 0
-0 0 0 1
-
-1. Find (0,0) = '1'. Increment islands=1. Start BFS.
-   Queue: [(0,0)]
-   Mark (0,0) as '0'.
-
-2. Dequeue (0,0). Neighbors: (0,1), (1,0). Both '1'.
-   Mark (0,1) as '0'. Enqueue (0,1).
-   Mark (1,0) as '0'. Enqueue (1,0).
-   Grid:
-   0 0 0 0
-   0 0 1 0
-   0 0 0 1
-   Queue: [(0,1), (1,0)]
-
-3. Dequeue (0,1). Neighbors: (0,0)-visited, (1,1). (1,1) is '1'.
-   Mark (1,1) as '0'. Enqueue (1,1).
-   Grid:
-   0 0 0 0
-   0 0 0 0
-   0 0 0 1
-   Queue: [(1,0), (1,1)]
-
-4. Dequeue (1,0). Neighbors: (0,0)-visited, (1,1)-visited, (2,0)-water.
-   Queue: [(1,1)]
-
-5. Dequeue (1,1). Neighbors: (0,1)-visited, (1,0)-visited, (1,2). (1,2) is '1'.
-   Mark (1,2) as '0'. Enqueue (1,2).
-   Grid:
-   0 0 0 0
-   0 0 0 0
-   0 0 0 1
-   Queue: [(1,2)]
-
-6. Dequeue (1,2). Neighbors: (1,1)-visited, (0,2)-water, (2,2)-water.
-   Queue: []
-
-7. BFS for first island complete. Grid scanned, find (2,3) = '1'.
-   Increment islands=2. Start BFS.
-   Queue: [(2,3)]
-   Mark (2,3) as '0'.
-
-8. Dequeue (2,3). Neighbors: (1,3)-water, (3,3)-water, (2,2)-water.
-   Queue: []
-
-9. BFS for second island complete. All cells scanned. Return islands = 2.
-```
-
-### Approach 2: Depth-First Search (DFS)
-
-**Principle:** DFS explores as far as possible along each branch before backtracking. It naturally uses the call stack for recursion or an explicit stack for iteration.
-
-**Algorithm Steps:**
-
-1.  Initialize `islandCount = 0`.
-2.  Iterate through each cell `(r, c)` of the grid.
-3.  If `grid[r][c]` is '1':
-    a.  Increment `islandCount`.
-    b.  Call a `dfs(r, c)` helper function:
-        i.  Base Case: If `(r, c)` is out of bounds or `grid[r][c]` is '0', return.
-        ii. Mark `grid[r][c]` as '0' (visited).
-        iii. Recursively call `dfs` for its four neighbors: `(r+1, c), (r-1, c), (r, c+1), (r, c-1)`.
-4.  Return `islandCount`.
-
-**Time Complexity:** O(R \* C)
-Similar to BFS, each cell is visited at most once.
-**Space Complexity:** O(R \* C)
-In the worst case (grid full of land), the recursion stack depth can go up to R\*C.
-
-**Visual Diagram (DFS):**
-
-```
-Initial Grid:
-1 1 0 0
-0 1 1 0
-0 0 0 1
-
-1. Find (0,0) = '1'. Increment islands=1. Call dfs(0,0).
-   dfs(0,0):
-     Mark (0,0) as '0'.
-     dfs(1,0):
-       Mark (1,0) as '0'.
-       dfs(2,0): (out of bounds/water) -> return
-       dfs(0,0): (visited) -> return
-       dfs(1,1):
-         Mark (1,1) as '0'.
-         dfs(2,1): (out of bounds/water) -> return
-         dfs(0,1):
-           Mark (0,1) as '0'.
-           dfs(1,1): (visited) -> return
-           dfs(-1,1): (out of bounds) -> return
-           dfs(0,2): (water) -> return
-         dfs(1,2):
-           Mark (1,2) as '0'.
-           dfs(2,2): (water) -> return
-           dfs(0,2): (water) -> return
-           dfs(1,3): (water) -> return
-         dfs(1,0): (visited) -> return
-       dfs(1,-1): (out of bounds) -> return
-     dfs(0,1): (visited) -> return
-     dfs(-1,0): (out of bounds) -> return
-     dfs(0,-1): (out of bounds) -> return
-   dfs(0,0) returns.
-
-   Grid after first island DFS:
-   0 0 0 0
-   0 0 0 0
-   0 0 0 1
-
-2. Scan grid, find (2,3) = '1'. Increment islands=2. Call dfs(2,3).
-   dfs(2,3):
-     Mark (2,3) as '0'.
-     dfs(3,3): (out of bounds/water) -> return
-     dfs(1,3): (water) -> return
-     dfs(2,4): (out of bounds) -> return
-     dfs(2,2): (water) -> return
-   dfs(2,3) returns.
-
-3. All cells scanned. Return islands = 2.
-```
-
----
-
-## 2. Dijkstra's Shortest Path Algorithm
-
-**Problem:** Find the shortest path from a single source vertex to all other vertices in a weighted graph with non-negative edge weights.
-
-### Core Idea
-
-Dijkstra's algorithm is a greedy algorithm that finds the shortest path by iteratively selecting the unvisited vertex with the smallest known distance from the source, and then relaxing its edges. Relaxation means updating the distances to its neighbors if a shorter path is found through the current vertex. A Min-Priority Queue is crucial for efficiently selecting the next vertex.
+### Problem Context: Shortest Path in Binary Matrix
+For unweighted graphs (where each edge has a cost of 1), BFS inherently finds the shortest path because it explores all paths of length `k` before exploring any path of length `k+1`. In a grid, moving from one cell to an adjacent cell is considered one "step" or "edge".
 
 ### Algorithm Steps
+1.  Initialize a queue and add the starting node to it.
+2.  Mark the starting node as visited and record its distance (usually 0 or 1, depending on problem definition).
+3.  While the queue is not empty:
+    a.  Dequeue a node `u`.
+    b.  If `u` is the target node, we've found the shortest path.
+    c.  For each unvisited neighbor `v` of `u`:
+        i.  Mark `v` as visited.
+        ii. Record its distance as `distance(u) + 1`.
+        iii. Enqueue `v`.
 
-1.  Initialize `distances` map: `distances[source] = 0`, all other `distances[v] = Infinity`.
-2.  Initialize `paths` map: `paths[v] = null` for all `v`. This stores the predecessor for path reconstruction.
-3.  Create a Min-Priority Queue and `enqueue(source, 0)`.
-4.  While the priority queue is not empty:
-    a.  Dequeue the vertex `u` with the smallest `priority` (which is its current shortest distance).
-    b.  If the dequeued distance to `u` is greater than `distances[u]` (this can happen with lazy priority queue updates), continue to the next iteration (a shorter path to `u` has already been found and processed).
+### Pseudocode (for Shortest Path in Binary Matrix)
+
+```
+function shortestPathBinaryMatrix(grid):
+    N = grid.length
+
+    if grid[0][0] == 1 or grid[N-1][N-1] == 1:
+        return -1
+    if N == 1:
+        return 1
+
+    queue = []
+    distances = N x N matrix initialized to Infinity
+
+    queue.enqueue([0, 0, 1]) // [row, col, distance]
+    distances[0][0] = 1
+
+    while queue is not empty:
+        r, c, dist = queue.dequeue()
+
+        if r == N-1 and c == N-1:
+            return dist
+
+        for each 8-directional neighbor (nr, nc) of (r, c):
+            if nr, nc are in bounds AND grid[nr][nc] == 0 AND distances[nr][nc] == Infinity:
+                distances[nr][nc] = dist + 1
+                queue.enqueue([nr, nc, dist + 1])
+
+    return -1 // Target unreachable
+```
+
+### Time and Space Complexity
+*   **Time:** O(V + E), where V is the number of vertices (cells in grid: N*N) and E is the number of edges (connections: up to 8 per cell). For a grid, this simplifies to O(R * C) where R is rows, C is columns.
+*   **Space:** O(V) for the queue and visited/distance array. O(R * C) for a grid.
+
+### Visual Diagram (ASCII Art)
+
+```
+Grid:
++---+---+---+
+| S | 0 | 0 |
++---+---+---+
+| 1 | 1 | 0 |
++---+---+---+
+| 0 | 0 | E |
++---+---+---+
+S = Start (0,0), E = End (2,2)
+
+BFS Traversal (distances shown):
+Queue: [[0,0,1]]
+Distances:
++---+---+---+
+| 1 |inf|inf|
++---+---+---+
+|inf|inf|inf|
++---+---+---+
+|inf|inf|inf|
++---+---+---+
+
+Pop [0,0,1]. Neighbors: [0,1], [1,0], [1,1] (8-dir)
+Valid neighbors (value 0, unvisited): [0,1]
+Enqueue [0,1,2]. Distances[0][1]=2
+
+Pop [0,1,2]. Neighbors: [0,0], [0,2], [1,0], [1,1], [1,2]
+Valid neighbors: [0,2], [1,2] (1,1 is blocked)
+Enqueue [0,2,3], [1,2,3]. Distances[0][2]=3, Distances[1][2]=3
+
+... and so on ...
+
+Final Path (e.g., (0,0)->(0,1)->(0,2)->(1,2)->(2,2)) length 5
+```
+
+### Edge Cases and Gotchas
+*   **Start/End blocked:** If `grid[0][0]` or `grid[N-1][N-1]` is `1`, return -1 immediately.
+*   **1x1 grid:** If `N=1` and `grid[0][0]=0`, path is 1.
+*   **Disconnected graph:** If the target is unreachable, the queue will eventually empty, and -1 should be returned.
+*   **Visited check:** Ensure cells are marked visited *when enqueued* or processed *only if shorter path*. The `distances[nr][nc] === Infinity` check effectively acts as a `!visited` check.
+
+## 2. Depth-First Search (DFS)
+
+DFS is an algorithm for traversing or searching tree or graph data structures. It explores as far as possible along each branch before backtracking.
+
+### Concept
+Imagine navigating a maze by always choosing the left-most path. You go as deep as you can, and only when you hit a dead end, do you backtrack to the last junction and try another path. DFS uses a **stack** (either explicit or implicit via recursion call stack) to remember which path to take when backtracking.
+
+### Problem Context: Number of Islands
+To count islands, when a piece of land ('1') is found, DFS is initiated to explore its entire connected component (the whole island). All cells of this island are "sunk" (marked '0') so they won't be counted again. Each time a new '1' is discovered (meaning a new island), the island count increments.
+
+### Algorithm Steps
+1.  Iterate through each cell of the grid.
+2.  If a cell `(r, c)` contains '1' (land):
+    a.  Increment the island count.
+    b.  Start a DFS (recursive or iterative) from `(r, c)`:
+        i.  Mark `(r, c)` as visited (e.g., change `grid[r][c]` to '0').
+        ii. For each 4-directional neighbor `(nr, nc)` of `(r, c)`:
+            1.  If `(nr, nc)` is in bounds, is land ('1'), and not visited, recursively (or iteratively via stack) call DFS on `(nr, nc)`.
+
+### Pseudocode (for Number of Islands - Recursive DFS)
+
+```
+function numIslands(grid):
+    rows = grid.length
+    cols = grid[0].length
+    islandCount = 0
+
+    function dfs(r, c):
+        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] == '0':
+            return
+        
+        grid[r][c] = '0' // Mark as visited (sink island)
+
+        dfs(r + 1, c) // Down
+        dfs(r - 1, c) // Up
+        dfs(r, c + 1) // Right
+        dfs(r, c - 1) // Left
+
+    for r from 0 to rows-1:
+        for c from 0 to cols-1:
+            if grid[r][c] == '1':
+                islandCount = islandCount + 1
+                dfs(r, c)
+                
+    return islandCount
+```
+
+### Time and Space Complexity
+*   **Time:** O(R * C), where R is the number of rows and C is the number of columns. Each cell is visited at most once.
+*   **Space:** O(R * C) in the worst case. This is for the recursion stack (if the grid is a single large island) or the explicit stack in an iterative DFS.
+
+### Visual Diagram (ASCII Art)
+
+```
+Grid:
++---+---+---+---+
+| 1 | 1 | 0 | 0 |
++---+---+---+---+
+| 1 | 1 | 0 | 0 |
++---+---+---+---+
+| 0 | 0 | 1 | 0 |
++---+---+---+---+
+
+Start: (0,0) is '1'. islandCount = 1. Call DFS(0,0).
+DFS(0,0): grid[0][0]='0'
+  DFS(1,0): grid[1][0]='0'
+    DFS(2,0) -> out of bounds
+    DFS(0,0) -> visited
+    DFS(1,1): grid[1][1]='0'
+      DFS(2,1) -> out of bounds
+      DFS(0,1): grid[0][1]='0'
+        DFS(1,1) -> visited
+        DFS(0,0) -> visited
+        DFS(0,2) -> '0' (water)
+        DFS(-1,1) -> out of bounds
+      Return
+    DFS(1,2) -> '0' (water)
+    DFS(2,1) -> out of bounds
+  Return
+  DFS(0,1) -> visited
+  DFS(-1,0) -> out of bounds
+  DFS(0,1) -> visited
+Return from initial DFS(0,0).
+
+Grid becomes:
++---+---+---+---+
+| 0 | 0 | 0 | 0 |
++---+---+---+---+
+| 0 | 0 | 0 | 0 |
++---+---+---+---+
+| 0 | 0 | 1 | 0 |
++---+---+---+---+
+
+Continue scanning: (2,2) is '1'. islandCount = 2. Call DFS(2,2).
+  DFS(2,2): grid[2][2]='0'
+  ... (no other neighbors for (2,2) are '1')
+Return from DFS(2,2).
+
+Final islandCount = 2 (if this was the grid, problem example has 3)
+```
+
+### Edge Cases and Gotchas
+*   **Empty grid:** Handle `grid.length === 0` or `grid[0].length === 0`.
+*   **Grid with only water:** `islandCount` remains 0.
+*   **In-place modification:** Modifying the grid (`'1'` to `'0'`) is a common trick. If the grid cannot be modified, a separate `visited` 2D array is needed.
+*   **Recursion depth:** For very large grids that form a single island, recursive DFS can lead to stack overflow. An iterative DFS using an explicit stack is a more robust alternative.
+
+## 3. Dijkstra's Algorithm
+
+Dijkstra's algorithm is a single-source shortest path algorithm for a graph with non-negative edge weights.
+
+### Concept
+Dijkstra's works like a greedy exploration. It always picks the unvisited node with the smallest known distance from the source. When it visits a node, it updates the distances of its neighbors if a shorter path through the current node is found. This process guarantees finding the shortest path to each node because edge weights are non-negative.
+
+A **Min-Heap** (priority queue) is crucial for efficiently selecting the unvisited node with the smallest distance.
+
+### Problem Context: Network Delay Time
+The problem asks for the minimum time for a signal to reach *all* `n` nodes from a source node `k`. This is exactly what Dijkstra's calculates: shortest paths from a single source to all other nodes. The "minimum time for all nodes" is then simply the maximum of all shortest path times to reachable nodes. If any node is unreachable, it's impossible, so we return -1.
+
+### Algorithm Steps
+1.  **Initialize:**
+    *   Create an adjacency list to represent the graph from the given `times` (edges).
+    *   Create a `distances` map/array, initializing all distances to infinity, and the source node `k`'s distance to 0.
+    *   Create a Min-Heap (priority queue) and add `[k, 0]` (node, distance).
+2.  **Main Loop:** While the Min-Heap is not empty:
+    a.  Extract the node `u` with the smallest `currentDist` from the Min-Heap.
+    b.  If `currentDist` is greater than `distances[u]`, continue (this is a stale entry in the heap, we've found a shorter path to `u` already).
     c.  For each neighbor `v` of `u` with edge weight `w`:
-        i.  Calculate `newDistance = distances[u] + w`.
-        ii. If `newDistance < distances[v]`:
-            -   Update `distances[v] = newDistance`.
-            -   Set `paths[v] = u`.
-            -   Enqueue `(v, newDistance)` into the priority queue.
-5.  Return `distances` and `paths`.
+        i.  Calculate a `newDist = currentDist + w`.
+        ii. If `newDist < distances[v]`:
+            1.  Update `distances[v] = newDist`.
+            2.  Insert `[v, newDist]` into the Min-Heap.
+3.  **Result:** After the loop, iterate through all nodes' distances. If any node still has `Infinity` distance, it's unreachable, return -1. Otherwise, return the maximum value among all calculated shortest distances.
 
-**Time Complexity:** O(E log V) (using a binary heap)
--   Each vertex is dequeued once (V operations, each O(log V)).
--   Each edge is relaxed once (E operations, each involving priority queue `enqueue` or `decrease-key`, O(log V)).
-**Space Complexity:** O(V + E)
--   `distances` and `paths` maps: O(V).
--   Priority queue: O(E) in worst case (if many redundant entries due to lazy updates), typically O(V).
-
-**Visual Diagram (Dijkstra - conceptual flow):**
+### Pseudocode (with Min-Heap)
 
 ```
-Graph: A --(4)--> B
-       | \       /|
-       (2)(9)   (3)
-       |   \   /  |
-       V    V /   V
-       C --(2)--> D --(1)--> E
+function networkDelayTime(times, n, k):
+    adjList = buildAdjacencyList(n, times, isDirected=true, isOneIndexed=true)
+    
+    distances = Map<node_id, distance> initialized to Infinity for all 1..n
+    distances[k] = 0
 
-Start from A.
+    minHeap = MinHeap() // Stores [distance, node_id]
+    minHeap.insert(k, 0)
+
+    visitedCount = 0 // Track how many nodes finalized shortest path
+
+    while not minHeap.isEmpty():
+        currentDist, u = minHeap.extractMin()
+
+        if currentDist > distances[u]: // Stale entry
+            continue
+
+        visitedCount++
+
+        for each neighbor (v, weight) of u:
+            newDist = currentDist + weight
+            if newDist < distances[v]:
+                distances[v] = newDist
+                minHeap.insert(v, newDist)
+
+    if visitedCount != n: // Not all nodes reached
+        return -1
+    
+    maxDelay = 0
+    for dist in distances.values():
+        maxDelay = max(maxDelay, dist)
+    
+    return maxDelay
+```
+
+### Time and Space Complexity
+*   **Time (with Min-Heap):** O(E log V) or O(E log E) (since E <= V^2, log E <= 2 log V), where V is the number of vertices and E is the number of edges.
+    *   Building adjacency list: O(E)
+    *   Min-Heap operations: Each vertex is extracted once (V extractions, O(log V) each). Each edge causes at most one `insert` or `decrease-key` operation (E operations, O(log V) each).
+*   **Time (with Array Scan - Less Optimized):** O(V^2 + E).
+    *   Building adjacency list: O(E)
+    *   Outer loop runs V times. Inside, finding min distance takes O(V), relaxing edges takes O(E) in total.
+*   **Space:** O(V + E) for adjacency list, distances map, and Min-Heap.
+
+### Visual Diagram (ASCII Art)
+
+```
+Graph: (Nodes 1,2,3,4. Source K=2)
+     1 --- 1 --- 4
+    /             ^
+   1              |
+  /               |
+ 2 --- 1 --- 3 ---
+       ^
+
+Edges: (2,1,1), (2,3,1), (3,4,1)
 
 Initial:
-Distances: {A:0, B:∞, C:∞, D:∞, E:∞}
-Paths:     {A:null, B:null, C:null, D:null, E:null}
-PQ:        [(A,0)]
+distances = {1:inf, 2:0, 3:inf, 4:inf}
+MinHeap = [[0,2]] // [dist, node]
 
-1. Dequeue (A,0).
-   Neighbors: B (dist 4), C (dist 2).
-   Update B: dist=4, path=A. PQ.enqueue(B,4)
-   Update C: dist=2, path=A. PQ.enqueue(C,2)
-   Distances: {A:0, B:4, C:2, D:∞, E:∞}
-   PQ:        [(C,2), (B,4)]
+1. Pop [0,2] (node 2, dist 0)
+   visitedCount = 1, maxDelay = 0
+   Neighbors of 2: (1,1), (3,1)
+   New dist to 1: 0+1=1. distances[1]=1. MinHeap.insert(1,1)
+   New dist to 3: 0+1=1. distances[3]=1. MinHeap.insert(3,1)
+   MinHeap = [[1,1], [1,3]]
 
-2. Dequeue (C,2).
-   Neighbors: B (dist 2+10=12 > 4, skip), D (dist 2+2=4).
-   Update D: dist=4, path=C. PQ.enqueue(D,4)
-   Distances: {A:0, B:4, C:2, D:4, E:∞}
-   PQ:        [(B,4), (D,4)]
+2. Pop [1,1] (node 1, dist 1)
+   visitedCount = 2, maxDelay = max(0,1) = 1
+   Neighbors of 1: None
+   MinHeap = [[1,3]]
 
-3. Dequeue (B,4) (or D,4 - order might vary). Let's say B.
-   Neighbors: D (dist 4+3=7 > 4, skip).
-   Distances: {A:0, B:4, C:2, D:4, E:∞}
-   PQ:        [(D,4)]
+3. Pop [1,3] (node 3, dist 1)
+   visitedCount = 3, maxDelay = max(1,1) = 1
+   Neighbors of 3: (4,1)
+   New dist to 4: 1+1=2. distances[4]=2. MinHeap.insert(4,2)
+   MinHeap = [[2,4]]
 
-4. Dequeue (D,4).
-   Neighbors: E (dist 4+1=5).
-   Update E: dist=5, path=D. PQ.enqueue(E,5)
-   Distances: {A:0, B:4, C:2, D:4, E:5}
-   PQ:        [(E,5)]
+4. Pop [2,4] (node 4, dist 2)
+   visitedCount = 4, maxDelay = max(1,2) = 2
+   Neighbors of 4: None
+   MinHeap = []
 
-5. Dequeue (E,5).
-   Neighbors: None.
-   Distances: {A:0, B:4, C:2, D:4, E:5}
-   PQ:        [] (empty)
-
-Resulting Shortest Distances from A:
-A: 0
-B: 4 (A -> B)
-C: 2 (A -> C)
-D: 4 (A -> C -> D)
-E: 5 (A -> C -> D -> E)
+All nodes visited (visitedCount=4 == n=4).
+Max delay = 2. Result: 2.
 ```
 
----
+### Edge Cases and Gotchas
+*   **Negative edge weights:** Dijkstra's algorithm does NOT work correctly with negative edge weights. For such graphs, Bellman-Ford algorithm is used.
+*   **Disconnected graph:** If some nodes are unreachable from the source `k`, their `distances` will remain `Infinity`. The check `visitedCount !== n` (or checking for `Infinity` in final distances) handles this.
+*   **Node indexing:** Be careful if nodes are 0-indexed or 1-indexed. Adjust array sizes and access accordingly.
+*   **Stale entries in Min-Heap:** The check `currentDist > distances[u]` is vital for correctness when using a Min-Heap. It ensures that you only process a node's neighbors when you've truly found the shortest path to that node, not an outdated entry.
 
-## 3. Detect Cycle in a Directed Graph
+## 4. Kruskal's Algorithm
 
-**Problem:** Determine if a given directed graph contains a cycle.
+Kruskal's algorithm finds a Minimum Spanning Tree (MST) for a connected, undirected graph.
 
-### Core Idea
+### Concept
+An MST is a subset of the edges of a connected, edge-weighted undirected graph that connects all the vertices together, without any cycles and with the minimum possible total edge weight.
 
-Cycle detection in a directed graph can be efficiently done using Depth-First Search (DFS) with a coloring scheme. We classify nodes into three states during the traversal:
+Kruskal's is a **greedy algorithm**. It works by:
+1.  Sorting all edges in the graph by weight in ascending order.
+2.  Iterating through the sorted edges. For each edge:
+    a.  If adding the edge does not form a cycle with the edges already chosen for the MST, add it.
+    b.  Otherwise, discard it.
+3.  Repeat until V-1 edges are chosen (where V is the number of vertices), or all edges have been considered.
 
-1.  **White:** Node not yet visited.
-2.  **Gray:** Node currently being visited (in the current DFS recursion stack).
-3.  **Black:** Node completely visited (all its descendants have been explored and are black or gray).
+To efficiently detect cycles, Kruskal's uses the **Union-Find (Disjoint Set) data structure**. `Union(u, v)` merges the sets containing `u` and `v`, and `Find(u)` returns the representative of `u`'s set. If `Find(u) == Find(v)`, then `u` and `v` are already in the same connected component, and adding edge `(u, v)` would create a cycle.
 
-A cycle is detected if, during a DFS traversal from a node `u`, we encounter a neighbor `v` that is currently in the **Gray** state. This means `v` is an ancestor of `u` in the current DFS path, and an edge `u -> v` forms a back-edge, closing a cycle.
+### Problem Context: Connecting Cities With Minimum Cost
+This problem is a direct application of finding the MST. Cities are vertices, connections are edges with costs as weights. We want to connect all cities with minimum total cost, which is precisely the definition of an MST.
 
 ### Algorithm Steps
+1.  **Represent Edges:** Convert the `connections` input into a list of `[city1, city2, cost]` edges.
+2.  **Sort Edges:** Sort this list of edges by their `cost` in ascending order.
+3.  **Initialize Union-Find:** Create a `UnionFind` instance for `n` cities (or `n+1` if 1-indexed to accommodate dummy index 0). Initially, each city is in its own disjoint set.
+4.  **Iterate and Build MST:**
+    a.  Initialize `totalCost = 0` and `edgesUsed = 0`.
+    b.  For each `[u, v, cost]` edge in the sorted list:
+        i.  If `UnionFind.find(u)` is not equal to `UnionFind.find(v)` (meaning `u` and `v` are in different components, so adding this edge won't form a cycle):
+            1.  Call `UnionFind.union(u, v)` to merge their components.
+            2.  Add `cost` to `totalCost`.
+            3.  Increment `edgesUsed`.
+            4.  If `edgesUsed` equals `n - 1` (we have an MST connecting all `n` cities), break early.
+5.  **Result:** If `edgesUsed` is `n - 1`, return `totalCost`. Otherwise, return -1 (it's impossible to connect all cities).
 
-1.  Initialize three sets: `visited` (for black nodes), `recursionStack` (for gray nodes).
-2.  For each vertex `v` in the graph:
-    a.  If `v` has not been added to `visited` (i.e., it's a white node, or part of a new component):
-        i.  Call a recursive helper function `dfs(v)`.
-        ii. If `dfs(v)` returns `true` (indicating a cycle), immediately return `true` from the main function.
-3.  If the loop completes without finding any cycles, return `false`.
-
-**`dfs(vertex)` Helper Function:**
-
-1.  Add `vertex` to `recursionStack` (mark as gray).
-2.  For each `neighbor` of `vertex`:
-    a.  If `neighbor` is in `recursionStack`: **Cycle detected!** Return `true`.
-    b.  If `neighbor` is NOT in `visited` (i.e., it's a white node):
-        i.  Recursively call `dfs(neighbor)`.
-        ii. If `dfs(neighbor)` returns `true`, propagate the cycle detection: return `true`.
-3.  After exploring all neighbors, `vertex` is no longer in the current recursion path. Remove `vertex` from `recursionStack` (mark as no longer gray).
-4.  Add `vertex` to `visited` (mark as black).
-5.  Return `false` (no cycle found through this vertex's path).
-
-**Time Complexity:** O(V + E)
-Each vertex is visited by DFS once, and each edge is traversed once.
-**Space Complexity:** O(V)
-`visited` and `recursionStack` sets store up to V vertices. The recursion call stack can go up to V depth.
-
-**Visual Diagram (Cycle Detection):**
+### Pseudocode
 
 ```
-Graph: A -> B
-       ^    |
-       |    V
-       C <- D
+function minimumCost(n, connections):
+    // 1. Sort edges by cost
+    connections.sort(by_cost_ascending) // e.g., [[u,v,w], ...]
 
-States:
-White: Not visited
-Gray:  Visiting (in current DFS path)
-Black: Visited (DFS path completed)
+    // 2. Initialize Union-Find
+    uf = UnionFind(n + 1) // For 1-indexed cities 1 to n
 
-Initial:
-White: {A,B,C,D}
-Gray:  {}
-Black: {}
+    totalCost = 0
+    edgesUsed = 0
 
-Start DFS from A:
-dfs(A):
-  Gray: {A}
-  Neighbors of A: B
-  dfs(B):
-    Gray: {A,B}
-    Neighbors of B: D
-    dfs(D):
-      Gray: {A,B,D}
-      Neighbors of D: C
-      dfs(C):
-        Gray: {A,B,D,C}
-        Neighbors of C: A
-        A is in Gray! -> CYCLE DETECTED (C -> A is a back-edge)
-        Return true from dfs(C)
-      Return true from dfs(D)
-    Return true from dfs(B)
-  Return true from dfs(A)
+    // 3. Iterate through sorted edges
+    for each [u, v, cost] in connections:
+        if uf.find(u) != uf.find(v): // If u and v are not already connected
+            uf.union(u, v)          // Connect them
+            totalCost += cost
+            edgesUsed++
+            if edgesUsed == n - 1: // MST complete for n vertices
+                break
 
-Result: Cycle Detected.
+    // 4. Check if all cities are connected
+    if edgesUsed == n - 1:
+        return totalCost
+    else:
+        return -1 // Not all cities could be connected
 ```
 
----
+### Time and Space Complexity
+*   **Time:** O(E log E) or O(E log V)
+    *   Sorting edges dominates: O(E log E). (Since E can be at most V^2, E log E is roughly E log V^2 = 2E log V).
+    *   Union-Find operations: E operations, each taking amortized O(α(V)) time, where α is the inverse Ackermann function (practically constant). So, O(E α(V)).
+    *   Total: O(E log E + E α(V)) which simplifies to O(E log E).
+*   **Space:** O(V + E)
+    *   O(E) for storing edges.
+    *   O(V) for the Union-Find structure (parent and rank arrays).
 
-## 4. Topological Sort
-
-**Problem:** Given a Directed Acyclic Graph (DAG), produce a linear ordering of its vertices such that for every directed edge `u -> v`, vertex `u` comes before `v` in the ordering. (If the graph has a cycle, topological sort is not possible).
-
-### Core Idea
-
-Topological sort is used for scheduling tasks, resolving dependencies, etc. There are two primary algorithms: Kahn's Algorithm (BFS-based) and a DFS-based approach. Both rely on the fact that in a DAG, there must be at least one vertex with an in-degree of 0 (no incoming edges) and at least one vertex with an out-degree of 0 (no outgoing edges).
-
-### Approach 1: Kahn's Algorithm (BFS-based)
-
-**Principle:** Iteratively identify and remove vertices that have no incoming edges. These vertices can be placed first in the topological order.
-
-**Algorithm Steps:**
-
-1.  Calculate the in-degree for every vertex in the graph.
-2.  Initialize a queue and add all vertices with an in-degree of 0 to it.
-3.  Initialize an empty list `topologicalOrder`.
-4.  While the queue is not empty:
-    a.  Dequeue a vertex `u`.
-    b.  Add `u` to `topologicalOrder`.
-    c.  For each neighbor `v` of `u`:
-        i.  Decrement the in-degree of `v`.
-        ii. If `v`'s in-degree becomes 0, enqueue `v`.
-5.  After the loop, compare the number of vertices in `topologicalOrder` with the total number of vertices in the graph. If they don't match, it means a cycle was present, and a topological sort is not possible.
-
-**Time Complexity:** O(V + E)
--   Calculating in-degrees: O(V + E).
--   BFS traversal: Each vertex enqueued/dequeued once, each edge processed once.
-**Space Complexity:** O(V)
--   `inDegrees` map: O(V).
--   Queue: O(V).
--   `topologicalOrder` list: O(V).
-
-**Visual Diagram (Kahn's Algorithm):**
+### Visual Diagram (ASCII Art)
 
 ```
-Graph: (5) -> (11) -> (2)
-       |      |
-       V      V
-      (10)   (9)
-       ^      ^
-       |      |
-      (3) -> (8)
-       ^
-       |
-      (7) (isolated for now)
+Cities: 1, 2, 3
+Connections: (1,2,5), (1,3,6), (2,3,1)
 
-1. Calculate In-degrees:
-   2: 1 (from 11)
-   3: 0
-   5: 0
-   7: 0
-   8: 1 (from 3)
-   9: 2 (from 8, 11)
-   10: 2 (from 5, 3, 11)
-   11: 2 (from 5, 7)
+Sorted Edges:
+1. (2,3,1)
+2. (1,2,5)
+3. (1,3,6)
 
-2. Initialize Queue: Add nodes with in-degree 0: [3, 5, 7] (order might vary)
-   Topological Order: []
+UnionFind (N=3):
+Initially: {1}, {2}, {3} (and {0} if 1-indexed)
+totalCost = 0, edgesUsed = 0
 
-3. Dequeue 3. Add to order: [3]
-   Neighbors of 3: 8, 10
-   Decrement in-degree[8] (to 0). Enqueue 8.
-   Decrement in-degree[10] (to 1).
-   Queue: [5, 7, 8]
+Processing:
 
-4. Dequeue 5. Add to order: [3, 5]
-   Neighbors of 5: 11, 10
-   Decrement in-degree[11] (to 1).
-   Decrement in-degree[10] (to 0). Enqueue 10.
-   Queue: [7, 8, 10]
+1. Edge (2,3,1):
+   find(2) != find(3) (2 and 3 are in different sets)
+   Union(2,3) -> {1}, {2,3}
+   totalCost = 1
+   edgesUsed = 1
+   MST: (2,3)
 
-5. Dequeue 7. Add to order: [3, 5, 7]
-   Neighbors of 7: 11
-   Decrement in-degree[11] (to 0). Enqueue 11.
-   Queue: [8, 10, 11]
+   Graph state:
+   1 ---?--- 2 ---1--- 3
 
-6. Dequeue 8. Add to order: [3, 5, 7, 8]
-   Neighbors of 8: 9
-   Decrement in-degree[9] (to 1).
-   Queue: [10, 11]
+2. Edge (1,2,5):
+   find(1) != find(2) (1 is separate, 2 is with 3)
+   Union(1,2) -> {1,2,3}
+   totalCost = 1 + 5 = 6
+   edgesUsed = 2
+   MST: (2,3), (1,2)
 
-7. Dequeue 10. Add to order: [3, 5, 7, 8, 10]
-   Neighbors of 10: None
-   Queue: [11]
+   Graph state:
+     1 --5-- 2 ---1--- 3
+     |       |
+     | Connected
 
-8. Dequeue 11. Add to order: [3, 5, 7, 8, 10, 11]
-   Neighbors of 11: 2, 9, 10
-   Decrement in-degree[2] (to 0). Enqueue 2.
-   Decrement in-degree[9] (to 0). Enqueue 9.
-   Decrement in-degree[10] (already 0).
-   Queue: [2, 9]
+   Now edgesUsed = 2 == N-1 (3-1). MST is complete. Break.
 
-9. Dequeue 2. Add to order: [3, 5, 7, 8, 10, 11, 2]
-   Neighbors of 2: None
-   Queue: [9]
-
-10. Dequeue 9. Add to order: [3, 5, 7, 8, 10, 11, 2, 9]
-    Neighbors of 9: None
-    Queue: []
-
-Final Topological Order: [3, 5, 7, 8, 10, 11, 2, 9] (one possible valid order)
+Final Cost = 6.
 ```
 
-### Approach 2: DFS-based Topological Sort
-
-**Principle:** Perform a DFS traversal. When a DFS call returns for a vertex `u` (meaning all its descendants have been visited), add `u` to the *front* of the topological order list. This ensures that a vertex appears before any of its descendants. Cycle detection is necessary to guarantee it's a DAG.
-
-**Algorithm Steps:**
-
-1.  Initialize an empty list `topologicalOrder`.
-2.  Initialize `visited` set (for black nodes, fully processed) and `recursionStack` set (for gray nodes, currently in DFS path, for cycle detection).
-3.  For each vertex `v` in the graph:
-    a.  If `v` has not been added to `visited`:
-        i.  Call a recursive helper function `dfs(v)`.
-            (This `dfs` function will handle cycle detection and add vertices to `topologicalOrder`).
-
-**`dfs(vertex)` Helper Function:**
-
-1.  Add `vertex` to `recursionStack`. (Mark as gray).
-2.  For each `neighbor` of `vertex`:
-    a.  If `neighbor` is in `recursionStack`: **Cycle detected!** Throw an error.
-    b.  If `neighbor` is NOT in `visited` (i.e., white node):
-        i.  Recursively call `dfs(neighbor)`.
-3.  After exploring all neighbors and their subgraphs:
-    a.  Remove `vertex` from `recursionStack`. (Mark as no longer gray).
-    b.  Add `vertex` to `visited`. (Mark as black, fully processed).
-    c.  Prepend `vertex` to `topologicalOrder`. (This is the key step: it ensures `vertex` comes before its dependencies).
-
-**Time Complexity:** O(V + E)
-Each vertex and edge is visited once during DFS.
-**Space Complexity:** O(V)
-`visited` and `recursionStack` sets store up to V vertices. The recursion call stack can go up to V depth. `topologicalOrder` list stores V entries.
-
-**Visual Diagram (DFS-based Topological Sort):**
-
-```
-Graph: A -> B
-       |    |
-       V    V
-       C -> D
-
-Initial:
-Topological Order: []
-Visited:   {}
-RecStack:  {}
-
-Vertices (assume alphabetical order for DFS starting points): A, B, C, D
-
-Start DFS from A:
-dfs(A):
-  RecStack: {A}
-  Neighbors of A: B, C
-  dfs(B):
-    RecStack: {A,B}
-    Neighbors of B: D
-    dfs(D):
-      RecStack: {A,B,D}
-      Neighbors of D: None
-      Remove D from RecStack. Add D to Visited.
-      Add D to front of Topological Order: [D]
-      Returns.
-    Remove B from RecStack. Add B to Visited.
-    Add B to front of Topological Order: [B, D]
-    Returns.
-  dfs(C):
-    RecStack: {A,C}
-    Neighbors of C: D
-    D is in Visited -> skip
-    Remove C from RecStack. Add C to Visited.
-    Add C to front of Topological Order: [C, B, D]
-    Returns.
-  Remove A from RecStack. Add A to Visited.
-  Add A to front of Topological Order: [A, C, B, D]
-  Returns.
-
-All vertices visited.
-
-Final Topological Order: [A, C, B, D] (one possible valid order)
-```
-```
-Note: The DFS order depends on the iteration order of neighbors. If C was processed before B from A, the result might be [A, B, C, D]. Both are valid.
+### Edge Cases and Gotchas
+*   **Disconnected Graph:** If `edgesUsed` does not reach `n - 1` by the end, it means the graph is disconnected, and a single MST connecting all vertices cannot be formed. Return -1.
+*   **Single Vertex:** For `n = 1`, `n - 1 = 0` edges are needed. `edgesUsed` starts at 0, so it matches. `totalCost` should be 0.
+*   **Duplicate Edges:** Kruskal's handles duplicate edges naturally due to sorting. The cheaper duplicate would be considered first. If a connection is needed, it uses the first one. If not, it's skipped.
+*   **Self-loops:** Edges `(u, u, w)` are typically ignored in MST problems. The problem description for `connections` usually implies `u != v`.
+*   **Union-Find implementation:** Path compression and union by rank/size are crucial for amortized O(α(V)) performance of Union-Find operations. Without them, it could degrade to O(V) per operation in worst case, making Kruskal's O(E*V).
 ```

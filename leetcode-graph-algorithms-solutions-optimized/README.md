@@ -1,105 +1,185 @@
 ```markdown
 # Graph Algorithms Interview Project
 
-This project is a comprehensive resource for mastering common graph algorithms, designed specifically for coding interview preparation. It provides multiple implementations, detailed explanations, extensive test cases, and performance benchmarks.
+This project is a comprehensive guide and implementation set for common graph algorithms, designed to help developers prepare for coding interviews. It includes well-commented TypeScript code, detailed explanations, extensive test cases, and performance benchmarks.
 
 ## Table of Contents
 
-1.  [Project Structure](#project-structure)
-2.  [Graph Problems Covered](#graph-problems-covered)
-3.  [Setup and Installation](#setup-and-installation)
-4.  [Running Tests](#running-tests)
-5.  [Running Benchmarks](#running-benchmarks)
-6.  [Documentation](#documentation)
-7.  [Key Features](#key-features)
+1.  [Project Overview](#project-overview)
+2.  [Setup and Running](#setup-and-running)
+3.  [Problem Descriptions](#problem-descriptions)
+    *   [Problem 1: Shortest Path in Binary Matrix (BFS)](#problem-1-shortest-path-in-binary-matrix-bfs)
+    *   [Problem 2: Number of Islands (DFS)](#problem-2-number-of-islands-dfs)
+    *   [Problem 3: Network Delay Time (Dijkstra's)](#problem-3-network-delay-time-dijkstras)
+    *   [Problem 4: Connecting Cities With Minimum Cost (Kruskal's)](#problem-4-connecting-cities-with-minimum-cost-kruskals)
+4.  [Core Data Structures](#core-data-structures)
+5.  [Documentation](#documentation)
+6.  [Interview Tips and Variations](#interview-tips-and-variations)
+7.  [License](#license)
 
-## Project Structure
+## Project Overview
 
-```
-graph-algorithms-project/
-├── src/
-│   ├── algorithms/                 # Main algorithm implementations
-│   ├── data_structures/            # Helper data structures (Graph, Priority Queue)
-│   └── utils/                      # Utility functions (e.g., performance)
-├── tests/                          # Extensive test cases for each algorithm
-├── benchmarks/                     # Performance benchmarking scripts
-├── docs/                           # Detailed explanations, diagrams, interview guide
-├── README.md                       # This file
-├── package.json                    # Project metadata and scripts
-└── runTests.js                     # Script to execute all tests
-```
+The goal of this project is to provide a solid foundation for understanding and implementing graph algorithms. Each algorithm comes with:
+*   Optimal TypeScript implementation.
+*   Detailed comments explaining the logic.
+*   Time and Space Complexity analysis.
+*   Multiple approaches where applicable (e.g., iterative vs. recursive DFS).
+*   Extensive unit tests using Jest.
+*   Helper data structures (Min-Heap, Union-Find).
+*   Performance benchmarking tools.
+*   Comprehensive documentation with ASCII diagrams.
 
-## Graph Problems Covered
+## Setup and Running
 
-The project includes implementations for the following fundamental graph algorithms:
-
-1.  **Number of Islands (Connected Components)**
-    *   **Description:** Given a 2D grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.
-    *   **Algorithms:** Breadth-First Search (BFS) and Depth-First Search (DFS).
-    *   **Variations:** Can be extended to count connected components in a general graph.
-
-2.  **Dijkstra's Shortest Path Algorithm**
-    *   **Description:** Find the shortest path from a single source vertex to all other vertices in a weighted graph with non-negative edge weights.
-    *   **Algorithm:** Greedy approach using a Min-Priority Queue.
-
-3.  **Detect Cycle in a Directed Graph**
-    *   **Description:** Determine if a given directed graph contains a cycle.
-    *   **Algorithm:** DFS-based coloring approach (White, Gray, Black states).
-
-4.  **Topological Sort**
-    *   **Description:** For a Directed Acyclic Graph (DAG), produce a linear ordering of its vertices such that for every directed edge `u -> v`, vertex `u` comes before `v` in the ordering.
-    *   **Algorithms:** Kahn's Algorithm (BFS-based, using in-degrees) and DFS-based.
-
-## Setup and Installation
+To get this project up and running on your local machine:
 
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/your-username/graph-algorithms-project.git
     cd graph-algorithms-project
     ```
-    (Note: Replace `your-username` with your actual GitHub username or remove if not cloning from a remote repo).
-
 2.  **Install dependencies:**
-    This project uses only Node.js built-in modules, so there are no external `npm` packages to install.
-    However, running `npm install` is harmless if a `package.json` exists.
+    This project uses `npm` for package management.
+    ```bash
+    npm install
+    ```
+3.  **Compile TypeScript:**
+    ```bash
+    npm run build
+    ```
+    This will compile all `.ts` files from `src/` into JavaScript in the `dist/` directory.
 
-## Running Tests
+4.  **Run Tests:**
+    To execute all unit tests:
+    ```bash
+    npm test
+    ```
+    You can also run specific test files, e.g., `jest tests/bfs.test.ts`.
 
-To execute all the test cases for the implemented algorithms:
+5.  **Run Benchmarks:**
+    To measure the performance of algorithms on large inputs:
+    ```bash
+    npm run benchmark
+    ```
 
-```bash
-npm test
-# Or directly: node runTests.js
+## Problem Descriptions
+
+Here are the specific problems tackled by the algorithms in this project.
+
+### Problem 1: Shortest Path in Binary Matrix (BFS)
+
+**Description:**
+Given an `n x n` binary matrix `grid`, return the length of the shortest clear path in the matrix. A clear path is a path from the top-left cell `(0, 0)` to the bottom-right cell `(n-1, n-1)` such that:
+*   All visited cells are `0`.
+*   Adjacent cells are connected 8-directionally (horizontally, vertically, or diagonally).
+
+If there is no clear path, return -1.
+
+**Example:**
+Input: `grid = [[0,1],[1,0]]`
+Output: `2` (Path: `(0,0) -> (1,1)`)
+
+**Algorithm Focus:** Breadth-First Search (BFS) is ideal here because it explores the graph level by level, naturally finding the shortest path in an unweighted graph (where each step has a cost of 1).
+
+**File:** `src/algorithms/bfs.ts`
+
+### Problem 2: Number of Islands (DFS)
+
+**Description:**
+Given an `m x n` 2D binary grid `grid` which represents a map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+
+**Example:**
+Input:
 ```
-
-The test runner will output the results for each algorithm, indicating whether all test cases passed or if any failed.
-
-## Running Benchmarks
-
-To evaluate the performance of the algorithms on varying input sizes:
-
-```bash
-npm run benchmark
-# Or directly: node benchmarks/benchmarkRunner.js
+grid = [
+  ["1","1","0","0","0"],
+  ["1","1","0","0","0"],
+  ["0","0","1","0","0"],
+  ["0","0","0","1","1"]
+]
 ```
+Output: `3`
 
-The benchmark script will generate random graphs, run the algorithms, and report the execution times. This helps in understanding the practical performance characteristics and how they align with theoretical time complexities.
+**Algorithm Focus:** Depth-First Search (DFS) or Breadth-First Search (BFS) can be used. DFS is particularly intuitive for "exploring" and "sinking" an entire island once a part of it is found. We'll provide both iterative and recursive DFS approaches.
+
+**File:** `src/algorithms/dfs.ts`
+
+### Problem 3: Network Delay Time (Dijkstra's)
+
+**Description:**
+There are `n` network nodes, labeled from 1 to `n`. You are given `times`, a list of travel `time[i] = [u, v, w]`, where `u` is the source node, `v` is the target node, and `w` is the time it takes for a signal to travel from `u` to `v`. We send a signal from a given node `k`. Return the minimum time it takes for all `n` nodes to receive the signal. If it is impossible for all `n` nodes to receive the signal, return -1.
+
+**Example:**
+Input: `times = [[2,1,1],[2,3,1],[3,4,1]]`, `n = 4`, `k = 2`
+Output: `2` (Signal travels: `2->1 (1 unit)`, `2->3 (1 unit)`, `3->4 (1 unit)`. Max time is `2->3->4 = 2` for node 4.)
+
+**Algorithm Focus:** Dijkstra's Algorithm is perfect for finding the shortest paths from a single source node (`k`) to all other nodes in a weighted graph with non-negative edge weights. A Min-Heap is crucial for its optimal performance.
+
+**File:** `src/algorithms/dijkstra.ts`
+
+### Problem 4: Connecting Cities With Minimum Cost (Kruskal's)
+
+**Description:**
+You are given `n` cities, and `connections`, where `connections[i] = [city1, city2, cost]` represents the cost to connect `city1` and `city2`. We need to connect all cities such that the total cost is minimized. Return the minimum cost to connect all `n` cities. If it is impossible to connect all cities, return -1.
+The cities are labeled from 1 to `n`.
+
+**Example:**
+Input: `n = 3`, `connections = [[1,2,5],[1,3,6],[2,3,1]]`
+Output: `6` (Connect `(2,3)` with cost 1, then `(1,2)` with cost 5. Total `1+5=6`.)
+
+**Algorithm Focus:** Kruskal's Algorithm, which uses a greedy approach and a Union-Find (Disjoint Set) data structure, is ideal for finding the Minimum Spanning Tree (MST) in a graph. The MST connects all vertices with the minimum possible total edge weight.
+
+**File:** `src/algorithms/kruskal.ts`
+
+## Core Data Structures
+
+To support the graph algorithms, we've implemented essential data structures:
+
+*   **Min-Heap (`src/data-structures/min-heap.ts`):** A binary heap where the parent node's value is less than or equal to its children's values. Crucial for efficiently extracting the minimum-distance node in Dijkstra's algorithm.
+    *   **Time Complexity:** `insert`: O(log N), `extractMin`: O(log N), `peek`: O(1).
+    *   **Space Complexity:** O(N) for storing N elements.
+
+*   **Union-Find / Disjoint Set (`src/data-structures/union-find.ts`):** A data structure that keeps track of a set of elements partitioned into a number of disjoint (non-overlapping) subsets. Used to efficiently determine if two vertices are already connected and to merge components in Kruskal's algorithm.
+    *   **Time Complexity:** `find`: Nearly O(1) (amortized inverse Ackermann function) due to path compression. `union`: Nearly O(1) (amortized inverse Ackermann function) due to union by rank/size.
+    *   **Space Complexity:** O(N) for N elements.
 
 ## Documentation
 
-Comprehensive documentation is provided in the `docs/` directory:
+*   **`docs/ALGORITHM_EXPLANATIONS.md`**: This document provides in-depth explanations for each algorithm, including:
+    *   High-level concepts.
+    *   Step-by-step walkthroughs.
+    *   Pseudocode.
+    *   ASCII art diagrams to visualize graph operations.
+    *   Detailed discussion of edge cases and common pitfalls.
 
-*   **`docs/ALGORITHM_EXPLANATIONS.md`**: Detailed explanations of each algorithm, including their working principles, pseudocode (implicitly via comments), ASCII visual diagrams, and formal time/space complexity analysis.
-*   **`docs/INTERVIEW_GUIDE.md`**: A guide for preparing for graph algorithm interviews, covering common variations, edge cases, "gotchas," and tips for effective communication during an interview.
+*   **`docs/interview_tips.md`**: Offers general advice for tackling graph problems in interviews, including common patterns, how to represent graphs, and important questions to ask.
 
-## Key Features
+## Interview Tips and Variations
 
-*   **Multiple Approaches:** Demonstrates different ways to solve problems (e.g., BFS vs. DFS for islands, Kahn's vs. DFS for topological sort).
-*   **Optimal Solutions:** Each problem provides an optimal solution with thorough complexity analysis.
-*   **Detailed Comments:** Code is heavily commented to explain logic, data structures, and algorithmic steps.
-*   **Custom Data Structures:** Includes a `Graph` class (adjacency list) and `MinPriorityQueue` (min-heap) implementations.
-*   **Extensive Test Cases:** A wide range of test cases, including edge cases, to ensure correctness.
-*   **Performance Benchmarking:** Tools to measure and compare algorithm execution times.
-*   **In-depth Documentation:** Beyond code, the project offers comprehensive written explanations and visual aids.
-*   **Interview Focus:** Specifically tailored with interview scenarios, variations, and common discussion points in mind.
+For each problem, consider the following variations and discussion points:
+
+*   **BFS:**
+    *   What if the graph has obstacles (like in the binary matrix)?
+    *   How would you find *all* shortest paths?
+    *   BFS on a general graph vs. a grid.
+    *   Finding connected components.
+*   **DFS:**
+    *   Recursive vs. iterative implementations – pros and cons (stack overflow, memory usage).
+    *   Cycle detection in directed/undirected graphs.
+    *   Topological sort (for DAGs).
+    *   Finding strongly connected components.
+*   **Dijkstra's:**
+    *   Why doesn't Dijkstra's work with negative edge weights? (Bellman-Ford is the answer here).
+    *   What if you need to find the shortest path between all pairs of nodes? (Floyd-Warshall).
+    *   Using different priority queue implementations (binary heap, Fibonacci heap, simple array scan) and their complexity implications.
+*   **Kruskal's:**
+    *   Comparing Kruskal's with Prim's algorithm for MST.
+    *   What if the graph is disconnected? (Kruskal's finds an MST for each component).
+    *   How does the `Union-Find` data structure optimize this algorithm?
+
+Always discuss your approach, data structures, complexity, and handle edge cases during an interview.
+
+## License
+
+This project is open-sourced under the MIT License.
 ```
