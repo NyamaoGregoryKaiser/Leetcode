@@ -1,0 +1,247 @@
+# ASCII Art Diagrams for Graph Algorithms
+
+These diagrams help visualize the graph structures and how certain algorithms operate.
+
+---
+
+## 1. BFS - Shortest Path in Unweighted Graph
+
+**Example Graph:**
+```
+       (A) ---- (B)
+      /      \ /
+    (C)       (D)
+      \      /
+       (E)----(F)
+```
+
+**Nodes:** A, B, C, D, E, F
+**Edges:** (A,B), (A,C), (B,D), (C,E), (D,E), (E,F)
+
+**BFS from A to F (Shortest Path Length)**
+
+1.  **Queue**: `[A]`
+    **Visited**: `{A}`
+    **Distances**: `{A: 0}`
+
+2.  **Dequeue A (dist 0)**
+    **Neighbors of A**: B, C
+    *   B: Not visited. Add to queue. `dist[B] = 1`.
+    *   C: Not visited. Add to queue. `dist[C] = 1`.
+    **Queue**: `[B, C]`
+    **Visited**: `{A, B, C}`
+    **Distances**: `{A: 0, B: 1, C: 1}`
+
+3.  **Dequeue B (dist 1)**
+    **Neighbors of B**: A, D
+    *   A: Visited. Skip.
+    *   D: Not visited. Add to queue. `dist[D] = 2`.
+    **Queue**: `[C, D]`
+    **Visited**: `{A, B, C, D}`
+    **Distances**: `{A: 0, B: 1, C: 1, D: 2}`
+
+4.  **Dequeue C (dist 1)**
+    **Neighbors of C**: A, E
+    *   A: Visited. Skip.
+    *   E: Not visited. Add to queue. `dist[E] = 2`.
+    **Queue**: `[D, E]`
+    **Visited**: `{A, B, C, D, E}`
+    **Distances**: `{A: 0, B: 1, C: 1, D: 2, E: 2}`
+
+5.  **Dequeue D (dist 2)**
+    **Neighbors of D**: B, E
+    *   B: Visited. Skip.
+    *   E: Visited. Skip (already found shortest path to E through C).
+    **Queue**: `[E]`
+    **Visited**: `{A, B, C, D, E}`
+    **Distances**: `{A: 0, B: 1, C: 1, D: 2, E: 2}`
+
+6.  **Dequeue E (dist 2)**
+    **Neighbors of E**: C, D, F
+    *   C: Visited. Skip.
+    *   D: Visited. Skip.
+    *   F: Not visited. Add to queue. `dist[F] = 3`.
+    **Queue**: `[F]`
+    **Visited**: `{A, B, C, D, E, F}`
+    **Distances**: `{A: 0, B: 1, C: 1, D: 2, E: 2, F: 3}`
+
+7.  **Dequeue F (dist 3)**
+    **F is the endNode!** Return `dist[F] = 3`.
+
+**Shortest Path**: A -> C -> E -> F (length 3) or A -> B -> D -> E -> F (length 4, not taken)
+Wait, the BFS found A->C->E (dist 2) and A->B->D (dist 2). From D, E is a neighbor. So A->B->D->E (dist 3).
+From E, F is a neighbor. So A->C->E->F (dist 3) and A->B->D->E->F (dist 4).
+The BFS correctly reports 3.
+Path: `A -> C -> E -> F` (length 3) or `A -> B -> D -> F` (if D was connected to F)
+
+The example trace above actually has `dist[E]=2` from `C->E` and then `dist[F]=3` from `E->F`.
+The path A->B->D->E->F would be of length 4. So the BFS correctly finds 3.
+
+---
+
+## 2. DFS - Cycle Detection in Directed Graph
+
+**Example Directed Graph with a Cycle:**
+```
+     ┌────┐     ┌────┐
+     │ A  │────▶│ B  │
+     └────┘     └────┘
+       ▲          │
+       │          │
+       └──────────┘
+           C
+```
+
+**Nodes:** A, B, C
+**Edges:** A -> B, B -> C, C -> A
+
+**DFS Trace from A:**
+
+1.  **dfsVisit(A)**
+    *   `nodeStates[A] = VISITING`
+    *   **Neighbor B**: `nodeStates[B] = UNVISITED`
+        *   **dfsVisit(B)**
+            *   `nodeStates[B] = VISITING`
+            *   **Neighbor C**: `nodeStates[C] = UNVISITED`
+                *   **dfsVisit(C)**
+                    *   `nodeStates[C] = VISITING`
+                    *   **Neighbor A**: `nodeStates[A] = VISITING`
+                        *   **CYCLE DETECTED!** Return `true`.
+                *   Propagate `true` up.
+            *   Propagate `true` up.
+        *   Propagate `true` up.
+    *   **Result**: `detectCycleInDirectedGraphDFS` returns `true`.
+
+---
+
+## 3. Dijkstra's Algorithm - Shortest Path in Weighted Graph
+
+**Example Weighted Graph:**
+```
+    (A) --4-- (B)
+    | \       | \
+    8  11     2  7
+    |   \     |   \
+   (C) --1-- (D) --6-- (E)
+    |       /
+    7     14
+    |   /
+   (F)
+```
+**Nodes:** A, B, C, D, E, F (numbered 0-5 for implementation: A=0, B=1, C=2, D=3, E=4, F=5)
+
+**Dijkstra from A (0):**
+
+1.  **Init**:
+    *   `dist = {A:0, B:∞, C:∞, D:∞, E:∞, F:∞}`
+    *   `prev = {A:null, B:null, ...}`
+    *   `PQ = [(A,0)]`
+
+2.  **Dequeue (A,0)**
+    *   **Neighbors**: B (4), C (8), D (11)
+        *   `dist[B]=4`, `prev[B]=A`. Enqueue `(B,4)`.
+        *   `dist[C]=8`, `prev[C]=A`. Enqueue `(C,8)`.
+        *   `dist[D]=11`, `prev[D]=A`. Enqueue `(D,11)`.
+    *   `PQ = [(B,4), (C,8), (D,11)]`
+
+3.  **Dequeue (B,4)**
+    *   **Neighbors**: A (4), D (2), E (7)
+        *   A: Visited.
+        *   `dist[D]`: current 11. `4 + 2 = 6 < 11`. Update `dist[D]=6`, `prev[D]=B`. Enqueue `(D,6)`.
+        *   `dist[E]`: current ∞. `4 + 7 = 11 < ∞`. Update `dist[E]=11`, `prev[E]=B`. Enqueue `(E,11)`.
+    *   `PQ = [(D,6), (C,8), (D,11), (E,11)]` (Note: D,11 is stale, D,6 is new)
+
+4.  **Dequeue (D,6)** (smallest current distance)
+    *   **Neighbors**: A (11), B (2), C (1), E (6), F (14)
+        *   A, B: Visited.
+        *   `dist[C]`: current 8. `6 + 1 = 7 < 8`. Update `dist[C]=7`, `prev[C]=D`. Enqueue `(C,7)`.
+        *   `dist[E]`: current 11. `6 + 6 = 12 > 11`. No update.
+        *   `dist[F]`: current ∞. `6 + 14 = 20 < ∞`. Update `dist[F]=20`, `prev[F]=D`. Enqueue `(F,20)`.
+    *   `PQ = [(C,7), (C,8), (D,11), (E,11), (F,20)]`
+
+5.  **Dequeue (C,7)**
+    *   **Neighbors**: A (8), D (1), F (7)
+        *   A: Visited.
+        *   D: Visited (`dist[D]`=6). `7 + 1 = 8 > 6`. No update.
+        *   `dist[F]`: current 20. `7 + 7 = 14 < 20`. Update `dist[F]=14`, `prev[F]=C`. Enqueue `(F,14)`.
+    *   `PQ = [(C,8), (D,11), (E,11), (F,14), (F,20)]`
+
+... and so on.
+
+**Final Distances from A:**
+`A: 0`
+`B: 4` (A->B)
+`C: 7` (A->B->D->C)
+`D: 6` (A->B->D)
+`E: 11` (A->B->E)
+`F: 14` (A->B->D->C->F, or A->C->F with A->C through B->D)
+   Actual path for F (14): A(0) -> B(4) -> D(6) -> C(7) -> F(14). (0+4+2+1+7 = 14)
+   Alternative for F (15): A(0) -> C(8) -> F(15). (0+8+7 = 15)
+   So A->B->D->C->F is indeed 14.
+
+---
+
+## 4. Kruskal's Algorithm - Minimum Spanning Tree (MST)
+
+**Example Weighted Graph:**
+```
+     A --7-- B --8-- C
+     | \     | \   / |
+     5  9    7  6 15 5
+     |   \   |   /   |
+     D --8-- E --9-- F
+```
+**Edges with weights (sorted):**
+1.  (A,D,5)
+2.  (C,F,5)
+3.  (B,E,6)
+4.  (A,B,7)
+5.  (B,D,7) -- (A,B,7) is wrong, it is (A,B,7) - no, this is the C-E 7 from wikipedia
+6.  (D,E,8)
+7.  (B,C,8)
+8.  (A,E,9)
+9.  (E,F,9)
+10. (C,E,15)
+
+Let's use a simpler graph for the ASCII diagram.
+
+**Simpler Example Graph:**
+```
+    (0) --10-- (1)
+    | \       / |
+    6   5   15  |
+    |     /     |
+    (2) --4-- (3)
+```
+**Edges:** (0,1,10), (0,2,6), (0,3,5), (1,3,15), (2,3,4)
+
+**Kruskal's Trace:**
+
+1.  **Initialize Union-Find**: `UF = {0:{0}, 1:{1}, 2:{2}, 3:{3}}`
+2.  **Sorted Edges**: `[(2,3,4), (0,3,5), (0,2,6), (0,1,10), (1,3,15)]`
+3.  **Process Edges**:
+    *   **Edge (2,3,4)**:
+        *   `find(2) != find(3)` (different sets).
+        *   Add (2,3,4) to MST. `mstWeight = 4`.
+        *   `union(2,3)`. `UF = {0:{0}, 1:{1}, {2,3}:{2}}` (assuming 2 is root).
+        *   `mstEdges = [(2,3,4)]`
+    *   **Edge (0,3,5)**:
+        *   `find(0) != find(3)` (different sets).
+        *   Add (0,3,5) to MST. `mstWeight = 4+5 = 9`.
+        *   `union(0,3)`. `UF = {{0,2,3}:{0}, 1:{1}}`
+        *   `mstEdges = [(2,3,4), (0,3,5)]`
+    *   **Edge (0,2,6)**:
+        *   `find(0) == find(2)` (same set: {0,2,3}).
+        *   **SKIP** (forms a cycle: 0-3-2-0).
+    *   **Edge (0,1,10)**:
+        *   `find(0) != find(1)` (different sets).
+        *   Add (0,1,10) to MST. `mstWeight = 9+10 = 19`.
+        *   `union(0,1)`. `UF = {{0,1,2,3}:{0}}` (all nodes connected).
+        *   `mstEdges = [(2,3,4), (0,3,5), (0,1,10)]`
+    *   **Edge (1,3,15)**:
+        *   `find(1) == find(3)` (same set: {0,1,2,3}).
+        *   **SKIP**.
+4.  **Result**:
+    *   `mstWeight = 19`
+    *   `mstEdges = [(2,3,4), (0,3,5), (0,1,10)]`
+    *   (3 edges for 4 nodes, as expected for a connected graph).

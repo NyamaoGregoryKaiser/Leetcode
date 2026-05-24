@@ -1,400 +1,146 @@
-```markdown
-# Graph Algorithms Interview Project
+# Graph Algorithms Project
 
-This project provides a comprehensive set of implementations, tests, benchmarks, and documentation for common graph algorithms frequently encountered in coding interviews. It aims to be a complete resource for understanding, practicing, and mastering graph-related problems.
-
-## Table of Contents
-
-1.  [Project Structure](#project-structure)
-2.  [Building and Running](#building-and-running)
-3.  [Graph Data Structure](#graph-data-structure)
-4.  [Problems Implemented](#problems-implemented)
-    *   [Problem 1: Graph Traversals (BFS & DFS)](#problem-1-graph-traversals-bfs--dfs)
-    *   [Problem 2: Shortest Path (Dijkstra's Algorithm)](#problem-2-shortest-path-dijkstras-algorithm)
-    *   [Problem 3: Minimum Spanning Tree (Kruskal's Algorithm)](#problem-3-minimum-spanning-tree-kruskals-algorithm)
-    *   [Problem 4: Topological Sort (Kahn's & DFS-based)](#problem-4-topological-sort-kahns--dfs-based)
-5.  [Testing](#testing)
-6.  [Benchmarking](#benchmarking)
-7.  [Documentation](#documentation)
-    *   [Algorithms Explained](#algorithms-explained)
-    *   [Interview Guide](#interview-guide)
-
-## Project Structure
-
-```
-graph_algorithms_project/
-├── CMakeLists.txt            # CMake build configuration
-├── README.md                 # This file
-├── src/                      # Source code for graph data structure and algorithms
-│   ├── graph.h               # Graph class definition (adjacency list)
-│   ├── graph.cpp             # Graph class implementation
-│   ├── problem1_traversals.cpp      # BFS, DFS (recursive, iterative)
-│   ├── problem2_shortest_path.cpp   # Dijkstra's Algorithm
-│   ├── problem3_mst.cpp             # Kruskal's Algorithm (with DSU)
-│   └── problem4_topological_sort.cpp# Kahn's Algorithm, DFS-based Topological Sort
-├── tests/                    # Unit tests for each problem
-│   ├── test_traversals.cpp
-│   ├── test_shortest_path.cpp
-│   ├── test_mst.cpp
-│   └── test_topological_sort.cpp
-├── benchmarks/               # Performance benchmarking code
-│   └── benchmark_main.cpp
-└── docs/                     # Documentation files
-    ├── algorithms_explained.md   # Detailed explanation of algorithms, complexities, diagrams
-    └── interview_guide.md        # Tips, common questions, edge cases for graph interviews
-```
-
-## Building and Running
-
-To build and run this project, you will need `CMake` and a C++17 compatible compiler (e.g., g++ or clang++).
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your_username/graph_algorithms_project.git
-    cd graph_algorithms_project
-    ```
-    *(Note: Replace `https://github.com/your_username/graph_algorithms_project.git` with your actual repo URL if you host this project.)*
-
-2.  **Create a build directory and configure CMake:**
-    ```bash
-    mkdir build
-    cd build
-    cmake ..
-    ```
-
-3.  **Build the project:**
-    ```bash
-    cmake --build .
-    ```
-    This will compile all executables (main algorithm demonstrations, tests, and benchmarks).
-
-4.  **Run specific algorithm demonstrations:**
-    After building, you can find the executables in the `build` directory.
-    ```bash
-    ./traversals_main
-    ./shortest_path_main
-    ./mst_main
-    ./topological_sort_main
-    ```
-
-## Graph Data Structure
-
-The project uses an `Adjacency List` representation for the `Graph` class. This is generally preferred for sparse graphs (fewer edges relative to nodes) which are common in interviews, as it's more memory-efficient than an adjacency matrix.
-
-**Key Features:**
-*   Supports weighted graphs (edges stored as `std::pair<int, int>` where the second element is the weight).
-*   Flexible for directed or undirected graphs (addEdge can be called once for directed, twice for undirected).
-
-## Problems Implemented
-
-### Problem 1: Graph Traversals (BFS & DFS)
-
-**Description:**
-Explore all reachable nodes from a starting node.
-*   **Breadth-First Search (BFS):** Explores all neighbor nodes at the current depth level before moving on to nodes at the next depth level. Uses a queue.
-*   **Depth-First Search (DFS):** Explores as far as possible along each branch before backtracking. Can be implemented recursively or iteratively using a stack.
-
-**Implementations:**
-*   `bfs(const Graph& g, int startNode)`
-*   `dfs_recursive(const Graph& g, int startNode)`
-*   `dfs_iterative(const Graph& g, int startNode)`
-
-**File:** `src/problem1_traversals.cpp`
-
-### Problem 2: Shortest Path (Dijkstra's Algorithm)
-
-**Description:**
-Finds the shortest paths from a single source node to all other nodes in a graph with non-negative edge weights. It uses a greedy approach and a priority queue to efficiently select the next closest node.
-
-**Implementation:**
-*   `dijkstra(const Graph& g, int startNode)`: Returns distances to all nodes.
-
-**File:** `src/problem2_shortest_path.cpp`
-*(Note: For graphs with negative edge weights, Bellman-Ford algorithm would be required, but it's not implemented here to keep the project focused on common interview staples.)*
-
-### Problem 3: Minimum Spanning Tree (Kruskal's Algorithm)
-
-**Description:**
-Finds a subset of the edges of a connected, edge-weighted undirected graph that connects all the vertices together, without any cycles and with the minimum possible total edge weight.
-
-**Implementation:**
-*   `kruskal(const Graph& g)`: Uses a Disjoint Set Union (DSU) data structure to efficiently detect cycles. It sorts all edges by weight and iteratively adds the smallest-weight edges that do not form a cycle.
-
-**File:** `src/problem3_mst.cpp`
-*(Note: Prim's algorithm is another popular MST algorithm, often better for dense graphs. Kruskal's is implemented here due to its intuitive nature and reliance on DSU, another important data structure.)*
-
-### Problem 4: Topological Sort (Kahn's & DFS-based)
-
-**Description:**
-For a Directed Acyclic Graph (DAG), a topological sort is a linear ordering of its vertices such that for every directed edge `u -> v`, vertex `u` comes before `v` in the ordering.
-
-**Implementations:**
-*   `kahn_topological_sort(const Graph& g)`: BFS-based approach that uses in-degrees of nodes.
-*   `dfs_topological_sort(const Graph& g)`: DFS-based approach that uses a stack to store vertices in reverse finish time order.
-
-**File:** `src/problem4_topological_sort.cpp`
-
-## Testing
-
-Unit tests are provided for each algorithm to ensure correctness across various scenarios including:
-*   Empty graphs
-*   Single node graphs
-*   Disconnected graphs
-*   Linear graphs
-*   Cyclic graphs (where applicable, e.g., BFS/DFS)
-*   Dense and sparse graphs
-*   Graphs with various edge weights
-
-To run all tests:
-```bash
-cd build
-cmake --build . --target run_all_tests
-# OR
-./run_tests_traversals
-./run_tests_shortest_path
-./run_tests_mst
-./run_tests_topological_sort
-```
-
-## Benchmarking
-
-Performance benchmarking code is included to measure the execution time of each algorithm on large, randomly generated graphs. This helps to understand their practical time complexity characteristics.
-
-To run benchmarks:
-```bash
-cd build
-./run_benchmarks
-```
-
-## Documentation
-
-The `docs/` directory contains detailed explanations:
-
-### Algorithms Explained (`docs/algorithms_explained.md`)
-
-*   **Detailed Concepts:** In-depth explanation of how each algorithm works.
-*   **Step-by-step logic:** Breakdown of the process.
-*   **ASCII Diagrams:** Visual representations of graph states and algorithm flow.
-*   **Time and Space Complexity Analysis:** A thorough examination of the Big O notation for each algorithm.
-*   **Edge Cases and Gotchas:** Common pitfalls and specific scenarios to consider.
-*   **Variations and Extensions:** Discussions on how algorithms can be adapted or related to other problems.
-
-### Interview Guide (`docs/interview_guide.md`)
-
-*   **General Tips:** Strategies for approaching graph problems in an interview setting.
-*   **Common Interview Questions:** Example questions related to each algorithm.
-*   **Follow-up Questions:** How interviewers might extend initial questions.
-*   **Design Choices:** Discussion on adjacency list vs. matrix, directed vs. undirected, weighted vs. unweighted.
-*   **Debugging Strategies:** Tips for finding errors in graph implementations.
-
----
-```
-```bash
-# Example usage:
-# cd build
-# cmake ..
-# cmake --build .
-
-# Run specific problem demos:
-# ./traversals_main
-# ./shortest_path_main
-# ./mst_main
-# ./topological_sort_main
-
-# Run tests:
-# ./run_all_tests # or ./run_tests_traversals etc.
-
-# Run benchmarks:
-# ./run_benchmarks
-```
----
-```
-```markdown
-# Graph Algorithms Interview Project
-
-This project provides a comprehensive set of implementations, tests, benchmarks, and documentation for common graph algorithms frequently encountered in coding interviews. It aims to be a complete resource for understanding, practicing, and mastering graph-related problems.
+This project is a comprehensive resource for understanding and implementing core graph algorithms, designed particularly for coding interview preparation. It provides detailed implementations in TypeScript, along with thorough explanations, test cases, and performance benchmarks.
 
 ## Table of Contents
 
 1.  [Project Structure](#project-structure)
-2.  [Building and Running](#building-and-running)
-3.  [Graph Data Structure](#graph-data-structure)
-4.  [Problems Implemented](#problems-implemented)
-    *   [Problem 1: Graph Traversals (BFS & DFS)](#problem-1-graph-traversals-bfs--dfs)
-    *   [Problem 2: Shortest Path (Dijkstra's Algorithm)](#problem-2-shortest-path-dijkstras-algorithm)
-    *   [Problem 3: Minimum Spanning Tree (Kruskal's Algorithm)](#problem-3-minimum-spanning-tree-kruskals-algorithm)
-    *   [Problem 4: Topological Sort (Kahn's & DFS-based)](#problem-4-topological-sort-kahns--dfs-based)
-5.  [Testing](#testing)
-6.  [Benchmarking](#benchmarking)
+2.  [Algorithms Implemented](#algorithms-implemented)
+    *   [1. Breadth-First Search (BFS) for Shortest Path in Unweighted Graph](#1-breadth-first-search-bfs-for-shortest-path-in-unweighted-graph)
+    *   [2. Depth-First Search (DFS) for Cycle Detection in Directed Graph](#2-depth-first-search-dfs-for-cycle-detection-in-directed-graph)
+    *   [3. Dijkstra's Algorithm for Shortest Path in Weighted Graph](#3-dijkstras-algorithm-for-shortest-path-in-weighted-graph)
+    *   [4. Kruskal's Algorithm for Minimum Spanning Tree (MST)](#4-kruskals-algorithm-for-minimum-spanning-tree-mst)
+3.  [Supporting Data Structures](#supporting-data-structures)
+4.  [Setup and Installation](#setup-and-installation)
+5.  [Running Tests](#running-tests)
+6.  [Running Benchmarks](#running-benchmarks)
 7.  [Documentation](#documentation)
-    *   [Algorithms Explained](#algorithms-explained)
-    *   [Interview Guide](#interview-guide)
+    *   [Algorithm Explanations](#algorithm-explanations)
+    *   [Visual Diagrams](#visual-diagrams)
+    *   [Interview Tips & Variations](#interview-tips--variations)
+8.  [Contribution](#contribution)
+9.  [License](#license)
 
 ## Project Structure
 
 ```
-graph_algorithms_project/
-├── CMakeLists.txt            # CMake build configuration
-├── README.md                 # This file
-├── src/                      # Source code for graph data structure and algorithms
-│   ├── graph.h               # Graph class definition (adjacency list)
-│   ├── graph.cpp             # Graph class implementation
-│   ├── problem1_traversals.cpp      # BFS, DFS (recursive, iterative)
-│   ├── problem2_shortest_path.cpp   # Dijkstra's Algorithm
-│   ├── problem3_mst.cpp             # Kruskal's Algorithm (with DSU)
-│   └── problem4_topological_sort.cpp# Kahn's Algorithm, DFS-based Topological Sort
-├── tests/                    # Unit tests for each problem
-│   ├── test_traversals.cpp
-│   ├── test_shortest_path.cpp
-│   ├── test_mst.cpp
-│   └── test_topological_sort.cpp
-├── benchmarks/               # Performance benchmarking code
-│   └── benchmark_main.cpp
-└── docs/                     # Documentation files
-    ├── algorithms_explained.md   # Detailed explanation of algorithms, complexities, diagrams
-    └── interview_guide.md        # Tips, common questions, edge cases for graph interviews
+graph-algorithms-project/
+├── src/
+│   ├── algorithms/               # Main algorithm implementations
+│   ├── data-structures/          # Core data structures (Graph, PriorityQueue, UnionFind)
+│   ├── utils/                    # Utility functions (e.g., graph generator)
+│   └── types.ts                  # Shared TypeScript types
+├── tests/                        # Jest test files for algorithms and data structures
+├── docs/                         # Documentation (explanations, diagrams, interview tips)
+├── benchmarks/                   # Performance testing scripts
+├── .gitignore
+├── package.json
+├── tsconfig.json
+└── README.md
 ```
 
-## Building and Running
+## Algorithms Implemented
 
-To build and run this project, you will need `CMake` and a C++17 compatible compiler (e.g., g++ or clang++).
+Each algorithm implementation includes:
+*   Optimal solution.
+*   Detailed comments explaining logic.
+*   Time and space complexity analysis.
+*   Consideration of edge cases.
+
+### 1. Breadth-First Search (BFS) for Shortest Path in Unweighted Graph
+
+**Problem:** Given an unweighted graph and two nodes, `start` and `end`, find the length of the shortest path between them.
+
+**Algorithm:** BFS explores the graph layer by layer, guaranteeing that the first time a node is reached, it's via the shortest path from the start node.
+
+**File:** `src/algorithms/bfs.ts`
+
+### 2. Depth-First Search (DFS) for Cycle Detection in Directed Graph
+
+**Problem:** Determine if a given directed graph contains a cycle.
+
+**Algorithm:** DFS is used to traverse the graph. We keep track of nodes in the current recursion stack (visiting state) to detect back-edges, which indicate a cycle.
+
+**File:** `src/algorithms/dfs-cycle-detection.ts`
+
+### 3. Dijkstra's Algorithm for Shortest Path in Weighted Graph
+
+**Problem:** Given a weighted graph with non-negative edge weights and a `start` node, find the shortest path from `start` to all other nodes.
+
+**Algorithm:** Dijkstra's algorithm uses a priority queue to iteratively explore the node with the smallest known distance from the `start` node, relaxing edges to update distances of its neighbors.
+
+**File:** `src/algorithms/dijkstra.ts`
+
+### 4. Kruskal's Algorithm for Minimum Spanning Tree (MST)
+
+**Problem:** Given a connected, undirected, weighted graph, find a subset of the edges that forms a tree, connects all the vertices, and has the minimum possible total edge weight.
+
+**Algorithm:** Kruskal's algorithm sorts all edges by weight in ascending order and adds them to the MST if they don't form a cycle with already added edges. It uses a Union-Find data structure to efficiently detect cycles.
+
+**File:** `src/algorithms/kruskal.ts`
+
+## Supporting Data Structures
+
+*   `src/data-structures/graph.ts`: A generic `Graph` class using an adjacency list representation, supporting both directed/undirected and weighted/unweighted graphs.
+*   `src/data-structures/priority-queue.ts`: A min-priority queue implementation using a binary heap, crucial for Dijkstra's algorithm.
+*   `src/data-structures/union-find.ts`: A `UnionFind` (Disjoint Set Union) data structure with path compression and union by rank/size, essential for Kruskal's algorithm.
+
+## Setup and Installation
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your_username/graph_algorithms_project.git
-    cd graph_algorithms_project
+    git clone https://github.com/your-username/graph-algorithms-project.git
+    cd graph-algorithms-project
     ```
-    *(Note: Replace `https://github.com/your_username/graph_algorithms_project.git` with your actual repo URL if you host this project.)*
-
-2.  **Create a build directory and configure CMake:**
+2.  **Install dependencies:**
     ```bash
-    mkdir build
-    cd build
-    cmake ..
+    npm install
     ```
-
 3.  **Build the project:**
     ```bash
-    cmake --build .
-    ```
-    This will compile all executables (main algorithm demonstrations, tests, and benchmarks).
-
-4.  **Run specific algorithm demonstrations:**
-    After building, you can find the executables in the `build` directory.
-    ```bash
-    ./traversals_main
-    ./shortest_path_main
-    ./mst_main
-    ./topological_sort_main
+    npm run build
     ```
 
-## Graph Data Structure
+## Running Tests
 
-The project uses an `Adjacency List` representation for the `Graph` class. This is generally preferred for sparse graphs (fewer edges relative to nodes) which are common in interviews, as it's more memory-efficient than an adjacency matrix.
-
-**Key Features:**
-*   Supports weighted graphs (edges stored as `std::pair<int, int>` where the second element is the weight).
-*   Flexible for directed or undirected graphs (addEdge can be called once for directed, twice for undirected).
-
-## Problems Implemented
-
-### Problem 1: Graph Traversals (BFS & DFS)
-
-**Description:**
-Explore all reachable nodes from a starting node.
-*   **Breadth-First Search (BFS):** Explores all neighbor nodes at the current depth level before moving on to nodes at the next depth level. Uses a queue.
-*   **Depth-First Search (DFS):** Explores as far as possible along each branch before backtracking. Can be implemented recursively or iteratively using a stack.
-
-**Implementations:**
-*   `bfs(const Graph& g, int startNode)`
-*   `dfs_recursive(const Graph& g, int startNode)`
-*   `dfs_iterative(const Graph& g, int startNode)`
-
-**File:** `src/problem1_traversals.cpp`
-
-### Problem 2: Shortest Path (Dijkstra's Algorithm)
-
-**Description:**
-Finds the shortest paths from a single source node to all other nodes in a graph with non-negative edge weights. It uses a greedy approach and a priority queue to efficiently select the next closest node.
-
-**Implementation:**
-*   `dijkstra(const Graph& g, int startNode)`: Returns distances to all nodes.
-
-**File:** `src/problem2_shortest_path.cpp`
-*(Note: For graphs with negative edge weights, Bellman-Ford algorithm would be required, but it's not implemented here to keep the project focused on common interview staples.)*
-
-### Problem 3: Minimum Spanning Tree (Kruskal's Algorithm)
-
-**Description:**
-Finds a subset of the edges of a connected, edge-weighted undirected graph that connects all the vertices together, without any cycles and with the minimum possible total edge weight.
-
-**Implementation:**
-*   `kruskal(const Graph& g)`: Uses a Disjoint Set Union (DSU) data structure to efficiently detect cycles. It sorts all edges by weight and iteratively adds the smallest-weight edges that do not form a cycle.
-
-**File:** `src/problem3_mst.cpp`
-*(Note: Prim's algorithm is another popular MST algorithm, often better for dense graphs. Kruskal's is implemented here due to its intuitive nature and reliance on DSU, another important data structure.)*
-
-### Problem 4: Topological Sort (Kahn's & DFS-based)
-
-**Description:**
-For a Directed Acyclic Graph (DAG), a topological sort is a linear ordering of its vertices such that for every directed edge `u -> v`, vertex `u` comes before `v` in the ordering.
-
-**Implementations:**
-*   `kahn_topological_sort(const Graph& g)`: BFS-based approach that uses in-degrees of nodes.
-*   `dfs_topological_sort(const Graph& g)`: DFS-based approach that uses a stack to store vertices in reverse finish time order.
-
-**File:** `src/problem4_topological_sort.cpp`
-
-## Testing
-
-Unit tests are provided for each algorithm to ensure correctness across various scenarios including:
-*   Empty graphs
-*   Single node graphs
-*   Disconnected graphs
-*   Linear graphs
-*   Cyclic graphs (where applicable, e.g., BFS/DFS)
-*   Dense and sparse graphs
-*   Graphs with various edge weights
+Tests are implemented using [Jest](https://jestjs.io/).
 
 To run all tests:
 ```bash
-cd build
-cmake --build . --target run_all_tests
-# OR
-./run_tests_traversals
-./run_tests_shortest_path
-./run_tests_mst
-./run_tests_topological_sort
+npm test
 ```
 
-## Benchmarking
+To run tests in watch mode (reruns on file changes):
+```bash
+npm run test:watch
+```
 
-Performance benchmarking code is included to measure the execution time of each algorithm on large, randomly generated graphs. This helps to understand their practical time complexity characteristics.
+## Running Benchmarks
+
+Performance benchmarks are located in the `benchmarks/performance.ts` file.
 
 To run benchmarks:
 ```bash
-cd build
-./run_benchmarks
+npm run benchmark
 ```
 
 ## Documentation
 
-The `docs/` directory contains detailed explanations:
+Comprehensive documentation is provided in the `docs/` directory.
 
-### Algorithms Explained (`docs/algorithms_explained.md`)
+### Algorithm Explanations
+*   `docs/algorithms-explanation.md`: Detailed explanations of each algorithm, including their principles, steps, and typical use cases.
 
-*   **Detailed Concepts:** In-depth explanation of how each algorithm works.
-*   **Step-by-step logic:** Breakdown of the process.
-*   **ASCII Diagrams:** Visual representations of graph states and algorithm flow.
-*   **Time and Space Complexity Analysis:** A thorough examination of the Big O notation for each algorithm.
-*   **Edge Cases and Gotchas:** Common pitfalls and specific scenarios to consider.
-*   **Variations and Extensions:** Discussions on how algorithms can be adapted or related to other problems.
+### Visual Diagrams
+*   `docs/diagrams.txt`: ASCII art diagrams illustrating graph structures and algorithm steps.
 
-### Interview Guide (`docs/interview_guide.md`)
+### Interview Tips & Variations
+*   `docs/interview-tips.md`: Advice for approaching graph problems in interviews, common variations, edge cases to consider, and typical follow-up questions.
 
-*   **General Tips:** Strategies for approaching graph problems in an interview setting.
-*   **Common Interview Questions:** Example questions related to each algorithm.
-*   **Follow-up Questions:** How interviewers might extend initial questions.
-*   **Design Choices:** Discussion on adjacency list vs. matrix, directed vs. undirected, weighted vs. unweighted.
-*   **Debugging Strategies:** Tips for finding errors in graph implementations.
-```
+## Contribution
+
+Feel free to open issues or submit pull requests if you have suggestions, find bugs, or want to add more algorithms/features.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file (not explicitly generated here, but good practice) for details.
