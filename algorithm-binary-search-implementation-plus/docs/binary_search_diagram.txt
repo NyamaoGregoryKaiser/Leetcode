@@ -1,0 +1,108 @@
+# Binary Search Visualization (ASCII Art)
+
+## 1. Classic Binary Search - Target Found
+
+Array: `[ 2, 4, 6, 8, 10, 12, 14, 16 ]`, Target = 10
+
+Initial:
+   [ 2,  4,  6,  8, 10, 12, 14, 16 ]
+     ^                          ^
+   low                        high
+   mid = (0+7)/2 = 3. arr[3] = 8. (8 < 10) => low = mid + 1
+
+Step 1:
+   [ 2,  4,  6,  8, 10, 12, 14, 16 ]
+                     ^      ^
+                   low      high
+                   mid = (4+7)/2 = 5. arr[5] = 12. (12 > 10) => high = mid - 1
+
+Step 2:
+   [ 2,  4,  6,  8, 10, 12, 14, 16 ]
+                     ^  ^
+                   low high
+                   mid = (4+4)/2 = 4. arr[4] = 10. (10 == 10) => Found at index 4!
+
+## 2. Classic Binary Search - Target Not Found
+
+Array: `[ 2, 4, 6, 8, 10, 12, 14, 16 ]`, Target = 7
+
+Initial:
+   [ 2,  4,  6,  8, 10, 12, 14, 16 ]
+     ^                          ^
+   low                        high
+   mid = 3. arr[3] = 8. (8 > 7) => high = mid - 1
+
+Step 1:
+   [ 2,  4,  6,  8, 10, 12, 14, 16 ]
+     ^        ^
+   low      high
+   mid = (0+2)/2 = 1. arr[1] = 4. (4 < 7) => low = mid + 1
+
+Step 2:
+   [ 2,  4,  6,  8, 10, 12, 14, 16 ]
+           ^  ^
+         low high
+         mid = (2+2)/2 = 2. arr[2] = 6. (6 < 7) => low = mid + 1
+
+Step 3:
+   [ 2,  4,  6,  8, 10, 12, 14, 16 ]
+              ^
+            low/high (low=3, high=2 after update low = mid + 1)
+         Now `low` (3) is greater than `high` (2). Loop terminates. Target not found.
+
+## 3. Find First Occurrence (Lower Bound)
+
+Array: `[ 1, 2, 3, 3, 3, 4, 5 ]`, Target = 3
+
+Initial: result = -1
+   [ 1, 2, 3, 3, 3, 4, 5 ]
+     ^                   ^
+   low                 high
+   mid = 3. arr[3] = 3. (== target) => result = 3, high = mid - 1
+
+Step 1: result = 3
+   [ 1, 2, 3, 3, 3, 4, 5 ]
+     ^    ^
+   low  high
+   mid = 1. arr[1] = 2. (2 < target) => low = mid + 1
+
+Step 2: result = 3
+   [ 1, 2, 3, 3, 3, 4, 5 ]
+         ^  ^
+       low high
+       mid = 2. arr[2] = 3. (== target) => result = 2, high = mid - 1
+
+Step 3: result = 2
+   [ 1, 2, 3, 3, 3, 4, 5 ]
+         ^
+       low/high (low=2, high=1 after update high = mid - 1)
+   Now `low` (2) is greater than `high` (1). Loop terminates. Return `result` (2).
+
+## 4. Search in Rotated Sorted Array
+
+Array: `[ 4, 5, 6, 7, 0, 1, 2 ]`, Target = 0
+
+Initial:
+   [ 4, 5, 6, 7, 0, 1, 2 ]
+     ^                  ^
+   low                high
+   mid = 3. arr[3] = 7. (7 != 0)
+   arr[low] (4) <= arr[mid] (7) => Left half `[4,5,6,7]` is sorted.
+   Is target (0) in `[4, 7]`? No. So, `low = mid + 1`.
+
+Step 1:
+   [ 4, 5, 6, 7, 0, 1, 2 ]
+                     ^  ^
+                   low high
+                   mid = 5. arr[5] = 1. (1 != 0)
+                   arr[low] (0) > arr[mid] (1) is FALSE.
+                   arr[low] (0) <= arr[mid] (1) is TRUE? No. Oh wait, it's `arr[low] <= arr[mid]` for first half.
+                   `arr[low] (0) <= arr[mid] (1)` is true, so `[0,1]` is sorted.
+                   Is target (0) in `[0,1)`? Yes, `0 >= arr[low]` (0) AND `0 < arr[mid]` (1).
+                   So, `high = mid - 1`.
+
+Step 2:
+   [ 4, 5, 6, 7, 0, 1, 2 ]
+                     ^
+                   low/high (low=4, high=4)
+                   mid = 4. arr[4] = 0. (0 == 0) => Found at index 4!
