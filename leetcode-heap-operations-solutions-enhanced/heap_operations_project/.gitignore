@@ -1,0 +1,32 @@
+```
+# CMake
+/build/
+/.cmake/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Object files
+*.o
+*.obj
+
+# Libraries
+*.lib
+*.a
+*.so
+*.dylib
+
+# Editor/IDE files
+.vscode/
+.idea/
+
+# Catch2 and Google Benchmark dependencies (if not submoduled)
+# For this project, they are submodules so not typically ignored.
+# If you were downloading them, you might ignore their build artifacts.
+```
