@@ -1,0 +1,26 @@
+```json
+{
+  "name": "stack-queue-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Stack and Queue data structures.",
+  "main": "src/algorithms/stack-queue-problems.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "benchmark": "node src/utils/performance.js"
+  },
+  "keywords": [
+    "stack",
+    "queue",
+    "data structures",
+    "algorithms",
+    "coding interview",
+    "javascript"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
+```
