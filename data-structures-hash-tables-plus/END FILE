@@ -1,0 +1,104 @@
+### benchmarks/benchmark_runner.js
+
+```javascript
+/**
+ * Benchmark Runner
+ * Compares the performance of different solutions for selected problems.
+ * Uses `console.time` and `console.timeEnd` for basic timing.
+ */
+
+// Import problem solutions
+const { twoSumHashMap, twoSumSorted } = require('../src/problems/problem1_two_sum');
+const { twoSumBruteForce } = require('../additional_implementations/problem1_two_sum_brute_force');
+const { longestConsecutiveHashSet, longestConsecutiveSorting } = require('../src/problems/problem2_longest_consecutive_sequence');
+const { groupAnagramsSortedKey, groupAnagramsCharCountKey } = require('../src/problems/problem3_group_anagrams');
+const { groupAnagramsPrimeProduct } = require('../additional_implementations/problem3_group_anagrams_prime_product');
+
+// Import data generator
+const { generateRandomArray, generateTwoSumData, generateAnagramData } = require('./data_generator');
+
+const chalk = require('chalk');
+const log = console.log;
+
+log(chalk.bold.magenta('\n--- Starting Benchmarks ---'));
+
+/**
+ * Runs a single benchmark for a given function.
+ * @param {string} name Name of the algorithm.
+ * @param {function} func The function to benchmark.
+ * @param {any[]} args Arguments to pass to the function.
+ * @returns {number} Execution time in milliseconds.
+ */
+function runBenchmark(name, func, args) {
+    const start = process.hrtime.bigint();
+    func(...args);
+    const end = process.hrtime.bigint();
+    const durationMs = Number(end - start) / 1_000_000; // Convert nanoseconds to milliseconds
+    log(`${chalk.cyan(name.padEnd(40))}: ${chalk.yellow(durationMs.toFixed(3))} ms`);
+    return durationMs;
+}
+
+// --- Benchmark for Two Sum ---
+async function benchmarkTwoSum() {
+    log(chalk.bold.blue('\n### Benchmarking Two Sum ###'));
+    const sizes = [1000, 10000, 50000, 100000];
+
+    for (const size of sizes) {
+        log(chalk.bold.green(`\n--- Input Size: ${size} elements ---`));
+        const { nums, target } = generateTwoSumData(size, -size, size);
+
+        // Warm-up run (optional, for more consistent results by letting JIT optimize)
+        // twoSumHashMap(nums, target);
+
+        runBenchmark('Two Sum (HashMap - O(N))', twoSumHashMap, [nums, target]);
+        runBenchmark('Two Sum (Sorted Array - O(N log N))', twoSumSorted, [nums, target]);
+        // Brute force can be very slow for large N, run only for smaller N or skip
+        if (size <= 5000) {
+            runBenchmark('Two Sum (Brute Force - O(N^2))', twoSumBruteForce, [nums, target]);
+        } else {
+            log(chalk.gray('Two Sum (Brute Force - O(N^2)): Skipped for large N'));
+        }
+    }
+}
+
+// --- Benchmark for Longest Consecutive Sequence ---
+async function benchmarkLongestConsecutiveSequence() {
+    log(chalk.bold.blue('\n### Benchmarking Longest Consecutive Sequence ###'));
+    const sizes = [1000, 10000, 50000, 100000, 500000];
+
+    for (const size of sizes) {
+        log(chalk.bold.green(`\n--- Input Size: ${size} elements ---`));
+        const nums = generateRandomArray(size, 0, size * 2, true); // Some consecutive, some not
+
+        runBenchmark('Longest Consecutive (HashSet - O(N))', longestConsecutiveHashSet, [nums]);
+        runBenchmark('Longest Consecutive (Sorting - O(N log N))', longestConsecutiveSorting, [nums]);
+    }
+}
+
+// --- Benchmark for Group Anagrams ---
+async function benchmarkGroupAnagrams() {
+    log(chalk.bold.blue('\n### Benchmarking Group Anagrams ###'));
+    const numStrings = [1000, 5000, 10000, 20000];
+    const stringLength = 10; // Average string length
+
+    for (const n of numStrings) {
+        log(chalk.bold.green(`\n--- Input Size: ${n} strings (length ~${stringLength}) ---`));
+        const strs = generateAnagramData(n, stringLength, stringLength + 5, n / 4); // Create a mix of unique & anagrams
+
+        runBenchmark(`Group Anagrams (Sorted Key - O(N*KlogK))`, groupAnagramsSortedKey, [strs]);
+        runBenchmark(`Group Anagrams (Char Count Key - O(N*K))`, groupAnagramsCharCountKey, [strs]);
+        // Prime product can hit Number.MAX_SAFE_INTEGER for longer strings, be cautious.
+        runBenchmark(`Group Anagrams (Prime Product Key - O(N*K))`, groupAnagramsPrimeProduct, [strs]);
+    }
+}
+
+// --- Run all benchmarks ---
+async function runAllBenchmarks() {
+    await benchmarkTwoSum();
+    await benchmarkLongestConsecutiveSequence();
+    await benchmarkGroupAnagrams();
+    log(chalk.bold.magenta('\n--- Benchmarks Finished ---'));
+}
+
+runAllBenchmarks();
+```
