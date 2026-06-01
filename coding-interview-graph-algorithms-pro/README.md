@@ -1,134 +1,142 @@
 # Graph Algorithms Interview Project
 
-This project is a comprehensive resource for mastering fundamental graph algorithms, designed for software engineering interview preparation. It includes optimal implementations of key algorithms, detailed explanations, various approaches, robust testing, performance benchmarking, and extensive documentation.
+This project is a comprehensive resource for understanding and implementing fundamental graph algorithms, crucial for coding interviews. It provides optimized TypeScript implementations, detailed explanations, extensive test suites, and benchmarking tools.
 
 ## Table of Contents
 
-1.  [Project Structure](#project-structure)
+1.  [Project Overview](#project-overview)
 2.  [Features](#features)
-3.  [Graph Representation](#graph-representation)
-4.  [Algorithms Implemented](#algorithms-implemented)
+3.  [Graph Algorithms Covered](#graph-algorithms-covered)
+    *   [1. BFS Shortest Path (Unweighted Graphs)](#1-bfs-shortest-path-unweighted-graphs)
+    *   [2. Dijkstra's Algorithm (Weighted Graphs)](#2-dijkstras-algorithm-weighted-graphs)
+    *   [3. Topological Sort (Kahn's Algorithm)](#3-topological-sort-kahns-algorithm)
+    *   [4. Detect Cycle in Directed Graph (DFS)](#4-detect-cycle-in-directed-graph-dfs)
+4.  [Project Structure](#project-structure)
 5.  [Setup and Installation](#setup-and-installation)
 6.  [Running Tests](#running-tests)
 7.  [Running Benchmarks](#running-benchmarks)
 8.  [Documentation](#documentation)
-9.  [Contribution](#contribution)
+9.  [Contributing](#contributing)
 10. [License](#license)
+
+## Project Overview
+
+This repository serves as a robust study guide and practical implementation hub for common graph algorithm problems. Each algorithm is implemented with clarity, optimality, and thorough commentary.
+
+## Features
+
+*   **TypeScript Implementation**: Strongly typed, modern JavaScript for better maintainability and readability.
+*   **Optimal Solutions**: Each problem provides an efficient, standard algorithm.
+*   **Detailed Comments**: In-depth explanations within the code for logic and thought process.
+*   **Complexity Analysis**: Clear statements of time and space complexity for each algorithm.
+*   **Comprehensive Tests**: Extensive Jest test suites covering various scenarios, including edge cases.
+*   **Custom Data Structures**: `Graph` (adjacency list) and `PriorityQueue` (min-heap) implementations tailored for graph problems.
+*   **Performance Benchmarking**: Script to measure algorithm performance with varying input sizes.
+*   **Rich Documentation**: Separate markdown files for detailed algorithm explanations, ASCII diagrams, edge cases, and interview tips.
+
+## Graph Algorithms Covered
+
+### 1. BFS Shortest Path (Unweighted Graphs)
+
+*   **Problem**: Find the shortest path (minimum number of edges) between two nodes in an unweighted graph.
+*   **Approach**: Breadth-First Search (BFS).
+*   **Location**: `src/algorithms/bfs-shortest-path.ts`
+*   **Complexity**:
+    *   **Time**: O(V + E), where V is the number of vertices and E is the number of edges.
+    *   **Space**: O(V) for the queue, visited set, and parent map.
+
+### 2. Dijkstra's Algorithm (Weighted Graphs)
+
+*   **Problem**: Find the shortest path (minimum total weight) from a single source node to all other nodes in a weighted graph with non-negative edge weights.
+*   **Approach**: Dijkstra's algorithm using a min-priority queue.
+*   **Location**: `src/algorithms/dijkstra.ts`
+*   **Complexity**:
+    *   **Time**: O((V + E) log V) with a binary heap priority queue, or O(E + V log V) if V is small compared to E.
+    *   **Space**: O(V + E) for distances, parent map, and priority queue.
+
+### 3. Topological Sort (Kahn's Algorithm)
+
+*   **Problem**: Given a Directed Acyclic Graph (DAG), produce a linear ordering of its vertices such that for every directed edge `u -> v`, vertex `u` comes before vertex `v` in the ordering.
+*   **Approach**: Kahn's algorithm (BFS-based).
+*   **Location**: `src/algorithms/topological-sort-kahn.ts`
+*   **Complexity**:
+    *   **Time**: O(V + E).
+    *   **Space**: O(V) for in-degrees and queue.
+
+### 4. Detect Cycle in Directed Graph (DFS)
+
+*   **Problem**: Determine if a directed graph contains any cycles.
+*   **Approach**: Depth-First Search (DFS) with three states for nodes (unvisited, visiting, visited).
+*   **Location**: `src/algorithms/detect-cycle-dfs.ts`
+*   **Complexity**:
+    *   **Time**: O(V + E).
+    *   **Space**: O(V) for recursion stack and state tracking.
 
 ## Project Structure
 
 ```
-graph-algorithms-interview/
+graph-algorithms-project/
 ├── src/
-│   ├── graphAlgorithms.js          # Main implementations (BFS/DFS, Dijkstra, Prim, Topological Sort)
-│   ├── utils/
-│   │   ├── dataStructures.js       # Graph class, PriorityQueue
-│   │   └── performanceBenchBenchmarking.js # Script for performance testing
-│   └── alternativeSolutions/
-│       ├── bruteForcePath.js       # Brute-force approach for finding all paths
-│       └── memoryEfficientDFSPath.js # Memory-efficient DFS pathfinding
-├── tests/
-│   └── graphAlgorithms.test.js     # Extensive test suite using Jest
-├── docs/
-│   ├── algorithms.md               # Detailed explanation of each algorithm
-│   ├── diagrams.txt                # ASCII art diagrams for graph visualization
-│   └── interviewTips.md            # Edge cases, common variations, interview strategies
-├── .gitignore
-├── package.json
-└── README.md
+│   ├── data-structures/        # Core data structures (Graph, PriorityQueue)
+│   ├── algorithms/             # Implementations of graph algorithms
+│   └── index.ts                # Example usage / entry point
+├── tests/                      # Jest test files for data structures and algorithms
+├── docs/                       # Detailed documentation, explanations, and interview tips
+│   ├── ALGORITHM_EXPLANATIONS.md # In-depth algorithm theory and diagrams
+│   └── INTERVIEW_TIPS.md       # General interview advice, common variations
+├── benchmarking/               # Scripts to benchmark algorithm performance
+├── README.md                   # Project overview (this file)
+├── package.json                # Node.js project configuration
+├── tsconfig.json               # TypeScript compiler configuration
 ```
-
-## Features
-
-*   **Core Algorithms:** Implementations of Breadth-First Search (BFS), Depth-First Search (DFS), Dijkstra's Shortest Path, Prim's Minimum Spanning Tree, and Topological Sort.
-*   **Optimal Solutions:** Each algorithm is implemented with its optimal time and space complexity in mind.
-*   **Multiple Approaches:** Demonstrations of different traversal types (BFS vs DFS for pathfinding), and alternative solutions for specific problems.
-*   **Detailed Comments:** In-depth comments within the code explain the logic, data structures, and algorithmic steps.
-*   **Complexity Analysis:** Time and space complexity for each algorithm is provided in the code comments and documentation.
-*   **Extensive Test Suite:** Comprehensive unit tests using Jest cover various scenarios, including edge cases, empty graphs, disconnected graphs, and complex structures.
-*   **Performance Benchmarking:** Tools to measure the real-world performance of algorithms on different graph sizes.
-*   **Helper Data Structures:** Custom `Graph` class and `PriorityQueue` implementation for efficient algorithm execution.
-*   **Rich Documentation:**
-    *   **Algorithm Explanations:** Step-by-step breakdown of each algorithm's logic.
-    *   **Visual Diagrams:** ASCII art to visualize graph structures and algorithm steps.
-    *   **Interview Tips:** Guidance on handling edge cases, common variations, and effective communication during interviews.
-*   **Alternative Implementations:** Examples of brute-force and memory-efficient solutions to highlight tradeoffs.
-
-## Graph Representation
-
-The project uses an **adjacency list** representation for graphs, implemented in the `Graph` class (`src/utils/dataStructures.js`). This representation is generally efficient for sparse graphs (graphs with relatively few edges) and is common in interview settings.
-
-*   **Nodes:** Can be any primitive type (numbers, strings).
-*   **Edges:** Can be weighted or unweighted, directed or undirected.
-
-## Algorithms Implemented
-
-1.  **BFS & DFS Path Finding (`findPath`)**
-    *   Finds a path between two nodes. BFS finds the shortest path in unweighted graphs.
-    *   Complexity: O(V + E) for both.
-
-2.  **Dijkstra's Shortest Path (`dijkstra`)**
-    *   Finds the shortest paths from a single source node to all other nodes in a weighted graph with non-negative edge weights.
-    *   Complexity: O((V + E) log V) or O(E log V) using a min-priority queue.
-
-3.  **Prim's Minimum Spanning Tree (`prim`)**
-    *   Finds a minimum spanning tree for a connected, undirected weighted graph.
-    *   Complexity: O((V + E) log V) or O(E log V) using a min-priority queue.
-
-4.  **Topological Sort (`topologicalSort`)**
-    *   Linear ordering of vertices such that for every directed edge uv, vertex u comes before v in the ordering. Applicable only to Directed Acyclic Graphs (DAGs).
-    *   Uses Kahn's algorithm (in-degree based).
-    *   Complexity: O(V + E).
 
 ## Setup and Installation
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/graph-algorithms-interview.git
-    cd graph-algorithms-interview
+    git clone https://github.com/your-username/graph-algorithms-project.git
+    cd graph-algorithms-project
     ```
-
 2.  **Install dependencies:**
     ```bash
     npm install
     ```
-    This will install `jest` for testing.
 
 ## Running Tests
 
-To run the comprehensive test suite for all algorithms:
+To run all unit tests:
 
 ```bash
 npm test
 ```
 
-You should see output indicating all tests passing.
+To run tests for a specific file (e.g., Dijkstra's algorithm):
+
+```bash
+npm test tests/algorithms/dijkstra.test.ts
+```
 
 ## Running Benchmarks
 
-To run the performance benchmarks for a quick comparison of execution times:
+To execute the performance benchmark script:
 
 ```bash
 npm run benchmark
 ```
 
-This script will generate various graph sizes and measure the execution time of selected algorithms, printing the results to the console.
+This will run each algorithm with varying input sizes and print the execution times to the console.
 
 ## Documentation
 
-The `docs/` directory contains detailed explanations and resources:
+*   **`docs/ALGORITHM_EXPLANATIONS.md`**: Dive deep into the theory behind each algorithm with step-by-step breakdowns and ASCII diagrams.
+*   **`docs/INTERVIEW_TIPS.md`**: Get practical advice on how to approach graph problems in interviews, discuss variations, and handle common pitfalls.
 
-*   `docs/algorithms.md`: In-depth explanation of each algorithm's logic, steps, and complexity.
-*   `docs/diagrams.txt`: ASCII art visualizations of graphs and algorithm concepts.
-*   `docs/interviewTips.md`: Strategies for tackling graph problems in interviews, covering common pitfalls and variations.
+## Contributing
 
-It's highly recommended to review these documents alongside the code.
-
-## Contribution
-
-Feel free to open issues or submit pull requests if you have suggestions, find bugs, or want to add more algorithms/features.
+Feel free to open issues, submit pull requests, or suggest improvements. Any contributions are welcome!
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
 ---
