@@ -1,0 +1,5 @@
+# No external libraries beyond Python's standard library are strictly required for the core algorithms and unittest.
+# However, if you wanted pytest for tests, you'd add it here:
+# pytest
+
+# For simple benchmarking, standard library 'time' and 'timeit' are sufficient.
