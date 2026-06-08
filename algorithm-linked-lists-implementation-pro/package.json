@@ -1,0 +1,24 @@
+```json
+{
+  "name": "linked-list-interview-project",
+  "version": "1.0.0",
+  "description": "Comprehensive project for Linked List coding interview preparation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "benchmark": "node benchmark/benchmark.js"
+  },
+  "keywords": [
+    "linked-list",
+    "interview-prep",
+    "algorithms",
+    "data-structures",
+    "javascript"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
+```
