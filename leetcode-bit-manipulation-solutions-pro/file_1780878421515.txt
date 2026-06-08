@@ -1,0 +1,5 @@
+This pattern (one '1' followed by all '0's for `n`, and all '0's followed by all '1's up to the position of '1' in `n` for `n-1`) ensures that `n & (n - 1)` will always be 0.
+For any number that is *not* a power of two (and positive), it will have at least two set bits. For example, `6` (binary `0110`):
+`n = 6` (binary `0110`)
+`n - 1 = 5` (binary `0101`)
+`n & (n - 1)`:

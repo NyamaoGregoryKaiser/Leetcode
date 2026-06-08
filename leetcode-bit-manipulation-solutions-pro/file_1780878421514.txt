@@ -1,0 +1,31 @@
+#ifndef COMMON_HPP
+#define COMMON_HPP
+
+#include <string>
+#include <bitset>
+#include <cstdint> // For uint32_t
+#include <iostream>
+
+namespace Utils {
+
+/**
+ * @brief Converts an unsigned 32-bit integer to its binary string representation.
+ * @param n The unsigned 32-bit integer.
+ * @return A string representing the binary form of n.
+ */
+std::string printBinary(uint32_t n) {
+    return std::bitset<32>(n).to_string();
+}
+
+/**
+ * @brief Prints an unsigned 32-bit integer in binary format to stdout.
+ * @param label A label to print before the binary string.
+ * @param n The unsigned 32-bit integer.
+ */
+void printBinaryWithLabel(const std::string& label, uint32_t n) {
+    std::cout << label << ": " << printBinary(n) << std::endl;
+}
+
+} // namespace Utils
+
+#endif // COMMON_HPP

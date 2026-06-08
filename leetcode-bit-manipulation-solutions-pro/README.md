@@ -1,20 +1,22 @@
-# Bit Manipulation Algorithms
+**Complexity:**
+*   **Time Complexity:** O(log W) where W is the word size, as the number of swap stages is logarithmic (log2(32) = 5 stages). Effectively O(1) for fixed W.
+*   **Space Complexity:** O(1)
 
-This project contains implementations of several bit manipulation algorithms in JavaScript.  Each algorithm includes multiple approaches (where applicable), time/space complexity analysis, and test cases.
+### Edge Cases & Gotchas
 
-**Algorithms Included:**
+*   **`n = 0`**: Should correctly return 0. Both approaches handle this.
+*   **`n = 1`**: Should return `0x80000000`. This means the LSB of 1 becomes the MSB of the reversed number.
+*   **`n = 0xFFFFFFFF`**: Should return `0xFFFFFFFF`. All bits reversed is still all bits.
+*   **Unsigned Integer**: Crucial to use `uint32_t` (or `unsigned int`) to ensure logical right shifts (filling with zeros) and prevent issues with sign extension in arithmetic right shifts.
 
-1. **Count Set Bits:** Counts the number of 1s in the binary representation of an integer.
-2. **Reverse Bits:** Reverses the order of bits in an integer.
-3. **Find the Only Non-Repeating Number:** Finds the single number that appears only once in an array where all other numbers appear twice.
-4. **Check if a Number is a Power of 2:** Determines if a given number is a power of 2.
-5. **Swap Two Numbers without using a temporary variable:** Swaps the values of two variables without using an extra variable.
+### Interview Tips & Variations
 
+*   **Start with Iterative**: This approach is simpler to explain and implement under pressure.
+*   **Introduce Optimized Swaps**: As a follow-up, suggest the group swapping method for its potential performance benefits. Be prepared to explain the masks and shifts at each stage.
+*   **Explain Masks**: Clearly explain how each mask isolates the bits that need to be moved in one direction.
+*   **Variations**:
+    *   Reverse bits of a specific range (e.g., bits 8-15).
+    *   Check if a number is a palindrome in binary representation (reverse and compare).
+    *   Find the next smallest/largest number with the same number of set bits (often involves finding the rightmost non-trailing-zero bit, etc., more complex).
 
-**Project Structure:**
-
-- `algorithms.js`: Contains the implementations of the bit manipulation algorithms.
-- `test.js`: Contains test cases for the algorithms.
-- `utils.js`: Contains helper functions (if needed).
-- `benchmark.js`: (Optional) Contains code for performance benchmarking.
-- `documentation.md`: Detailed explanations, diagrams, and edge cases.
+---
