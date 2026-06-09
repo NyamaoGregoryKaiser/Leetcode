@@ -1,0 +1,10 @@
+# No external dependencies are strictly required for the core logic
+# but pytest could be used for testing, though unittest is sufficient.
+# For type hinting, `typing` module is built-in.
+# Python's `collections.deque` is a standard library module.
+
+# If you were to use pytest:
+# pytest
+
+# For basic benchmarking, `timeit` is built-in.
+# No specific requirements for this project beyond standard Python library.

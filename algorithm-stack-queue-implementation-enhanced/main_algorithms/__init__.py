@@ -1,0 +1,6 @@
+# This file marks the main_algorithms directory as a Python package.
+from .problem1_valid_parentheses import is_valid_parentheses_optimal, is_valid_parentheses_alternative
+from .problem2_min_stack import MinStack
+from .problem3_queue_using_stacks import MyQueue
+from .problem4_sliding_window_maximum import max_sliding_window_optimal, max_sliding_window_bruteforce
+from .problem5_next_greater_element import next_greater_elements_optimal
