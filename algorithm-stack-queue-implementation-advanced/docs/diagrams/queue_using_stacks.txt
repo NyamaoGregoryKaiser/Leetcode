@@ -1,0 +1,91 @@
+```text
+Queue using Two Stacks
+
+Goal: Implement a FIFO Queue using only LIFO Stacks.
+
+Concept: Use two stacks:
+- `s1` (input stack): For `push` operations. New elements go here.
+- `s2` (output stack): For `pop` and `peek` operations. Elements are moved here from `s1`
+                    in reversed order when `s2` is empty.
+
+Example: Push sequence: 1, 2, 3. Then Pop, Peek.
+
+Initial State:
+s1: []
+s2: []
+
+1. push(1):
+   s1: [1]
+   s2: []
+
+2. push(2):
+   s1: [1, 2]
+   s2: []
+
+3. push(3):
+   s1: [1, 2, 3]
+   s2: []
+
+4. pop():
+   s2 is empty, so move elements from s1 to s2:
+   - Pop 3 from s1, push to s2. s1: [1, 2], s2: [3]
+   - Pop 2 from s1, push to s2. s1: [1], s2: [3, 2]
+   - Pop 1 from s1, push to s2. s1: [], s2: [3, 2, 1]
+
+   Now s2 is not empty. Pop from s2:
+   - Pop 1 from s2.
+   Returned: 1
+
+Current State:
+s1: []
+s2: [3, 2]  (Top: 2)
+
+5. peek():
+   s2 is not empty. Peek from s2:
+   - Peek 2 from s2.
+   Returned: 2
+
+Current State (unchanged):
+s1: []
+s2: [3, 2]  (Top: 2)
+
+6. push(4):
+   s1: [4]
+   s2: [3, 2]
+
+Current State:
+s1: [4]
+s2: [3, 2]  (Top: 2)
+
+7. pop():
+   s2 is not empty. Pop from s2:
+   - Pop 2 from s2.
+   Returned: 2
+
+Current State:
+s1: [4]
+s2: [3]  (Top: 3)
+
+8. pop():
+   s2 is not empty. Pop from s2:
+   - Pop 3 from s2.
+   Returned: 3
+
+Current State:
+s1: [4]
+s2: []
+
+9. pop():
+   s2 is empty, so move elements from s1 to s2:
+   - Pop 4 from s1, push to s2. s1: [], s2: [4]
+
+   Now s2 is not empty. Pop from s2:
+   - Pop 4 from s2.
+   Returned: 4
+
+Current State:
+s1: []
+s2: []
+
+empty() -> True
+```
