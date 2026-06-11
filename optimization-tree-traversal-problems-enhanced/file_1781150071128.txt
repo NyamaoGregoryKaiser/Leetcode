@@ -1,0 +1,2 @@
+npm init -y
+    npm install typescript @types/node jest @types/jest ts-jest --save-dev

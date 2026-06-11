@@ -1,105 +1,144 @@
-# Tree Traversals Coding Interview Project
+# Binary Tree Traversals Interview Project
 
-This project aims to provide a comprehensive resource for mastering tree traversal algorithms, a fundamental topic in coding interviews. It includes multiple problems, various solution approaches (recursive, iterative), detailed complexity analysis, extensive tests, performance benchmarks, and thorough documentation.
+This project provides a comprehensive set of problems, solutions, tests, benchmarks, and documentation for Binary Tree Traversals, a fundamental topic in coding interviews. It aims to cover various traversal methods (DFS, BFS, and their variations) with optimal solutions, detailed explanations, and interview preparation resources.
 
 ## Table of Contents
 
-1.  [Project Structure](#project-structure)
-2.  [Setup and Installation](#setup-and-installation)
-3.  [Problems Covered](#problems-covered)
-4.  [Running Tests](#running-tests)
-5.  [Running Performance Benchmarks](#running-performance-benchmarks)
-6.  [Documentation](#documentation)
-7.  [Contributing](#contributing)
-8.  [License](#license)
+1.  [Problem Descriptions](#problem-descriptions)
+    *   [Problem 1: Standard DFS Traversals](#problem-1-standard-dfs-traversals)
+    *   [Problem 2: Level Order Traversal (BFS)](#problem-2-level-order-traversal-bfs)
+    *   [Problem 3: Zigzag Level Order Traversal](#problem-3-zigzag-level-order-traversal)
+    *   [Problem 4: Binary Tree Right Side View](#problem-4-binary-tree-right-side-view)
+2.  [Project Structure](#project-structure)
+3.  [Setup and Usage](#setup-and-usage)
+    *   [Installation](#installation)
+    *   [Running Tests](#running-tests)
+    *   [Running Benchmarks](#running-benchmarks)
+    *   [Building the Project](#building-the-project)
+4.  [Detailed Documentation](#detailed-documentation)
+5.  [Contributing](#contributing)
+6.  [License](#license)
+
+## Problem Descriptions
+
+### Problem 1: Standard DFS Traversals
+
+Implement the three classic Depth-First Search (DFS) traversals for a binary tree:
+*   **Inorder Traversal**: Visit left subtree, then root, then right subtree.
+*   **Preorder Traversal**: Visit root, then left subtree, then right subtree.
+*   **Postorder Traversal**: Visit left subtree, then right subtree, then root.
+
+Provide both **recursive** and **iterative** solutions for each traversal.
+
+**Example:**
+For a tree `[1, 2, 3, 4, 5, 6, 7]` (level order representation):
+```
+      1
+     / \
+    2   3
+   / \ / \
+  4  5 6  7
+```
+*   **Inorder**: `[4, 2, 5, 1, 6, 3, 7]`
+*   **Preorder**: `[1, 2, 4, 5, 3, 6, 7]`
+*   **Postorder**: `[4, 5, 2, 6, 7, 3, 1]`
+
+### Problem 2: Level Order Traversal (BFS)
+
+Given the `root` of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+
+**Example:**
+For a tree `[3, 9, 20, null, null, 15, 7]`:
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+*   **Level Order**: `[[3], [9, 20], [15, 7]]`
+
+### Problem 3: Zigzag Level Order Traversal
+
+Given the `root` of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and so on. The next level again from left to right, and so on.)
+
+**Example:**
+For a tree `[3, 9, 20, null, null, 15, 7]`:
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+*   **Zigzag Level Order**: `[[3], [20, 9], [15, 7]]`
+
+### Problem 4: Binary Tree Right Side View
+
+Given the `root` of a binary tree, imagine yourself standing on the **right side** of it. Return the values of the nodes you can see ordered from top to bottom.
+
+**Example:**
+For a tree `[1, 2, 3, null, 5, null, 4]`:
+```
+      1         <---
+     / \
+    2   3       <---
+     \   \
+      5   4     <---
+```
+*   **Right Side View**: `[1, 3, 4]`
 
 ## Project Structure
 
-```
-tree-traversals-project/
-├── README.md
-├── package.json
-├── .gitignore
-├── algorithms/
-│   ├── TreeNode.js             # Basic Tree Node definition
-│   └── traversalProblems.js    # Main algorithm implementations for various traversal problems
-├── tests/
-│   ├── traversalProblems.test.js # Extensive unit tests for all problems
-│   └── performance.test.js     # Performance benchmarks comparing different implementations
-├── utils/
-│   └── treeBuilder.js          # Helper function to construct `TreeNode` objects from an array representation (e.g., [3,9,20,null,null,15,7])
-└── docs/
-    ├── algorithm_explanations.md # Detailed explanations of each algorithm's logic and different approaches.
-    ├── traversal_diagrams.md     # Visual ASCII art diagrams illustrating tree structures and traversal paths.
-    └── interview_tips.md         # General tips for approaching tree problems in interviews, common follow-ups, and related concepts.
-```
+Refer to the top-level project structure diagram for a visual representation of the file organization.
 
-## Setup and Installation
+## Setup and Usage
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/tree-traversals-project.git
-    cd tree-traversals-project
-    ```
+### Installation
 
-2.  **Install dependencies:**
-    This project uses `jest` for testing.
+1.  Make sure you have Node.js and npm installed.
+2.  Navigate to the project root directory.
+3.  Install development dependencies:
     ```bash
     npm install
     ```
 
-## Problems Covered
+### Running Tests
 
-The `algorithms/traversalProblems.js` file contains solutions for the following problems:
-
-1.  **Basic Traversals:**
-    *   **Inorder Traversal:** Left -> Root -> Right
-    *   **Preorder Traversal:** Root -> Left -> Right
-    *   **Postorder Traversal:** Left -> Right -> Root
-    *   _Solutions provided for both recursive and iterative approaches._
-
-2.  **Level Order Traversal (BFS):** Traverse the tree level by level.
-
-3.  **Zigzag Level Order Traversal:** Similar to Level Order, but alternate the order of nodes for each level (left-to-right, then right-to-left, and so on).
-
-4.  **Maximum Depth of Binary Tree:** Find the longest path from the root node down to the farthest leaf node.
-
-5.  **Path Sum III:** Given the root of a binary tree and an integer `targetSum`, return the number of paths where the sum of the nodes along the path equals `targetSum`. The path does not need to start or end at the root or a leaf, but it must go downwards (parent to child).
-
-For detailed problem descriptions, algorithmic explanations, and complexities, please refer to [`docs/algorithm_explanations.md`](./docs/algorithm_explanations.md).
-
-## Running Tests
-
-To run all unit tests:
-
+To execute all unit tests:
 ```bash
 npm test
 ```
+This command uses Jest to run all `.test.ts` files in the `tests/` directory.
 
-This will execute tests defined in `tests/traversalProblems.test.js`.
-
-## Running Performance Benchmarks
+### Running Benchmarks
 
 To run the performance benchmarks:
-
 ```bash
 npm run benchmark
 ```
+This command uses `ts-node` to execute the `benchmark/benchmark.ts` script, which compares the performance of different traversal algorithms on various tree sizes.
 
-This will execute the benchmarks defined in `tests/performance.test.js`, comparing the performance of different implementations (e.g., recursive vs. iterative traversals) for various tree sizes.
+### Building the Project
 
-## Documentation
+To compile the TypeScript code into JavaScript:
+```bash
+npm run build
+```
+This will output compiled JavaScript files into the `dist/` directory.
 
-The `docs/` directory contains comprehensive documentation:
+## Detailed Documentation
 
-*   [`docs/algorithm_explanations.md`](./docs/algorithm_explanations.md): In-depth explanations of each algorithm, including intuition, step-by-step logic, and comparison of different approaches.
-*   [`docs/traversal_diagrams.md`](./docs/traversal_diagrams.md): Visual ASCII art diagrams to help understand tree structures and how different traversals work.
-*   [`docs/interview_tips.md`](./docs/interview_tips.md): Valuable advice for coding interviews, focusing on tree-related questions, common pitfalls, and follow-up questions.
+For an in-depth explanation of the algorithms, time/space complexity, ASCII diagrams, edge cases, interview tips, and variations, please refer to:
+
+[`docs/algorithmExplanation.md`](./docs/algorithmExplanation.md)
 
 ## Contributing
 
-Feel free to open issues or submit pull requests for improvements, bug fixes, or additional problems/solutions.
+Feel free to open issues or pull requests to improve the solutions, add more test cases, enhance documentation, or propose new tree traversal problems.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. (Note: A `LICENSE` file is not included in this prompt, but would typically be added).
+This project is open-sourced under the MIT License.
+
+---
