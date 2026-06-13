@@ -1,0 +1,22 @@
+```json
+{
+  "name": "dp-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive project for Dynamic Programming interview preparation.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node test/dp.test.js",
+    "benchmark": "node benchmarks/benchmark.js"
+  },
+  "keywords": [
+    "dynamic-programming",
+    "dp",
+    "interview",
+    "javascript",
+    "algorithms",
+    "data-structures"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
+```
