@@ -1,0 +1,29 @@
+{
+  "name": "stack-queue-interview-project",
+  "version": "1.0.0",
+  "description": "A comprehensive coding interview project for Stack and Queue problems.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node tests/test_Stack.js && node tests/test_Queue.js && node tests/test_ValidParentheses.js && node tests/test_MinStack.js && node tests/test_QueueUsingStacks.js && node tests/test_LRUCache.js && node tests/test_MovingAverageFromDataStream.js",
+    "benchmark": "node benchmarks/benchmark_ValidParentheses.js && node benchmarks/benchmark_MinStack.js && node benchmarks/benchmark_QueueUsingStacks.js",
+    "test:stack": "node tests/test_Stack.js",
+    "test:queue": "node tests/test_Queue.js",
+    "test:valid-parentheses": "node tests/test_ValidParentheses.js",
+    "test:min-stack": "node tests/test_MinStack.js",
+    "test:queue-using-stacks": "node tests/test_QueueUsingStacks.js",
+    "test:lru-cache": "node tests/test_LRUCache.js",
+    "test:moving-average": "node tests/test_MovingAverageFromDataStream.js"
+  },
+  "keywords": [
+    "stack",
+    "queue",
+    "data-structures",
+    "algorithms",
+    "coding-interview",
+    "javascript"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "devDependencies": {}
+}
