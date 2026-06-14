@@ -1,0 +1,128 @@
+```
+             HEAP STRUCTURE (Min-Heap Example)
+             ---------------------------------
+
+An array-based representation of a complete binary tree.
+
+Array: [10, 20, 30, 40, 50, 60]
+
+Logical Tree:
+          10 (idx 0)
+         /  \
+      20 (idx 1)  30 (idx 2)
+     /  \    /
+  40 (idx 3) 50 (idx 4) 60 (idx 5)
+
+
+Heapify-Up Example (Min-Heap): Inserting 5 into [10, 20, 30]
+-------------------------------------------------------------
+
+Initial Heap:
+      10
+     /  \
+    20   30
+
+Array: [10, 20, 30]
+
+1. Insert 5 at end:
+Array: [10, 20, 30, 5]
+
+Logical Tree:
+      10
+     /  \
+    20   30
+   /
+  5
+
+2. Heapify-Up (5 vs 20): 5 < 20, swap.
+Array: [10, 5, 30, 20]
+
+Logical Tree:
+      10
+     /  \
+    5    30
+   /
+  20
+
+3. Heapify-Up (5 vs 10): 5 < 10, swap.
+Array: [5, 10, 30, 20]
+
+Logical Tree:
+      5
+     /  \
+    10   30
+   /
+  20
+
+Heap property restored.
+
+
+Heapify-Down Example (Min-Heap): Pop from [5, 10, 30, 20]
+-------------------------------------------------------------
+
+Initial Heap:
+      5
+     /  \
+    10   30
+   /
+  20
+
+Array: [5, 10, 30, 20]
+
+1. Pop 5. Move last element (20) to root.
+Array: [20, 10, 30] (size 3)
+
+Logical Tree:
+      20
+     /  \
+    10   30
+
+2. Heapify-Down (20 vs (10, 30)): 20 is greater than 10. Swap 20 with smaller child (10).
+Array: [10, 20, 30]
+
+Logical Tree:
+      10
+     /  \
+    20   30
+
+Heap property restored.
+
+
+TWO HEAPS FOR MEDIAN FINDER
+-----------------------------
+
+`max_heap_low` stores the smaller half of numbers (Max-Heap).
+`min_heap_high` stores the larger half of numbers (Min-Heap).
+
+Example `addNum(1), addNum(2), addNum(3)`:
+
+1. `addNum(1)`:
+   `max_heap_low`: [1]
+   `min_heap_high`: []
+   (Balanced: `size(max_low)` = `size(min_high)` + 1)
+
+2. `addNum(2)`:
+   `2` > `max_heap_low.top()` (1). Push `2` to `min_heap_high`.
+   `max_heap_low`: [1]
+   `min_heap_high`: [2]
+   (Balanced: `size(max_low)` = `size(min_high)`)
+
+3. `addNum(3)`:
+   `3` > `max_heap_low.top()` (1). Push `3` to `min_heap_high`.
+   `max_heap_low`: [1]
+   `min_heap_high`: [2, 3] (min-heap structure: 2 is top)
+   (Unbalanced: `size(min_high)` > `size(max_low)`). Rebalance: Move `min_heap_high.top()` (2) to `max_heap_low`.
+   `max_heap_low`: [2, 1] (max-heap structure: 2 is top)
+   `min_heap_high`: [3]
+   (Balanced: `size(max_low)` = `size(min_high)` + 1)
+
+Median Finder Diagram:
+
+          max_heap_low (Max-Heap)          min_heap_high (Min-Heap)
+          ---------------------          ---------------------
+          Values <= Median               Values >= Median
+
+          [ ... largest_of_lower_half ... ]    [ ... smallest_of_upper_half ... ]
+                     ^                              ^
+                    TOP                            TOP
+```
