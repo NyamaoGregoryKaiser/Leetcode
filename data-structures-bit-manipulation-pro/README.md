@@ -1,121 +1,175 @@
-# Bit Manipulation Coding Interview Project
+# Bit Manipulation Interview Project
 
-This project serves as a comprehensive resource for mastering bit manipulation techniques crucial for coding interviews. It provides multiple problems, optimal solutions, alternative approaches, detailed explanations, testing infrastructure, performance benchmarks, and extensive documentation.
+This project provides a comprehensive set of resources for mastering bit manipulation problems commonly encountered in coding interviews. It includes multiple problems, various solution approaches (including optimal ones), detailed explanations, extensive test cases, performance benchmarks, and interview tips.
 
 ## Table of Contents
 
-1.  [Project Structure](#project-structure)
-2.  [Problems Covered](#problems-covered)
-3.  [How to Compile and Run](#how-to-compile-and-run)
+1.  [Project Description](#project-description)
+2.  [Problem Statements](#problem-statements)
+    *   [Problem 1: Count Set Bits (Hamming Weight)](#problem-1-count-set-bits-hamming-weight)
+    *   [Problem 2: Check if Power of Two](#problem-2-check-if-power-of-two)
+    *   [Problem 3: Single Number (Find Unique Element)](#problem-3-single-number-find-unique-element)
+    *   [Problem 4: Reverse Bits](#problem-4-reverse-bits)
+    *   [Problem 5: Insert M into N](#problem-5-insert-m-into-n)
+3.  [Getting Started](#getting-started)
     *   [Prerequisites](#prerequisites)
     *   [Building the Project](#building-the-project)
+    *   [Running the Main Demo](#running-the-main-demo)
     *   [Running Tests](#running-tests)
     *   [Running Benchmarks](#running-benchmarks)
-4.  [Detailed Documentation](#detailed-documentation)
-5.  [Contributing](#contributing)
+4.  [Directory Structure](#directory-structure)
+5.  [Documentation](#documentation)
 6.  [License](#license)
 
-## Project Structure
+## Project Description
 
-*   `README.md`: This file.
-*   `CMakeLists.txt`: CMake build configuration.
-*   `src/`: Contains the main implementation of bit manipulation algorithms.
-    *   `BitManipulationSolutions.cpp`: Core algorithm implementations.
-*   `include/`: Header files for the project.
-    *   `BitManipulationSolutions.hpp`: Declarations for core algorithms.
-    *   `bit_manipulation_utils.hpp`: Utility functions (e.g., printing binary representations).
-*   `tests/`: Unit tests for all implemented algorithms.
-    *   `test_bit_manipulation.cpp`: Contains extensive test cases.
-*   `benchmarking/`: Code for comparing the performance of different algorithm approaches.
-    *   `benchmark.cpp`: Performance measurement routines.
-*   `additional_implementations/`: Demonstrates brute-force, alternative, or memory-efficient solutions for selected problems.
-    *   `CountSetBits_Approaches.cpp`: Various methods for counting set bits (brute-force, Brian Kernighan, lookup table).
-    *   `ReverseBits_Approaches.cpp`: Different strategies for reversing bits.
-*   `docs/`: Comprehensive documentation.
-    *   `algorithms.md`: Detailed explanations of algorithms, logic, and complexity.
-    *   `visualizations.md`: ASCII art diagrams illustrating bitwise operations.
-    *   `interview_tips.md`: Edge cases, gotchas, common bit manipulation tricks, and interview variations.
+The goal of this project is to offer a complete package for practicing and understanding bit manipulation algorithms. It covers:
 
-## Problems Covered
+*   **Core Algorithms**: Implementations of several classic bit manipulation problems using C++.
+*   **Multiple Approaches**: For many problems, both brute-force/intuitive and optimized bitwise solutions are provided.
+*   **Detailed Comments**: Every piece of code is thoroughly commented to explain the logic, bitwise operations, and choices made.
+*   **Complexity Analysis**: Time and space complexity are analyzed for each solution.
+*   **Robust Testing**: Comprehensive unit tests using the Catch2 framework to ensure correctness across various edge cases.
+*   **Performance Benchmarking**: Google Benchmark is used to compare the performance of different algorithms for the same problem.
+*   **In-depth Documentation**: Markdown files provide algorithm explanations, visual diagrams, edge case discussions, and general interview tips for bit manipulation.
 
-This project tackles the following common bit manipulation problems:
+## Problem Statements
 
-1.  **Count Set Bits (Hamming Weight)**
-    *   Determine the number of '1' bits in an unsigned integer.
-    *   Solutions: Loop and check LSB, Brian Kernighan's Algorithm, Lookup Table (in `additional_implementations`).
-2.  **Reverse Bits**
-    *   Reverse the bits of a 32-bit unsigned integer.
-    *   Solutions: Standard shift-and-add loop, Byte-by-byte reversal (in `additional_implementations`).
-3.  **Single Number**
-    *   Find the unique element in an array where every other element appears exactly twice.
-    *   Solutions: XOR (optimal), Hash Map (for comparison).
-4.  **Check if a Number is a Power of 2**
-    *   Determine if a given positive integer is a power of 2.
-    *   Solutions: Bitwise AND with `n-1`, Loop and divide.
-5.  **Insert M into N (Bit Insertion)**
-    *   Given two 32-bit numbers, `N` and `M`, and two bit positions, `i` and `j`, insert `M` into `N` such that `M` starts at bit `i` and ends at bit `j`.
-    *   Solutions: Create a mask, clear bits in `N`, then OR with `M` shifted.
+### Problem 1: Count Set Bits (Hamming Weight)
 
-## How to Compile and Run
+Write a function that takes an unsigned 32-bit integer and returns the number of '1' bits it has (also known as the Hamming weight).
+
+**Example:**
+Input: `00000000000000000000000000001011` (binary representation of `11`)
+Output: `3`
+
+### Problem 2: Check if Power of Two
+
+Given an integer `n`, return `true` if it is a power of two. Otherwise, return `false`.
+An integer `n` is a power of two, if there exists an integer `x` such that `n == 2^x`.
+
+**Example:**
+Input: `16`
+Output: `true` (since `16 = 2^4`)
+Input: `3`
+Output: `false`
+
+### Problem 3: Single Number (Find Unique Element)
+
+Given a non-empty array of integers `nums`, every element appears twice except for one. Find that single one.
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+**Example:**
+Input: `[2,2,1]`
+Output: `1`
+
+### Problem 4: Reverse Bits
+
+Reverse the bits of a given 32-bit unsigned integer.
+
+**Example:**
+Input: `00000010100101000001111010011100` (binary representation of `43261596`)
+Output: `00111001011110000010100101000000` (binary representation of `964176192`)
+
+### Problem 5: Insert M into N
+
+Given two 32-bit numbers, `N` and `M`, and two bit positions, `i` and `j`. Write a method to insert `M` into `N` such that `M` starts at bit `j` and ends at bit `i`. You can assume that bits `j` through `i` have enough space to fit all of `M`. That is, if `M` has length `k`, you can assume `j - i + 1 >= k`.
+
+**Example:**
+Input: `N = 10000000000` (binary, `1024` decimal)
+       `M = 10011` (binary, `19` decimal)
+       `i = 2, j = 6`
+Output: `N = 10001001100` (binary, `1092` decimal)
+
+## Getting Started
 
 ### Prerequisites
 
-*   A C++11 (or newer) compatible compiler (e.g., GCC, Clang, MSVC).
-*   CMake (version 3.10 or higher).
+*   A C++11 compatible compiler (e.g., GCC, Clang, MSVC)
+*   CMake (version 3.10 or higher)
+*   Git (for cloning the repository)
 
 ### Building the Project
 
-1.  Clone the repository:
+1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/BitManipulationProject.git
-    cd BitManipulationProject
+    git clone https://github.com/yourusername/BitManipulationInterviewProject.git
+    cd BitManipulationInterviewProject
     ```
-2.  Create a build directory and navigate into it:
+    *(Note: Replace `https://github.com/yourusername/BitManipulationInterviewProject.git` with the actual path if you've forked/created it.)*
+
+2.  **Create a build directory:**
     ```bash
     mkdir build
     cd build
     ```
-3.  Configure CMake and build the project:
+
+3.  **Configure CMake:**
     ```bash
     cmake ..
-    make
     ```
-    This will generate executables for `test_bit_manipulation` and `benchmark`.
+    CMake will automatically download and configure Catch2 and Google Benchmark dependencies.
+
+4.  **Build the project:**
+    ```bash
+    cmake --build .
+    ```
+    This will compile the main application, tests, and benchmarks.
+
+### Running the Main Demo
+
+The main demo (`BitManipulation_Demo`) showcases the usage of each implemented algorithm with predefined examples.
+
+```bash
+./src/BitManipulation_Demo
+```
 
 ### Running Tests
 
-After building, you can run the unit tests:
+The unit tests use the Catch2 framework.
 
 ```bash
-./tests/test_bit_manipulation
+./test/BitManipulation_Tests
 ```
-
-You should see output indicating which tests passed or failed.
 
 ### Running Benchmarks
 
-To evaluate the performance of different algorithm approaches:
+The performance benchmarks use Google Benchmark.
 
 ```bash
-./benchmarking/benchmark
+./benchmarking/BitManipulation_Benchmarks
+```
+The output will show detailed performance metrics for different implementations of the algorithms.
+
+## Directory Structure
+
+```
+BitManipulationInterviewProject/
+├── CMakeLists.txt                  # CMake build configuration
+├── README.md                       # Project overview and instructions
+├── src/                            # Source code for algorithms
+│   ├── BitManipulationProblems.cpp # Implementations of bit manipulation problems
+│   ├── BitManipulationProblems.h   # Declarations of bit manipulation problems
+│   └── main.cpp                    # Main demo application
+├── test/                           # Unit tests
+│   ├── Catch2_setup.cpp            # Catch2 configuration
+│   └── TestBitManipulation.cpp     # Specific test cases for problems
+├── docs/                           # Documentation
+│   ├── AlgorithmExplanation.md     # Detailed algorithm explanations with diagrams
+│   └── InterviewTips.md            # General tips for bit manipulation interviews
+├── benchmarking/                   # Performance benchmarks
+│   └── BenchmarkBitManipulation.cpp # Benchmark code for various solutions
+└── utils/                          # Utility functions
+    └── CommonHelpers.h             # Helper functions (e.g., print binary)
 ```
 
-This will output timing results for various implementations.
+## Documentation
 
-## Detailed Documentation
-
-The `docs/` directory contains comprehensive documentation:
-
-*   [`algorithms.md`](docs/algorithms.md): Explains the logic, time/space complexity, and rationale behind each algorithm.
-*   [`visualizations.md`](docs/visualizations.md): Uses ASCII art to visually demonstrate how bitwise operations work.
-*   [`interview_tips.md`](docs/interview_tips.md): Provides insights into common bit manipulation tricks, edge cases, potential pitfalls, and variations you might encounter in an interview.
-
-## Contributing
-
-Feel free to open issues or submit pull requests if you have suggestions for improvements, bug fixes, or new problems/solutions to add.
+*   **Algorithm Explanation (`docs/AlgorithmExplanation.md`)**: Dive deep into the logic behind each bit manipulation problem. Understand the properties of bitwise operators and how they are applied. Includes ASCII art diagrams for better visualization.
+*   **Interview Tips (`docs/InterviewTips.md`)**: Get insights into common bit manipulation patterns, tricks, edge cases to consider, and strategies for tackling these problems in an interview setting.
 
 ## License
 
-This project is open-sourced under the MIT License. See the LICENSE file (not provided in this example, but would typically be present in a real project) for more details.
+This project is open-sourced under the MIT License. See the LICENSE file for more details. (Note: A `LICENSE` file is not explicitly generated here, but it's good practice to include one in a real project.)
 
 ---
