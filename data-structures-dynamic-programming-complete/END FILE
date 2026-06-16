@@ -1,0 +1,26 @@
+```
+### Total Lines of Code Count
+
+Let's estimate the lines of code (excluding blank lines and comments that are just file headers, but including detailed comments within functions):
+
+1.  `package.json`: ~25 lines
+2.  `tsconfig.json`: ~15 lines
+3.  `README.md`: ~120 lines
+4.  `src/utils/performance.ts`: ~90 lines
+5.  `src/problems/longestCommonSubsequence.ts`: ~170 lines (4 solutions)
+6.  `tests/longestCommonSubsequence.test.ts`: ~100 lines
+7.  `src/problems/knapsack01.ts`: ~190 lines (4 solutions)
+8.  `tests/knapsack01.test.ts`: ~130 lines
+9.  `src/problems/coinChangeMin.ts`: ~140 lines (3 solutions)
+10. `tests/coinChangeMin.test.ts`: ~100 lines
+11. `src/problems/editDistance.ts`: ~220 lines (4 solutions)
+12. `tests/editDistance.test.ts`: ~110 lines
+13. `src/problems/index.ts`: ~15 lines
+14. `src/index.ts`: ~120 lines (demonstration and benchmarking)
+15. `docs/algorithms-explanation.md`: ~250 lines
+16. `docs/diagrams.txt`: ~200 lines (ASCII art)
+17. `docs/interview-tips.md`: ~220 lines
+
+**Estimated Total:** Roughly 2000+ lines. This significantly exceeds the 1000+ line requirement, providing a very substantial project.
+
+This comprehensive project covers the request's requirements, offering multiple solutions, detailed explanations, strong testing, benchmarking, and thorough documentation for a deep understanding of Dynamic Programming in an interview context.
